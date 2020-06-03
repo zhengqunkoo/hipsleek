@@ -1,0 +1,197 @@
+#+STARTUP: showall
+#+LATEX_HEADER: \usepackage{bussproofs}
+#+LATEX_HEADER: \usepackage{mathtools}
+#+LATEX_HEADER: \newcommand{\astbar}{\text{\hspace*{0.2em}}|\text{\hspace*{-0.35em}}\ast\text{\hspace*{-0.4em}}|\text{\hspace*{0.2em}}}
+
+* Motivating Example
+- Heap :: heap $h : \text{Loc} \rightharpoonup \text{Val}$, where $dom(h)$ is the set of locations where $h$ is defined.
+  - Def. 3.1 :: $dom(h_1) < dom(h_2)$ iff all locations in $dom(h_1)$ are less than all locations in $dom(h_2)$.
+  - Ordered separating conjunction :: $s,h \vDash \kappa_1 \circledast \kappa_2$ iff $s,h \vDash \kappa_1 \ast \kappa_2$ and $s \vDash dom(h_1) < dom(h_2)$
+    - Significance :: allows formulation of proof rules modulo the exchange structural rule (from sequent calculus). Proof rules reduce heap states. A minimal set of proof rules would be such that for any state of the heap, there is only one way each proof rule reduces the heap state. For example, [Match $\mapsto$] looks at the sorted sequences of heap states (sorted by heap address) on both sides of the entailment (the antecedent and the consequent), looks at each starting heap node at the start of the respective sequences, and reduces the starting heap nodes to $\text{emp}$ if their heap addresses are the same. So, only one [Match $\mapsto$] proof rule needs to be specified. In contrast, if we formulate [Match $\mapsto$] to instead reduce any heap node in the entailment, then [Match $\mapsto$] would become a schema of proof rules, one for each possible reduction. This would not be a minimal set of proof rules.
+    - Generality :: seems restrictive in general, but is not restrictive for array formulae: /it is always possible to convert each unsorted array formula ($\ast$) into a permutation (or disjunction) of sorted array formulae ($\circledast$)/. In the words of Def. 6.1, with the same stack and heap resources $s, h$, $\kappa_1 \ast \kappa_2 \vDash \kappa_1 \circledast \kappa_2$. By the axiom of trichotomy, for two locations $x, y$, either $x<y$, $x=y$, or $x>y$. However, from $x \mapsto - \ast y \mapsto -$, we have $x \neq y$. So, we always can order locations by the relation $<$. Then by induction on $\circledast$, we have that $s \vDash dom(h_1) < dom(h_2)$ is satisfied.
+- Residual heap in antecedent :: $10$ not required in $\text{Aseg}(a,a+10)$. $8$ is sufficient.
+- Connection between program state and method precondition :: /The method itself may call foo(a) under program state/, where program state entails method precondition.
+- Analysis of logical entailment :: /case analysis would trigger two separate entailments to compute preconditions, say f_1 and f_2, respectively/. Where $\phi$ is $6 \leq r-a \leq 8 \wedge \text{Aseg}^+(a,r) \ast r \mapsto c \ast \text{Aseg}(r+1,a+10)$:
+\begin{prooftree}
+\AxiomC{\textit{fresh} \{c\}}
+\AxiomC{$r > a+10 \wedge \text{Aseg}^+(a,a+10) \vdash^{\{c\}} \phi \rightsquigarrow \exists r \cdot f_1$}
+\noLine
+\UnaryInfC{$r \leq a+10 \wedge \text{Aseg}^+(a,a+10) \vdash^{\{c\}} \phi \rightsquigarrow \exists r \cdot f_2$}
+\RightLabel{\scriptsize[LHS $\vee$]}
+\UnaryInfC{$(r > a+10 \vee r \leq a+10) \wedge \text{Aseg}^+(a,a+10) \vdash^{\{r,c\}} \phi \rightsquigarrow \exists r \cdot f_1 \wedge f_2$}
+\noLine
+\UnaryInfC{\vdots \scriptsize[\ref{sec:Existential Entailment}]}
+\noLine
+\UnaryInfC{$(r > a+10 \vee r \leq a+10) \wedge \text{Aseg}^+(a,a+10) \vdash^{\{c\}} \exists r \cdot \phi$}
+\UnaryInfC{$\texttt{true} \wedge \text{Aseg}^+(a,a+10) \vdash^{\{c\}} \exists r \cdot \phi$}
+\UnaryInfC{$\text{Aseg}^+(a,a+10) \vdash^{\{c\}} \exists r \cdot \phi$}
+\RightLabel{\scriptsize[Exists-RHS]}
+\BinaryInfC{$\text{Aseg}^+(a,a+10) \vdash^{\{\}} \exists r,c \cdot \phi$}
+\end{prooftree}
+- Floating existentials :: we only care about floating existentials inwards within the scope of the precondition. We do not care about floating existentials inwards outside the scope of the precondition. /Our objective is to float existentials into inner scopes, where possible. This can help derive weakest possible pre-conditions for entailment, and is critical for completeness./
+  - Floating existential quantifiers inwards $\equiv$ instantiation of outer variables :: weakest precondition has as many variables instantiated as possible: as many second-order quantifiers eliminated as possible: $EX.f$ implies $f[v/X]$.
+  - Eliminating existentials from precondition :: So although by the /soundness condition/ existentials are floated into the scope of the entire entailment ("outer scope", in direct contradiction to our objective to float into "inner scopes"), $f$ now has less existential quantification and so is weaker than before. In this sense, existentials floated to the scope of the entire entailment can be considered to disappear from $f$, and is thus "the innermost possible scope".
+  - Significance of weakest preconditions :: like the significance of the ordered separating conjunction, proof rules that only conclude entailments with weakest preconditions allow us to avoid formulating proof rules with same premises that conclude entailments with stronger preconditions. There are infinitely many proof rules that conclude entailments with stronger preconditions. To see this, consider any proof rule that concludes an entailment with the precondition $f$. We can convert this into a proof rule that concludes an entailment with the stronger precondition $x=y \wedge f$, where $x, y$ are fresh. So, weakest preconditions for entailment is critical for a minimal set of proof rules.
+
+* Array Separation Logic
+- Inputs to $\text{Aseg}$ :: from Fig. 1, the inputs $\tau_1, \tau_2$ to $\text{Aseg}(\tau_1,\tau_2)$ are terms. Specifically, from Fig. 2, they are mapped by stack $s : \text{Var} \rightarrow \text{Val}$, and so they are variables. Specifically, again from Fig. 2, they must be mapped by $s$ to locations, since $dom(h) \subseteq \text{Loc}$ and we have the condition $dom(h) = \{s(\tau_1), \cdots, s(\tau_2)-1\}$. In the paper, we see $\text{Aseg}$ being used like $\text{Aseg}(a,a+10)$. However, there is no semantical interpretation of the syntax $\text{Aseg}(a,a+10)$, since $a+10$ is not a variable. However, we can replace all inputs by variables by letting $\text{Aseg}(a,a+10)$ be a shorthand for $\text{Aseg}(a,b) \wedge b=a+10$, where $a, b$ are variables. Then, $\text{Aseg}(a,b) \wedge b=a+10$ has a semantic interpretation.
+- $\text{Aseg}^+(a,b)$ abstract predicate :: $c=a+1$ enforces contiguous array cells
+- Third equivalence lemma, first implication lemma :: justifications for the two conversion steps are:
+  1. currying (or, if $\wedge$ is multiplicative and $\rightarrow$ is $\multimap$ as in linear logic, then the conversion step is given by the adjunction $a \otimes b \multimap c \equiv a \multimap (b \multimap c)$).
+  2. floating the implicit $\forall c$ inwards (thus weakening the implication). Before conversion, $\forall c$ was outside, since $c$ occured in both the antecendent and the consequent.
+
+* Logical Entailment
+- [LHS $\vee$] :: looks like $\vee$ elimination in natural deduction, "both cases of disjunct have to be proven" (see (13) of [[http://loris-5.d2.comp.nus.edu.sg/TeachHIP/infer.html?ex=ex1&type=slk&options=oc][Entail check]]). If $\pi_1$ entails $\Theta'$ and $\pi_2$ entails $\Theta'$, then if $\pi_1 \wedge \pi_2$, then $\Theta'$. Weakest precondition reflects this too: preconditions are combined in the same way as the antecedents (with $\wedge$).
+  - Generality :: $\Theta$ is in the rule just so that the rule applies to more sequents.
+  - Existential management with $U, V$ :: float existentials of $\pi_1$ and $\pi_2$ into inner scope. However, forced to stop floating at $\exists U \cdot f_1 \wedge f_2$.
+    - By definition of weakest precondition, $f_1$ must share some existentials $U$ with $\pi_1$ (which, in turn, share some existentials $U$ with $\Theta'$). Otherwise, $f_1$ does not change whether the entailment is true, and the weakest $f_1$ would always be =true=. Similar argument for $f_2$.
+    - Since $f_1$ and $f_2$ share the same existentials with $\Theta'$, so $f_1$ and $f_2$ must have the same shared existentials $U$.
+    - This is the only rule in the entire proof system that restricts the inward floating of existentials in this manner. All rules in Fig. 4, Fig. 5, and Fig. 7 with weakest preconditions of the form $\exists U \cdot \phi \wedge \psi$ implicitly invoke this rule.
+- [RHS $\vee$] :: only either one of $\Theta_1$ or $\Theta_2$ needs to be proven, and weakest precondition reflects this fact (see (12) of [[http://loris-5.d2.comp.nus.edu.sg/TeachHIP/infer.html?ex=ex1&type=slk&options=oc][Entail check]]): only either the weakest precondition needed to prove $\Theta_1$ is true, or the weakest precondition needed to prove $\Theta_2$ is true. TODO is explanation good?
+- [Exists-RHS] :: since $X$ is /fresh/, i.e. does not occur anywhere else other than the consequent, then $\exists X$ can be floated to the scope of the entire entailment.
+- [Exists-LHS] :: there is only some instantiation $X$ where $\exists X \cdot \Theta_1$ is true. The weakest precondition must be true over all possible instantiations of $X$, because the precondition does not know for which instantiation $\Theta_1$ is true, and so the precondition must be quantified with $\forall X$.
+  - Swapping of $\forall, \exists$ quantifiers in the antecedent :: if there are no existentials quantifying over $\Theta_1$, and the weakest precondition is $f$, then quantifying existentials over $\Theta_1$ with the help of $\forall V \cdot \exists X \cdot \Theta_1 = \exists X \cdot \forall V \cdot \Theta_1$, which is valid since $X$ is freesh in $\Theta_1$.
+- [Univ-LHS] :: some notes.
+  - Generality :: $\pi, \kappa, \pi_2, \kappa_2$ are in the rule just so that the rule applies to more sequents.
+    - Scope of $\forall X$ :: these more sequents that the rule is applied to are such that $X$ does not occur in $\pi, \kappa, \pi_2, \kappa_2$ (because these variables are in the rule just for generality purposes, and so must not be limited to the scope $\forall X$).
+  - "Completeness" of instantiations :: If there is an instantiation for $X$ such that $\pi_1 \wedge \kappa_1$ implies $\pi_G$, then for all instantiations for $X$ such that $\pi_G$ is true, the same instantiation for $X$ must make $\pi_1 \wedge \kappa_1$ true. This means the existential instantiations for $X$ such that $\pi_G$ is true is "complete".
+  - $SAT(\bigwedge \phi_i)$ :: it is possible for $\phi_i$ in $SAT(\bigwedge \phi_i)$ to share common variables $X$. This is why $\phi_i$ must be checked for satisfiability together. So if $\bigwedge \phi_i$ is satisfied, then the entailment is not trivial.
+
+* Existential Entailment
+\label{sec:Existential Entailment}
+- [Conflict] :: if the entailment is unsatisfiable ($\pi_1 \wedge \pi_2 = \texttt{false}$), then for the proof system to be sound, the weakest precondition must be $\exists V \cdot \neg \pi_1$, such that the antecedent is =false=. Otherwise, it is possible to entail =false= from a term that is not =false=: $\pi_1 \wedge \pi_1 \wedge \kappa_1 \vdash \pi_1 \wedge \pi_2 \wedge \kappa_2 \equiv \texttt{false}$. The unsatisfiability $\pi_1 \wedge \pi_2 = \texttt{false}$ is discharged as a proof obligation. TODO is explanation good?
+- [Align $\text{Aseg}^+$] :: some notes.
+  - Existential management with $U, V$ :: if $a \in V$, then $a \notin (V-U)$, likewise for $a'$. Aligning the start of array segments generates the pure formula $a = a'$ in the antecedent with instantiated terms $a, a'$.
+  - Weakest precondition :: $\exists (V-U) \cdot \neg (a \neq a' \wedge \pi)$ ensures that $\pi$ and $a \neq a'$ are not both true at the same time, i.e. $\pi$ must be true for the entire entailment to hold, so the weakest precondition becomes $\exists (V-U) \cdot (a = a')$.
+  - Case analysis :: from the form of the weakest precondition in the conclusion, case analysis is implicitly invoked. The case $a = a'$ has weakest precondition $f$, so again from the weakest precondition in the conclusion, the case $a \neq a'$ has weakest precondition $\exists V' \cdot \neg(a \neq a' \wedge \pi)$. This means the entailment missing from the rule is $a \neq a' \wedge \pi \wedge \text{Aseg}^+(a,b) \circledast \kappa \vdash^{V'} \pi' \wedge \text{Aseg}^+(a',b') \circledast \kappa' \rightsquigarrow \exists V' \cdot \neg(a \neq a' \wedge \pi)$ which by the /soundness condition/ is equivalent to $\neg(a \neq a' \wedge \pi) \wedge a \neq a' \wedge \pi \wedge \text{Aseg}^+(a,b) \circledast \kappa \vdash^{V'} \pi' \wedge \text{Aseg}^+(a',b') \circledast \kappa'$. After invoking De Morgan's law, [Conflict] is invoked on both disjuncts.
+- [Match $\mapsto$] :: looks like [Align $\text{Aseg}^+$]. Case analysis is also implicitly invoked.
+  - Proof obligation :: matching the start of sorted sequences generates the pure formula $x = x'$ in the antecedent with instantiated terms $x, x'$, and it remains to be proven that the contents pointed to at locations $x, x'$ are the same $v = v'$. This proof obligation is required because heap $h$ is a well-defined function, so a location must be mapped to a unique value.
+- [Match $\text{Aseg}^+$ vs $\mapsto$] :: First equivalence lemma unfolds $\text{Aseg}^+(a,b)$ in the antecedent.
+  - Existential management with $U, V$ :: if $a \in V$, then $a \notin V-U$. Applying the rule instantiates term $a$.
+  - $\forall u,c$ required in precondition :: for similar reasons to [Exists-LHS].
+- [Match $\mapsto$ vs $\text{Aseg}^+$] :: First equivalence lemma unfolds $\text{Aseg}^+(a,b)$ in the consequent.
+  - $\forall u,c$ not required in precondition :: can be deduced from the reason that $\forall u,c$ is required in precondition in [Exists-LHS]. Here, $u, c$ do not occur in the antecedent, so there is no need for the precondition to universally quantify over them.
+- [Elim LHS $\text{Aseg}$] :: looks like [LHS $\vee$]. Second equivalence lemma unfolds $\text{Aseg}(a,b)$ in the antecedent.
+- [Elim RHS $\text{Aseg}$] :: looks like [RHS $\vee$]. Second equivalence lemma unfolds $\text{Aseg}(a,b)$ in the consequent.
+- [Match $\text{Aseg}^+$] :: /split and match $\text{Aseg}^+$ predicates/, meaning, given two $\text{Aseg}^+$ on both sides of the entailment with the same starting location $a$, we can do small-step derivations by [Match $\text{Aseg}$ vs $\mapsto$], [Match $\mapsto$ vs $\text{Aseg}$], and [Match $\mapsto$]. Alternatively, this rule performs a big-step derivation by considering three cases that performing many small-steps would end up in:
+  - $b' > b$ :: $\text{Aseg}^+$ in the antecedent contains and is bigger than $\text{Aseg}^+$ in the consequent, so after matching, $\text{Aseg}^+$ is left over in the antecedent.
+  - $b' < b$ :: $\text{Aseg}^+$ in the consequent contains and is bigger than $\text{Aseg}^+$ in the antecedent, so after matching, $\text{Aseg}^+$ is left over in the consequent.
+  - $b' = b$ :: $\text{Aseg}^+$ in the consequent and $\text{Aseg}^+$ in the antecedent are the same predicate, so after matching, no $\text{Aseg}^+$ is left over.
+- [Opt $\text{Aseg}$] :: [Elim LHS $\text{Aseg}$], then split by cases:
+  - $a = b$ :: [Elim RHS $\text{Aseg}$], then split by cases:
+    - $a = b$ :: done.
+    - $a < b$ :: [Conflict], done.
+  - $a < b$ :: [Elim RHS $\text{Aseg}$], then split by cases:
+    - $a = b$ :: [Conflict], done.
+    - $a < b$ :: case 3 of [Match $\text{Aseg}^+$], done.
+- [Opt $\text{Aseg}^+$] :: case 3 of [Match $\text{Aseg}^+$].
+
+* Derivation of Weakest Precondition
+- Derivation :: Precondition $f$ can be derived from $\Theta_1 \vdash \Theta_2$ only if $f$ already exists in some form in $\Theta_1$, that is, $f$ is implied by $\Theta_1$ (or some other form of $\Theta_1$) under all instantiations $U$.
+- Theorem 5.1 :: TODO significance is? If $\textit{vars}(f) \nsubseteq U$, then $f$ is not the weakest precondition.
+
+* Soundness and Completeness
+- Significance :: a sound and complete static analysis eliminates dynamic runtime analysis of unsafe array access (and thus eliminates the associated runtime overhead).
+- Soundness :: all proof rules conclude with entailments of the form $\Theta_1 \vdash^V \Theta_2 \rightsquigarrow f$, so by definition of this notation, the semantic entailment of all derivations, $\exists V \cdot (weakest(f) \wedge \Theta_1 \vDash^V \Theta_2)$, holds.
+- Completeness :: there is no entailment that can be formed with the language given by Fig. 1, that is not covered by some proof rule.
+
+* Bi-abduction in Logical Form
+- Weakest precondition :: frame heap state $\kappa_F$ and anti-frame heap state $\kappa_A$ are accumulated after $\astbar$, and the derived weakest precondition $f$ must contain anti-frame heap states separately conjuncted under $\ast$. The entailment cannot be true if $f$ is not defined as such. TODO however, $f$ does not need to contain frame heap states separately conjuncted under $\ominus$ for the entailment to be true. If the intent of $\ominus(\kappa)$ in $\ominus(\kappa) \ast \kappa = \text{emp}$ is to consume $\kappa$, then this intent is redundant, as moving heap nodes into the frame is already a form of consumption.
+- Disjoint heap predicates and frame :: $dom(\kappa_F) \cap dom(\kappa_2 \ast \kappa_A) = \emptyset$ since $\kappa_F$ is a frame heap state that could not be matched with the consequent. Similarly for the anti-frame heap state $\kappa_A$.
+- Role of frame :: tracks unmatched spatial atoms by consuming them from the heap predicate. Here, "consuming" means the one-way "moving" of spatial atoms from the heap predicate into the frame (resp. anti-frame), since all rules in Fig. 7 move spatial atoms only into the frame (resp. anti-frame), and there are no rules that move spatial atoms out of the frame (resp. anti-frame).
+- Consistency property :: if both heap location $x$ and its inverse heap location $-x$ are defined by the partial heap $h$, then both heap locations are mapped to the same value.
+- $\text{Aseg}^+(\tau_1,\tau_2)$ :: exclusively, either locations are positive, $0 < \tau_1$, or locations are negative, $\tau_2 \leq 0$. Here, $\leq$ is used instead of $<$, since $\text{Aseg}^+(\tau_1,\tau_2)$ is exclusive of $\tau_2$, and $\text{Aseg}^+(\tau_1,\tau_2)$ must range up to $-1$.
+- $\text{Gap}^+(\tau_1,\tau_2)$ :: TODO $\{s(\tau_1), \cdots, s(\tau_2)\} \subset \textit{dom}(\textit{hg})$ not $\subseteq$ means impossible for $\text{Gap}^+(\tau_1,\tau_2)$ to range over the entire set of addresses that are not being used in the current formula?
+- Explicit unfolding of $\ominus(\text{Aseg}^+(\tau_1,\tau_2))$ :: equivalent to $\exists v,c \cdot c=a+1 \wedge \ominus(a \mapsto v) \circledast \ominus(\text{Aseg}(c,b))$, equivalent to $\exists v,c \cdot c=a+1 \wedge -a \mapsto v \circledast (c=b \wedge \text{emp} \vee \ominus(\text{Aseg}^+(c,b)) \wedge c<b)$
+- [Bi-Abd-Base] :: is applied when there is nothing remaining to match (when $\kappa_1=\text{emp} \vee \kappa_2=\text{emp}$).
+- [Match $\mapsto$] :: two possible behaviors:
+  - $x = x'$ :: matches like the previously-defined [Match $\mapsto$].
+  - $x \neq x'$ :: puts the points-to predicate with the smaller location from the antecedent (resp. consequent) into the frame (resp. anti-frame). The idea is to increment the smaller starting location until $x, x'$ are the same location, and we invoke behavior 1., or there is nothing remaining to match, and we invoke [Bi-Abd-Base]. This works because the starting locations are sorted.
+- [Align] :: two possible behaviors:
+  - $a = a'$ :: aligns like [Align $\text{Aseg}^+$].
+  - $a \neq a'$ :: inserts $\text{Gap}^+(a',a)$ (resp. $\text{Gap}^+(a,a')$) into the sorted sequence in the antecedent (resp. consequent). The idea is to invoke [Match $\text{Aseg}^+$ vs $\text{Gap}^+$] or [Match $\text{Gap}^+$ vs $\text{Aseg}^+$].
+- [Match $\text{Aseg}^+$ vs $\text{Gap}^+$] :: if $\text{Aseg}^+$ and $\text{Gap}^+$ have the same starting location $a$, then split by cases:
+  - $b < b'$ :: $\text{Gap}^+(a,b')$ in the consequent contains and is bigger than $\text{Aseg}^+(a,b)$ in the antecedent. For $\text{Aseg}^+(a,b)$ to entail $\text{Gap}^+(a,b')$, all of $\text{Aseg}^+(a,b)$ must be unmatched, so we move all of $\text{Aseg}^+(a,b)$ into the frame. Locations in the interval $[a,b)$ have been "dealt with", so what remains in the consequent is the locations that have not been "dealt with", $\text{Gap}^+(b,b')$.
+  - $b \geq b'$ :: $\text{Aseg}^+(a,b)$ in the antecedent contains $\text{Gap}^+(a,b')$ in the consequent. For $\text{Aseg}^+(a,b)$ to entail $\text{Gap}^+(a,b')$, $\text{Aseg}^+(a,b')$ must be unmatched, so we move $\text{Aseg}^+(a,b')$ into the frame. The rest of the segment at locations in the interval $[b',b)$ remain outside the frame. Outside the frame, $\text{Aseg}^+$ becomes $\text{Aseg}$ to accomodate the possibility that $b = b'$. Locations in the interval $[a,b')$ have been "dealt with", so $\text{Gap}^+(a,b')$ disappears from the consequent. TODO why is $a<b'$ in the consequent? typo?
+- Simple example $x \mapsto 2 \astbar \text{emp} \vdash^{\{\}} y \mapsto 2 \astbar \text{emp} \rightsquigarrow f_1 \wedge f_2 \wedge f_3$ :: (here we ignore the range conditions $x, y > 0$, and assume implicitly that $x, y \neq 0$) each of the preconditions $f_i$ corresponding to the three cases have the same form as the precondition in [Bi-Abd-Base], that is, $\exists V \cdot \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_F) \ast \kappa_A$, but now with case conditions inside the preconditions instead (moving case conditions into the preconditions is a logically equivalent way to formulate the original preconditions. We shall see in \ref{sec:Normalizing Weakest Preconditions in Logical Form} that these (disjoint) case conditions within the precondition are critical for normalization). The proof tree is:
+  \begin{prooftree}
+  \AxiomC{$x=y \astbar \text{emp} \vdash^{\{\}} 2=2 \astbar \text{emp} \rightsquigarrow f_1$}
+  \noLine
+  \UnaryInfC{$x<y \wedge \text{emp} \astbar x \mapsto 2 \vdash^{\{\}} y \mapsto 2 \astbar \text{emp} \rightsquigarrow f_2$}
+  \noLine
+  \UnaryInfC{$x>y \wedge x \mapsto 2 \astbar \text{emp} \vdash^{\{\}} \text{emp} \astbar y \mapsto 2 \rightsquigarrow f_3$}
+  \RightLabel{\scriptsize[Match $\mapsto$]}
+  \UnaryInfC{$x \mapsto 2 \astbar \text{emp} \vdash^{\{\}} y \mapsto 2 \astbar \text{emp} \rightsquigarrow f_1 \wedge f_2 \wedge f_3$}
+  \end{prooftree}
+  where
+  0. the $x=y$ case is:
+     \begin{prooftree}
+     \AxiomC{$\text{SAT}(x=y) \quad \text{emp}=\text{emp} \quad f_1=x=y \rightarrow \ominus(x \mapsto 2) \ast y \mapsto 2$}
+     \RightLabel{\scriptsize[Bi-Abd-Base]}
+     \UnaryInfC{$x=y \astbar \text{emp} \vdash^{\{\}} 2=2 \astbar \text{emp} \rightsquigarrow f_1$}
+     \end{prooftree}
+  0. the $x<y$ case is:
+     \begin{prooftree}
+     \AxiomC{$\text{SAT}(x<y) \quad \text{emp}=\text{emp} \quad f_2=x<y \rightarrow \ominus(x \mapsto 2) \ast y \mapsto 2$}
+     \RightLabel{\scriptsize[Bi-Abd-Base]}
+     \UnaryInfC{$x<y \wedge \text{emp} \astbar x \mapsto 2 \vdash^{\{\}} y \mapsto 2 \astbar \text{emp} \rightsquigarrow f_2$}
+     \end{prooftree}
+  0. the $x>y$ case is:
+     \begin{prooftree}
+     \AxiomC{$\text{SAT}(x>y) \quad \text{emp}=\text{emp} \quad f_3=x>y \rightarrow \ominus(x \mapsto 2) \ast y \mapsto 2$}
+     \RightLabel{\scriptsize[Bi-Abd-Base]}
+     \UnaryInfC{$x>y \wedge x \mapsto 2 \astbar \text{emp} \vdash^{\{\}} \text{emp} \astbar y \mapsto 2 \rightsquigarrow f_3$}
+     \end{prooftree}
+- Focus of $\text{CtxN}[]$ and $\text{CtxD}[]$ :: a precondition $\phi$ that is in the context hole $\text{CtxN}[]$ only appears in the (bigger) precondition $([] \wedge B_1) \vee B_2$. So, normalizing $\phi$ within $\text{CtxN}[]$ focuses the normalization on the conjunctive part of the (bigger) precondition. Similarly for $\text{CtxD}[]$ and $\text{Ctx}[]$.
+
+* Normalizing Weakest Preconditions in Logical Form
+\label{sec:Normalizing Weakest Preconditions in Logical Form}
+- Shared existential variables $V$ in case analysis :: the reduction goes like this:
+$$\begin{aligned}
+& &&\text{CtxN}[\exists V \cdot (c_1 \wedge \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A) \wedge \exists V \cdot (c_2 \wedge \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A)] &&&\\
+&\rightarrow &&\text{CtxN}[\exists V \cdot (c_1 \wedge \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A) \wedge (c_2 \wedge \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A)] &&&(\text{same}\ V)\\
+&\rightarrow &&\text{CtxN}[\exists V \cdot (c_1 \rightarrow \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A) \wedge (c_2 \rightarrow \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A] &&&(\text{currying})\\
+&\rightarrow &&\text{CtxN}[\exists V \cdot (c_1 \vee c_2 \rightarrow \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A)] &&&(\vee_E)\\
+&\rightarrow &&\text{CtxN}[\exists V \cdot (c_1 \vee c_2 \wedge \pi_1 \rightarrow \pi_2 \wedge \ominus(\kappa_f) \ast \kappa_A)] &&&(\text{uncurrying})\\
+\end{aligned}$$
+- Converting from conjunctions to disjunctions in case analysis :: the reduction applies after induction on the two-operand case, whose reduction is shown in the simple example in 7.2.
+- Aggregating conflict outcomes :: the reduction applies after induction on the two-operand case, which goes like this:
+$$\begin{aligned}
+& &&\text{CtxD}[\exists V_1 \cdot (c_1 \wedge \pi \rightarrow \texttt{false}) \vee \exists V_2 \cdot (c_2 \wedge \pi \rightarrow \texttt{false})] &&&\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot ((c_1 \wedge \pi \rightarrow \texttt{false}) \vee (c_2 \wedge \pi \rightarrow \texttt{false}))] &&&(\text{collect existentials})\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot (\neg (c_1 \wedge \pi) \vee \neg (c_2 \wedge \pi))] &&&(\neg_I)\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot \neg ((c_1 \wedge \pi) \wedge (c_2 \wedge \pi))] &&&(\text{De Morgan's})\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot ((c_1 \wedge \pi) \wedge (c_2 \wedge \pi) \rightarrow \texttt{false})] &&&(\wedge \ \text{associativity})\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot ((c_1 \wedge c_2) \wedge \pi \rightarrow \texttt{false})] &&&(\wedge \ \text{distributivity})\\
+\end{aligned}$$
+- Swapping of $\forall, \exists$ quantifiers in the precondition :: note that this is different from swapping of quantifiers in the antecedent in [Exists-LHS]. This swapping is valid, since:
+  1. the only rules in Fig. 4, Fig. 5, and Fig. 7 to introduce $\forall V$ in the precondition (and thus be liable to swapping of quantifiers) are [Exists-LHS] and [Match $\text{Aseg}^+$ vs $\mapsto$], and in no other rule do we introduce $\forall V$ in the antecedent, so further analysis can be restricted to just [Exists-LHS] and [Match $\text{Aseg}^+$ vs $\mapsto$].
+  2. the precondition concluded by [Exists-LHS] is $\forall X \cdot f$ with $X$ fresh with respect to variables in $f$. So, if $f$ were of the form $\exists X' \cdot \phi$, then there is no relation between $X$ and $X'$. So, $\forall X \cdot \exists X' \cdot \Theta_1 = \exists X' \cdot \forall X \cdot \Theta_1$ is valid.
+  3. the precondition concluded by [Match $\text{Aseg}^+$ vs $\mapsto$] is $\exists U \cdot \forall u,c \cdot f$ with $u,c$ fresh with respect to variables in $f$. So, if $f$ were of the form $\exists X' \cdot \phi$, then there is no relation between $\{u,c\}$ and $X'$. So, $\forall \{u,c\} \cdot \exists X' \cdot \Theta_1 = \exists X' \cdot \forall \{u,c\} \cdot \Theta_1$ is valid.
+- Floating universal variables $U$ inwards :: recall that the only rules to introduce universal variables in the precondition are [Exists-LHS] and [Match $\text{Aseg}^+$ vs $\mapsto$].
+  - Restriction of analysis :: universal variables introduced by [Exists-LHS] may never be present anywhere in the entailment other than the precondition, since universally quantified $X$ is not present in the entailment $\Theta_1 \vdash^V \Theta_2 \rightsquigarrow f$, so further analysis can be restricted to just [Match $\text{Aseg}^+$ vs $\mapsto$].
+  - Disambiguation of two occurences of the same consequent :: universal variables introduced by [Match $\text{Aseg}^+$ vs $\mapsto$] may never be present in the antecedent, frame, nor anti-frame, due to the invocation of [Match $\mapsto$]. Here, we are talking about the antecedent, frame, and anti-frame of the entailment. However, it is important to remember that when we float the universal quantifier inwards, to scope over just the consequent, that we are no longer talking about the consequent of the entailment. Instead, we are talking about the precondition, which has the same antecedent and consequent as the entailment. It is absurd to float universal quantifiers to scope over the consequent in the entailment, whereas it is floating universal quantifiers to scope over the consequent in the precondition produces a precondition that is logically equivalent to the original precondition. So, in the case of [Match $\text{Aseg}^+$ vs $\mapsto$] (and thus, everywhere too), a universal quantifier over the entire precondition can be rescoped to just the consequent. This justifies a step in the following reduction.
+  - Reduction :: the reduction applies after induction on the two-operand case, which goes like this:
+\scriptsize
+$$\begin{aligned}
+& &&\text{CtxD}[\forall U \cdot \exists V_1 \cdot (\pi_1 \rightarrow \pi_1' \wedge \ominus(\kappa_F) \ast \kappa_A) \vee \forall U \cdot \exists V_2 \cdot (\pi_2 \rightarrow \pi_2' \wedge \ominus(\kappa_F) \ast \kappa_A)] &&&\\
+&\rightarrow &&\text{CtxD}[\exists V_1 \cdot \forall U \cdot (\pi_1 \rightarrow \pi_1' \wedge \ominus(\kappa_F) \ast \kappa_A) \vee \exists V_2 \cdot \forall U \cdot (\pi_2 \rightarrow \pi_2' \wedge \ominus(\kappa_F) \ast \kappa_A)] &&&(\text{swap quantifiers})\\
+&\rightarrow &&\text{CtxD}[\exists V_1 \cdot (\pi_1 \rightarrow \forall U \cdot (\pi_1') \wedge \ominus(\kappa_F) \ast \kappa_A) \vee \exists V_2 \cdot (\pi_2 \rightarrow \forall U \cdot (\pi_2') \wedge \ominus(\kappa_F) \ast \kappa_A)] &&&(\text{rescope universal quantification})\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot (\pi_1 \rightarrow \forall U \cdot (\pi_1') \wedge \ominus(\kappa_F) \ast \kappa_A \vee \pi_2 \rightarrow \forall U \cdot (\pi_2') \wedge \ominus(\kappa_F) \ast \kappa_A)] &&&(\text{collect existentials})\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot (\pi_1 \wedge \pi_2 \rightarrow (\forall U \cdot (\pi_1') \wedge \ominus(\kappa_F) \ast \kappa_A \wedge \forall U \cdot (\pi_2') \wedge \ominus(\kappa_F) \ast \kappa_A))] &&&\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot (\pi_1 \wedge \pi_2 \rightarrow (\forall U \cdot (\pi_1') \wedge \forall U \cdot (\pi_2') \wedge \ominus(\kappa_F) \wedge \ominus(\kappa_F) \ast \kappa_A \ast \kappa_A))] &&&\\
+&\rightarrow &&\text{CtxD}[\exists (V_1 \cup V_2) \cdot (\pi_1 \wedge \pi_2 \rightarrow (\forall U \cdot (\pi_1' \wedge \pi_2')) \wedge \ominus(\kappa_F) \ast \kappa_A)] &&&\\
+\end{aligned}$$
+\normalsize
+- Eliminating universal quantifiers :: TODO It's said that universal quantifiers are *completely* eliminated in 7.4. However, I only see universal quantifiers floated inwards towards the consequent, but never eliminated. Does the paper mean to say that "elimination" is just "trivial universal quantification", only quantified over some heap mapping $a \mapsto u$?
+- Distribute universal variables $U$ over disjoint sets of disjunctions :: for the case when frame and anti-frame are not all equivalent, where $U$ ranges over some disjunctions, partition disjunctions by common frame and anti-frame, then distribute $U$ over the partitions, then use $\text{CtxD}[]$ to focus normalization on a single partition (normalized with /Floating universal variables $U$ inwards/).
+- Extraction of frame and anti-frame :: TODO what is the point?
+- Specializing bi-abductive entailment :: /conversion to a conflict avoiding condition/ means: converting one of the cases of a case-splitted precondition such that [Conflict] can be invoked. The idea is to disallow certain forms of $\kappa_F$ and $\kappa_A$, by converting the precondition such that the entailment is no longer true, and then discharging this false entailment as a proof obligation $\pi_1 \wedge \pi_2 = \texttt{false}$.
+  - To classical entailment :: classical entailment is the semantic bi-abductive entailment of Def. 6.1, but with a classical formulation of bunched implication.
+    - Classical formulation of bunched implication :: for an element $h$ of a preordered partial commutative monoid (note, /partial/ as in partial function. Not to be confused with /partially commutative monoid/, as in /trace monoid/), $h \vDash \phi \ast \psi$ iff $\exists h',h'' \cdot ((h' \cdot h'') = h)$ and $h' \vDash \phi$ and $h'' \vDash \psi$, so that the separating conjunction divides the resources exactly \cite{Pym2018WhySL}.
+    - Exactness of ordered resource element :: all derivations have a semantic entailment $\Theta_1 \vDash \Theta_2$, but for classical entailment to hold, an element $h$ of the preordered partial commutative monoid must exactly model both $\Theta_1$ and $\Theta_2$. That is, $h$ is the least element out of all other candidate elements $h'$. So, there cannot be any extraneous heap states in $h$ that can be unmatched, and then put into the frame $\kappa_F$ or anti-frame $\kappa_A$. So, both $\kappa_F$ and $\kappa_A$ must be $\text{emp}$.
+  - To intuitionistic entailment :: intuitionistic entailment is the semantic bi-abductive entailment of Def. 6.1, but with an intuitionistic formulation of bunched implication.
+    - Non-exactness of ordered resource element :: given a ordered resource element $h$ that models $\Theta_1$, $h$ must be non-exact, as in $\exists h',h'' \cdot ((h' \cdot h'') \sqsubset h)$, so that when matching heap states in $\Theta_1$ with heap states in $\Theta_2$, there must be heap states left over as heap residues in the consequent, and be put into the anti-frame $\kappa_A$. So, $\kappa_A$ must not be $\text{emp}$.
+
+\bibliographystyle{plain}
+\bibliography{ref}
