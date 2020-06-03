@@ -1,0 +1,334 @@
+#+startup: showall
+
+* Commands Guide
+
+** Explanations
+| command                                                                 | explanation                                                                                                                      | example                                                    |
+|-------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------|
+| =sleek -dre=choose_context=                                             | show which part of the antecedent and consequent the action is focused on, and show the state of =choose_context=                | [[* =sleek -dre=choose_context testcases/ex5a.slk=]]           |
+| =sleek -dre=compute_actions=                                            | list searched action(s) and their priorities, such that the action results in a state that matches the state of =choose_context= | [[* =sleek -dre=compute_actions testcases/ex5a.slk=]]          |
+| $\texttt{sleek -dre="choose_context\\} \vert \texttt{compute_actions"}$ | regex expression that shows both =choose_context= and =compute_actions=                                                          |                                                            |
+| $\texttt{sleek -dre=".*actions"}$                                       | regex expression that shows all debugged calls that end with =actions=                                                           |                                                            |
+| =hip -p foo=                                                            | only verify function =foo=                                                                                                       | [[* =hip -p foo testcases/ex5.c=]]                             |
+| =hip --pip=                                                             | show input after preprocessing the source file                                                                                   | [[* =hip --pip testcases/ex5.c=]]                              |
+| =hip --dd-calls-all -dre=choose_context=                                | show calls traced and callers tracing, only shows when =hip= is in debugging mode (e.g. due to other flag =-dre=)                | [[* =hip --dd-calls-all -dre=choose_context testcases/ex5.c=]] |
+
+** Examples
+
+*** =sleek -dre=choose_context testcases/ex5a.slk=
+#+BEGIN_SRC
+choose_context@1
+choose_context inp1 :LHS node: x::ch_star<Anon_14>@M
+choose_context inp2 :RHS node: x::arr_seg<flted_22_83>@M
+choose_context inp3 :LHS pure: true
+choose_context inp4 :RHS pure: flted_22_83=1
+choose_context inp5 :right alias:[]
+choose_context@1 EXIT:[ Type: Root
+ LHS: x::ch_star<Anon_14>@M
+ RHS: x::arr_seg<flted_22_83>@M
+ root_inst: None
+ lhs_rest: emp
+ rhs_rest: emp
+ alias set: [x,x]rhs_inst: []rhs_infer: None]
+#+END_SRC
+
+*** =sleek -dre=compute_actions testcases/ex5a.slk=
+#+BEGIN_SRC
+compute_actions@1
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: x::ch_star<Anon_14>@M
+compute_actions inp3 :LHS pure: true
+compute_actions inp4 :RHS cand:[ x::arr_seg<flted_22_83>@M]
+compute_actions inp5 :RHS pure: flted_22_83=1
+compute_actions inp6 :right alias:[flted_22_83]
+compute_actions@1 EXIT: SEARCH =>[
+  Prio:1
+  Fold =>
+    Type: Root
+    LHS: x::ch_star<Anon_14>@M
+    RHS: x::arr_seg<flted_22_83>@M
+    root_inst: None
+    lhs_rest: emp
+    rhs_rest: emp
+    alias set: [x,x]rhs_inst: []rhs_infer: None
+  ]
+#+END_SRC
+
+*** =hip -p foo testcases/ex5.c=
+#+BEGIN_SRC
+Checking procedure foo$int_star...
+
+Proving precondition in method free$int_star_star Failed.
+  (may) cause: Nothing_to_do?no proper match (type error) found for:  Type: Root
+ LHS: addr_p'::void_star<Anon_2405>@M
+ RHS: addr_p'::int_star_star<Anon_43>@M
+ root_inst: None
+ lhs_rest: tmp'::int_star<Anon_2382>@M * a_92'::void_star<x>@M
+ rhs_rest: emp
+ alias set: [addr_p',addr_p']rhs_inst: []rhs_infer: None
+
+Context of Verification Failure: testcases/ex5.c_131:11_131:26
+
+Last Proving Location: testcases/ex5.c_135:13_135:14
+
+Procedure foo$int_star FAIL.(2)
+#+END_SRC
+
+*** =hip --pip testcases/ex5.c=
+#+BEGIN_SRC
+int main(int_star@R a_90)[]
+static EBase: [][](emp ; (emp ; (a_90::int_star{}<Anon_34>[HeapNode1]))) * ([] & true)( FLOW __norm) {EAssume: 24,:(emp ; (emp ; (a_90'::int_star{}<Anon_35>[HeapNode1]))) * ([] & true)( FLOW __n
+orm)}
+dynamic EBase: [][](hfalse) * ([] & false)( FLOW __false)
+{
+{local: void_star_star addr_p
+void_star_star addr_p = new void_star_star()
+try {{(128, ):foo(a_90)
+dprint
+(129, ):memcpy((130, ):__cast_void_star_star_to_void_star__(addr_p), (131, ):__cast_int_star_to_void_star__(a_90), 1)
+dprint
+(132, ):free(member access addr_p~~>value)}
+(134, ):free(addr_p)
+}
+catch (v_fi_139_38_91: __Exc)
+(125, ):(126, ):free(addr_p)
+(127, ):raise EXPR:VF:v_flv_139_39v_fi_139_38_91
+}
+}
+#+END_SRC
+
+*** =hip --dd-calls-all -dre=choose_context testcases/ex5.c=
+#+BEGIN_SRC
+CALLERS TRACING
+================
+[choose_context@1.,compute_actions,heap_entail_non_empty_rhs_heap,heap_entail_conjunct_helper,heap_entail_conjunct_helper,heap_entail_conjunct,heap_entail_conjunct_lhs,heap_entail_after_sat,heap_entail_one_context,helper_inner,helper_inner,heap_entail_conjunct_lhs_struc,heap_entail_after_sat_struc,heap_entail_one_context_struc,heap_entail_struc_failesc_context,heap_entail_struc_list_failesc_context,heap_entail_failesc_prefix_init,heap_entail_struc_list_failesc_context_init,check_pre_post(2),check_exp1,check_exp,check_exp1,check_exp,check Assign (rhs),check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_specs_infer,check_proc,wrapper_infer_imm_pre_post]
+#+END_SRC
+
+* Appendix
+
+** =testcases/ex5a.slk=
+#+BEGIN_SRC
+data ch_star{
+    int val;
+}.
+
+pred arr_seg<n>     == self::ch_star<_> & n=1
+                      or (exists q: self::ch_star<_> * q::arr_seg<n-1> & q = self + 1 & n > 1)
+  inv n>=1.
+
+pred int_block<>    == self::arr_seg<4>.
+
+pred int_arr_seg<n> == self::int_block<>  & n=4
+                    or self::int_block<> * q::int_arr_seg<n-4> & q = self + 4 & n > 1
+  inv n>=1.
+
+/*
+checkentail x::int_block<p> |- x::arr_seg<p,4>.
+print residue.
+expect Valid.
+*/
+
+checkentail x::ch_star<_>
+           |- x::arr_seg<1>.
+print residue.
+expect Valid.
+
+checkentail x::arr_seg<2> & y=x+1 |- x::ch_star<_> * y::ch_star<_>.
+print residue.
+expect Valid.
+
+checkentail x::ch_star<_> * y::arr_seg<n> & y = x+1
+           |- x::arr_seg<n+1>.
+print residue.
+expect Valid.
+
+checkentail x::ch_star<_> * y::arr_seg<n> & n=1 & y = x+1
+           |- x::arr_seg<n+1>.
+print residue.
+expect Valid.
+
+checkentail x::ch_star<_> * y::arr_seg<n> & y = x+1
+           |- x::arr_seg<m>.
+print residue.
+expect Valid.
+
+
+checkentail x::ch_star<_> * y::arr_seg<n> & y = x+1
+           |- x::arr_seg<n+2>.
+print residue.
+expect Valid.
+
+checkentail x::ch_star<_> * y::ch_star<_> & y = x+1
+           |- x::arr_seg<2>.
+print residue.
+expect Valid.
+
+
+/*
+checkentail x::ch_star<_> * y::ch_star<_> * z::ch_star<_> & y = x+1 & z = y+1 & z = x+2 & z=p
+           |- x::arr_seg<p,3>.
+print residue.
+expect Valid.
+*/
+
+//checkentail x::ch_star<_> * y::ch_star<_> //* z::ch_star<_> * p::ch_star<_>
+//            & y = x+1 & z = x+2 & p = x+3
+//           |- x::arr_seg<p,4>.
+//print residue.
+//expect Valid.
+#+END_SRC
+
+** =testcases/ex5.c=
+#+BEGIN_SRC
+//Ex.5: tricky memory leak
+
+/**********************/
+/*** CAST FUNCTIONS ***/
+/**********************/
+void* __cast_void_star_star_to_void_star__(void** p)
+/*@
+  case{
+  p != null -> requires p::void_star_star<_>
+               ensures  res::void_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+void* __cast_void_star_to_void_star_star__(void** p)
+/*@
+  case{
+  p != null -> requires p::void_star<_>
+               ensures  res::void_star_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+
+int* __cast_void_pointer_to_int_star__(void* p)
+/*@
+  case{
+  p != null -> requires p::void_star<_>
+               ensures  res::int_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+void* __cast_int_star_to_void_star__(int* p)
+/*@
+  case{
+  p != null -> requires p::int_star<_>
+               ensures  res::void_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+int* __cast_void_star_star_to_int_star__(void** p)
+/*@
+  case{
+  p != null -> requires p::void_star_star<_>
+               ensures  res::int_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+void* __cast_int_star_star_to_void_star__(int** p)
+/*@
+  case{
+  p != null -> requires p::int_star_star<_>
+               ensures  res::void_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+int* __cast_int_star_star_to_int_star__(int** p)
+/*@
+  case{
+  p != null -> requires p::int_star_star<_>
+               ensures  res::int_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+int* __cast_char_star_to_int_star__(char p[])
+/*@
+  case{
+  p != null -> requires p::char_star<_,_>
+               ensures  res::int_star<_> & res = p;
+  p = null  -> ensures res = null;
+  }
+*/;
+
+/**********************/
+/******* LEMMAS *******/
+/**********************/
+/*@ lemma "VOID-INT" self::void_star<x> -> self::int_star<_>. */
+
+// TODO allow type cast at formula level too (this would help us
+//      to preserve more information during casting):
+// lemma "VOID-INT" self::void_star<x> -> self::int_star<x:int>.
+
+
+/***************************/
+/*** Annotated C methods ***/
+/***************************/
+void *malloc(int size)
+/*@
+  case {
+    size <= 0 -> requires true ensures res = null;
+    size >  0 ->
+      requires true
+      ensures res::void_star<_>;
+  }
+*/;
+
+/* if any pointer is NULL, the behavior of memcpy is undefined */
+void *memcpy(void *dest, void *src, int length)
+/*@
+  requires dest=null & src = null
+  ensures  false;
+  requires src::void_star<_>@L & dest=null
+  ensures  false;
+  requires dest::void_star<_>@L & src=null
+  ensures  false;
+  requires dest::void_star<_> * src::void_star<x>@L  & length>=0
+  ensures  dest::void_star<x>;
+*/;
+
+
+/*********************/
+/*** ORIGINAL CODE ***/
+/*********************/
+
+//char a[sizeof(int*)];
+int *a;
+
+/* Correctly indetifies the leak in foo:
+   Post condition cannot be derived:
+   (must) cause: residue is forbidden.(1)
+*/
+
+void foo()
+/*@ infer [@leak]
+  requires a::int_star<_>
+  ensures  a'::int_star<v>;
+*/
+{
+  int *p = (int *)malloc(10); // This p will leak
+  memcpy(a, &p, sizeof p);
+}
+
+
+int main(void)
+/*@
+  requires a::int_star<_>
+  ensures  a'::int_star<_>;
+*/
+{
+  foo();
+  void *p; // this p will free
+  /*@ dprint; */
+  memcpy(&p, a, sizeof p);
+  /*@ dprint; */
+  free(p);
+}
+#+END_SRC
