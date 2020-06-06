@@ -176,3 +176,59 @@ checkentail x::arr_seg<4*n+2> & y=x+2
            |- x::arr_seg<2> * y::int_arr_seg<n>.
 print residue.
 expect Valid.
+
+/**********************************
+ * ch-alignment entailments
+ **********************************/
+
+/* concrete lengths: start, middle, end */
+
+/*
+ * (19)
+ */
+checkentail x::arr_seg<6> & y=x+4
+           |- x::arr_seg<4> * y::arr_seg<2>.
+print residue.
+expect Valid.
+
+/*
+ * (20)
+ */
+checkentail x::arr_seg<6> & y=x+1 & z=y+4
+           |- x::arr_seg<1> * y::arr_seg<4> * z::arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (21)
+ */
+checkentail x::arr_seg<6> & y=x+2
+           |- x::arr_seg<2> * y::arr_seg<4>.
+print residue.
+expect Valid.
+
+/* existential lengths: start, middle, end */
+
+/*
+ * (22)
+ */
+checkentail x::arr_seg<n+2> & y=x+n
+           |- x::arr_seg<n> * y::arr_seg<2>.
+print residue.
+expect Valid.
+
+/*
+ * (23)
+ */
+checkentail x::arr_seg<n+2> & y=x+1 & z=y+n
+           |- x::arr_seg<1> * y::arr_seg<n> * z::arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (24)
+ */
+checkentail x::arr_seg<n+2> & y=x+2
+           |- x::arr_seg<2> * y::arr_seg<n>.
+print residue.
+expect Valid.
