@@ -14,6 +14,7 @@ pred int_arr_seg<n> == self::int_block<> & n=1
 
 lemma "int2char" self::int_arr_seg<n> <-> self::arr_seg<4*n>.
 lemma "splitchar" self::arr_seg<a+b> & self+a=q <-> self::arr_seg<a> * q::arr_seg<b>.
+lemma "splitint" self::int_arr_seg<a+b> & self+a=q <-> self::int_arr_seg<a> * q::int_arr_seg<b>.
 
 /**********************************
  * equivalence entailments
@@ -230,5 +231,61 @@ expect Valid.
  */
 checkentail x::arr_seg<n+2> & y=x+2
            |- x::arr_seg<2> * y::arr_seg<n>.
+print residue.
+expect Valid.
+
+/**********************************
+ * int-alignment entailments
+ **********************************/
+
+/* concrete lengths: start, middle, end */
+
+/*
+ * (25)
+ */
+checkentail x::int_arr_seg<6> & y=x+4
+           |- x::int_arr_seg<4> * y::int_arr_seg<2>.
+print residue.
+expect Valid.
+
+/*
+ * (26)
+ */
+checkentail x::int_arr_seg<6> & y=x+1 & z=y+4
+           |- x::int_arr_seg<1> * y::int_arr_seg<4> * z::int_arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (27)
+ */
+checkentail x::int_arr_seg<6> & y=x+2
+           |- x::int_arr_seg<2> * y::int_arr_seg<4>.
+print residue.
+expect Valid.
+
+/* existential lengths: start, middle, end */
+
+/*
+ * (28)
+ */
+checkentail x::int_arr_seg<n+2> & y=x+n
+           |- x::int_arr_seg<n> * y::int_arr_seg<2>.
+print residue.
+expect Valid.
+
+/*
+ * (29)
+ */
+checkentail x::int_arr_seg<n+2> & y=x+1 & z=y+n
+           |- x::int_arr_seg<1> * y::int_arr_seg<n> * z::int_arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (30)
+ */
+checkentail x::int_arr_seg<n+2> & y=x+2
+           |- x::int_arr_seg<2> * y::int_arr_seg<n>.
 print residue.
 expect Valid.
