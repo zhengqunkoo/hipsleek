@@ -6,8 +6,8 @@ pred arr_seg<n>     == self::ch_star<_> & n=1
                     or self::ch_star<_> * q::arr_seg<n-1> & q=self+1 & n>1
   inv n>=1.
 
-pred int_block<v>    == self::ch_star<a> * x::ch_star<b> * y::ch_star<c> * z::ch_star<d>
-                      & x=self+1 & y=x+1 & z=y+1 & v=a+256*b+65536*c+16777216*d.
+pred int_block<v>   == self::ch_star<a> * x::ch_star<b> * y::ch_star<c> * z::ch_star<d>
+                     & x=self+1 & y=x+1 & z=y+1 & v=a+256*b+65536*c+16777216*d.
 
 pred int_arr_seg<n> == self::int_block<_> & n=1
                     or self::int_block<_> * q::int_arr_seg<n-1> & q=self+4 & n>1
@@ -290,3 +290,35 @@ checkentail x::int_arr_seg<n+2> & y=x+2
            |- x::int_arr_seg<2> * y::int_arr_seg<n>.
 print residue.
 expect Valid.
+
+/**********************************
+ * typecasted-content entailments
+ * integer is little-endian
+ **********************************/
+
+/*
+ * (31) "type"
+ */
+checkentail w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
+           & x=w+1 & y=x+1 & z=y+1
+           |- w::int_block<1954115685>.
+print residue.
+expect Valid.
+
+/*
+ * (32) "type", bad content, char
+ */
+checkentail w::ch_star<100> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
+           & x=w+1 & y=x+1 & z=y+1
+           |- w::int_block<1954115685>.
+print residue.
+expect Fail.
+
+/*
+ * (33) "type", bad content, int
+ */
+checkentail w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
+           & x=w+1 & y=x+1 & z=y+1
+           |- w::int_block<1954115684>.
+print residue.
+expect Fail.
