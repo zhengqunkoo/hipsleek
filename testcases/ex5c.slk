@@ -322,3 +322,12 @@ checkentail w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116
            |- w::int_block<1954115684>.
 print residue.
 expect Fail.
+
+/*
+ * (34) "typecast"
+ */
+checkentail s::ch_star<116> * t::ch_star<115> * u::ch_star<97> * v::ch_star<99> * w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
+           & t=s+1 & u=t+1 & v=u+1 & w=v+1 & x=w+1 & y=x+1 & z=y+1
+           |- s::int_block<1667330932> * w::int_block<1954115685>.
+print residue.
+expect Valid.
