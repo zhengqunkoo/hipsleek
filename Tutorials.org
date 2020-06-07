@@ -5,6 +5,8 @@
 ** Explanations
 | command                                                                 | explanation                                                                                                                      | example                                                    |
 |-------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------|
+| =sleek --pnum n=                                                        | only verify the =n=th entailment                                                                                                 |                                                            |
+| =sleek -dre=heap_entail=                                                | show call chains of =heap_entail= functions. =inp*= are the inputs to each function. The meaning of each =inp*= is given by words between colons, e.g. =:evars:=, =:ante:=. =EXIT= is the resulting context after attempting to solve an entailment | [[* =sleek -dre=heap_entail testcases/ex5a.slk=]]              |
 | =sleek -dre=choose_context=                                             | show which part of the antecedent and consequent the action is focused on, and show the state of =choose_context=                | [[* =sleek -dre=choose_context testcases/ex5a.slk=]]           |
 | =sleek -dre=compute_actions=                                            | list searched action(s) and their priorities, such that the action results in a state that matches the state of =choose_context= | [[* =sleek -dre=compute_actions testcases/ex5a.slk=]]          |
 | $\texttt{sleek -dre="choose_context\\} \vert \texttt{compute_actions"}$ | regex expression that shows both =choose_context= and =compute_actions=                                                          |                                                            |
@@ -14,6 +16,15 @@
 | =hip --dd-calls-all -dre=choose_context=                                | show calls traced and callers tracing, only shows when =hip= is in debugging mode (e.g. due to other flag =-dre=)                | [[* =hip --dd-calls-all -dre=choose_context testcases/ex5.c=]] |
 
 ** Examples
+
+*** =sleek -dre=heap_entail testcases/ex5a.slk=
+#+BEGIN_SRC
+heap_entail_build_mix_formula_check#2@9@8@7@6@5@4@3@2@1
+heap_entail_build_mix_formula_check#2 inp1 :evars:[]
+heap_entail_build_mix_formula_check#2 inp2 :ante: ((n=1 & self!=null) | (2<=n & self!=null))
+heap_entail_build_mix_formula_check#2 inp3 :conseq: 1<=n
+heap_entail_build_mix_formula_check#2@9 EXIT:( ((n=1 & self!=null) | (2<=n & self!=null)), 1<=n)
+#+END_SRC
 
 *** =sleek -dre=choose_context testcases/ex5a.slk=
 #+BEGIN_SRC
