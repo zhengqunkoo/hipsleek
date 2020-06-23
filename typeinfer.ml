@@ -434,6 +434,13 @@ and fresh_int_en en =
   | _ -> fresh_int()
 
 (* TODO WN : NEED to re-check this function *)
+(*
+   Checks type `t`.
+   If `t` is a `Named` type, and is an `enum_def`, then return `Int`.
+   This means all fields of a `data_decl` are `Int`s.
+   For an example usage, see `trans_field` in `astsimp.ml`.
+   Else, return `t`.
+*)
 and trans_type (prog : I.prog_decl) (t : typ) (pos : loc) : typ =
   match t with
   | Named c ->
@@ -467,6 +474,7 @@ and trans_type (prog : I.prog_decl) (t : typ) (pos : loc) : typ =
   | Array (et, r) -> Array (trans_type prog et pos, r) (* An Hoa *)
   | p -> p
 
+(* Does nothing. *)
 and trans_type_back (te : typ) : typ =
   match te with
   | Named n -> Named n

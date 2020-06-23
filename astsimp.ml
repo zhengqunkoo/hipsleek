@@ -1053,10 +1053,20 @@ and while_return e ret_type = I.map_exp e (fun c-> match c with
     |_ -> None)
 
 and prepare_labels_x (fct: I.proc_decl): I.proc_decl =
+  (* Check for "syntax" errors.
+     Check that blocks are unlabeled.
+     Check that all `Break`s and `Continue`s refer to some `While`.
+     Check that all `Break`s and `Continue`s only occur within some `While` exp.
+  *)
   let rec syntax_err_breaks e in_loop l_lbl =
+    (* Prepare arguments to be passed to `f`.
+       `in_loop`: stays true after a `While` exp is encountered. This makes sense, since the recursive `transform_exp` traverses subexps of `While`, and so is always in the `While` loop. Raise an error if `Break` or `Continue` is encountered when `in_loop` is `false`.
+       `l_lbl`: accumulated list of `While` `JumpLabel`s. A `While` `JumpLabel` is referenced by a either `Break` or `Continue` with the same `JumpLabel`.
+    *)
     let f_args (in_loop,l_lbl) e = match e with
       | I.While b -> (true, match b.I.exp_while_jump_label with I.NoJumpLabel -> l_lbl | I.JumpLabel l -> l::l_lbl)
       | _ -> (in_loop,l_lbl) in
+    (* Check for "syntax" errors.*)
     let f (in_loop,l_lbl) e = match e with
       | I.Block b -> if (b.I.exp_block_jump_label<> I.NoJumpLabel) then Gen.report_error b.I.exp_block_pos "blocks should be unlabeled"
         else None
@@ -5736,6 +5746,24 @@ and trans_exp_x (prog : I.prog_decl) (proc : I.proc_decl) (ie : I.exp) : trans_e
              else if Inliner.is_inlined mn then (let inlined_exp = Inliner.inline prog pdef ie in helper inlined_exp)
              else
                let _ = Debug.ninfo_hprint (add_str "length proc_decl.I.proc_args" (string_of_int)) (List.length proc_decl.I.proc_args) no_pos in
+               (*
+                  Reminder of what `proc_decl`, `mingled_mn`, and `pdef` are, where
+                  ```
+                  | I.CallNRecv {
+                      I.exp_call_nrecv_method = mn;
+                      I.exp_call_nrecv_arguments = args; ... } ->
+                  ```
+                  is a case of `helper`:
+                  ```
+                  let (cargs, cts) = List.split (List.map (helper) args) in
+                  let mingled_mn = C.mingle_name mn cts in (* signature of the function *)
+                  let proc_decl = I.look_up_proc_def_raw prog.I.prog_proc_decls mn in
+                  let pdef = if (mn=Globals.join_name) then proc_decl else
+                      let _ = Debug.ninfo_hprint (add_str "mingled_mn" pr_id) mingled_mn no_pos in
+                      I.look_up_proc_def_mingled_name prog.I.prog_proc_decls mingled_mn
+                  in
+                  ```
+               *)
                (let ret_ct = x_add trans_type prog pdef.I.proc_return pdef.I.proc_loc in
                 let positions = List.map I.get_exp_pos args in
                 let (local_vars, init_seq, arg_vars) = x_add_1 trans_args (Gen.combine3 cargs cts positions) in

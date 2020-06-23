@@ -829,6 +829,13 @@ let iter_proc (prog:prog_decl) (f_p : proc_decl -> unit) : unit =
   fold_proc prog (f_p) (fun _ _ -> ()) ()
 
 
+(* Map almost every subexp of an exp to an action, evaluate these actions from left to right, and collect the results.
+   Data flow: `init_arg` -> `f_args` -> many `f` -> `comb_f`.
+
+   `f_args`: change `init_arg` based on the current exp, then pass the result to `f`.
+   `f`: actually perform the transformation. Called on each subexp of exp, then pass the collected result to `comb_f`
+   `comb_f`: combines results of `f` on each subexp of exp, into one result. `zero` is `comb_f e []`.
+*)
 let trans_exp (e:exp) (init_arg:'b) (f:'b->exp->(exp* 'a) option)  (f_args:'b->exp->'b) (comb_f: exp -> 'a list -> 'a) : (exp * 'a) =
   let rec helper (in_arg:'b) (e:exp) :(exp* 'a) =
     match (f in_arg e) with
@@ -909,8 +916,9 @@ let trans_exp (e:exp) (init_arg:'b) (f:'b->exp->(exp* 'a) option)  (f_args:'b->e
         let e1,r1 = helper n_arg b.exp_member_base in
         (Member {b with exp_member_base = e1;},r1)
       (* An Hoa *)
+      (* Traverse each subexp of `ArrayAlloc`, which has the shape `a[s1][s2]...`, where array is `a` and subexps are `s1,s2`,... *)
       | ArrayAlloc b ->
-        let el,rl = List.split (List.map (helper n_arg) b.exp_aalloc_dimensions) in
+        let el,rl = List.split (List.map (helper n_arg) b.exp_aalloc_dimensions) in (* `el`: expression list, `rl`: results list *)
         (ArrayAlloc {b with exp_aalloc_dimensions = el},(comb_f rl))
       | New b ->
         let el,rl = List.split (List.map (helper n_arg) b.exp_new_arguments) in
@@ -1134,11 +1142,13 @@ let fold_exp_args_new (e:exp) (init_a:'a) (f:'a -> exp-> 'b option) (f_args: 'a 
     | _ -> comb_f ls in
   fold_exp e init_a f f_args combf
 
-(*this computes a result from expression without passing an argument*)
+(*this computes a result from expression without `in_args`*)
 let fold_exp (e:exp) (f:exp-> 'b option) (comb_f: 'b list->'b) (zero:'b) : 'b =
   fold_exp_args e () (fun _ e-> f e) voidf2 comb_f zero
 
-(*this iterates over the expression and passing an argument*)
+(* Traverse the subexps of an exp.
+   Always ignore collected results.
+*)
 let iter_exp_args (e:exp) (init_arg:'a) (f:'a -> exp-> unit option) (f_args: 'a -> exp -> 'a) : unit =
   fold_exp_args  e init_arg f f_args voidf ()
 
