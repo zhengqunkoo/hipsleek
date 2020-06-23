@@ -21,7 +21,8 @@ int main(void)
   /*
    * big-endian integer interpretation of "type" 116 121 112 101, is 1954115685
    */
-  char s[] = {'e','p','y','t'}; // integer is little-endian
+  //char s[] = {'e','p','y','t'}; // integer is little-endian
+  char *s = NULL;
   a = (int *)s;
   //printf("%d\n", *a);
 }

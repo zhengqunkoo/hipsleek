@@ -13,8 +13,8 @@ char *a;
 
 int main(void)
 /*@
-  requires a::char_star<_>
-  ensures  a::char_star<101,b> * b::char_star<112,c> * c::char_star<121,d> * d::char_star<116,null> * ;
+  requires a::char_star<_,_>
+  ensures  a::char_star<101,b> * b::char_star<112,c> * c::char_star<121,d> * d::char_star<116,null>;
 */
 {
   /*@ dprint; */
