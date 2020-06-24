@@ -73,6 +73,8 @@ let aux_str : string = "aux"
 
 let default_value (t :typ) pos : exp =
   match t with
+  | Char -> 
+    failwith "default_value: Char not supported"
   | Int -> 
     IntLit { exp_int_lit_val = 0; exp_int_lit_pos = pos; }
   | Bool ->

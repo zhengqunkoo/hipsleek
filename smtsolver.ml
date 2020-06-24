@@ -80,6 +80,7 @@ let rec smt_of_typ t =
   | Bool -> "Int" (* Use integer to represent Bool : 0 for false and > 0 for true. *)
   | Float -> "Real" (* Currently, do not support real arithmetic! *)
   | Tree_sh -> "Int"
+  | Char -> Error.report_no_pattern ()
   | Int -> "Int"
   | AnnT -> "Int"
   | UNK ->  "Int" (* illegal_format "z3.smt_of_typ: unexpected UNKNOWN type" *)

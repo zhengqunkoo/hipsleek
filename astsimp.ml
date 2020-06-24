@@ -91,6 +91,7 @@ let rec new_string_of_typ (x:typ) : string = match x with
   | UNK          -> "Unknown"
   | Bool          -> "bool"
   | Float         -> "float"
+  | Char           -> "char"
   | Int           -> "int"
   | INFInt        -> "INFint"
   | Void          -> "void"
@@ -6807,6 +6808,8 @@ and trans_exp_x (prog : I.prog_decl) (proc : I.proc_decl) (ie : I.exp) : trans_e
 
 and default_value (t :typ) pos : C.exp =
   match t with
+  | Char -> 
+    failwith "default_value: Char not supported"
   | Int -> C.IConst { C.exp_iconst_val = 0; C.exp_iconst_pos = pos; }
   | Bool ->
     C.BConst { C.exp_bconst_val = false; C.exp_bconst_pos = pos; }

@@ -598,6 +598,8 @@ and exp =
 
 let void_type = Void
 
+let char_type = Char
+
 let int_type = Int
 
 let infint_type = INFInt

@@ -2973,6 +2973,7 @@ typ:
 
 non_array_type:
   [[ `VOID               -> void_type
+   | `CHAR                -> char_type
    | `INT                -> int_type
    | `ANN_KEY           -> ann_type
    | `FLOAT              -> float_type

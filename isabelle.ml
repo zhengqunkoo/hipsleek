@@ -33,6 +33,9 @@ let rec isabelle_of_typ = function
   | Bool          -> "int"
   | Tree_sh 	  -> "int"
   | Float         -> "int"	(* Can I really receive float? What do I do then? I don't have float in Isabelle.*)
+  | Char           ->
+    Error.report_error {Error.error_loc = no_pos; 
+                        Error.error_text = "Char not supported for Isabelle"}
   | Int           -> "int"
   | Void          -> "void" 	(* same as for float *)
   | BagT	t	  ->

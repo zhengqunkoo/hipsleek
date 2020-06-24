@@ -193,6 +193,7 @@ type typ =
   | AnnT
   | Bool
   | Float
+  | Char
   | Int
   | INFInt
   | Tup2 of typ * typ
@@ -299,6 +300,7 @@ let rec cmp_typ t1 t2=
   | AnnT, AnnT
   | Bool, Bool
   | Float, Float
+  | Char, Char
   | Int, Int
   | INFInt, INFInt
   | NUM, NUM
@@ -610,6 +612,7 @@ let rec string_of_typ (x:typ) : string = match x with
   | UNK          -> "Unknown"
   | Bool          -> "boolean"
   | Float         -> "float"
+  | Char           -> "char"
   | Int           -> "int"
   | INFInt        -> "INFint"
   | Void          -> "void"
@@ -664,6 +667,7 @@ let rec string_of_typ_alpha = function
   | UNK          -> "Unknown"
   | Bool          -> "boolean"
   | Float         -> "float"
+  | Char           -> "char"
   | Int           -> "int"
   | INFInt        -> "INFint"
   | Void          -> "void"

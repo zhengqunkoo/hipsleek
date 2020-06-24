@@ -28,6 +28,9 @@ let print_p_f_f = ref (fun (c:CP.formula)-> " formula printing not initialized")
 let rec coq_of_typ = function
   | Bool          -> "int"
   | Float         -> "float"	(* all types will be ints. *)
+  | Char          ->
+    Error.report_error {Err.error_loc = no_pos; 
+                        Err.error_text = "Char type not supported for Coq"}
   | Int | INFInt  -> "int"
   | AnnT          -> "int"
   | Void          -> "unit" 	(* all types will be ints. *)
