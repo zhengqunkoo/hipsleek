@@ -1,0 +1,83 @@
+data int_star {
+    int val;
+}.
+
+/* empty array segment */
+pred aseg<b> ==
+    self=b
+ or self::aseg_plus<b> & self<b
+ inv self<=b.
+
+/* nonempty array segment */
+pred aseg_plus<b> ==
+    (exists v: self::int_star<v> * c::aseg<b> & c=self+1)
+ inv self<b.
+
+/**********************************
+ * nonempty ==> empty
+ * empty =/=> nonempty
+ **********************************/
+
+/*
+ * (1)
+ */
+checkentail a::aseg_plus<_> & c=a+1 |- c::aseg<_>.
+print residue.
+expect Valid.
+
+/*
+ * (2)
+ */
+checkentail a::aseg<a> |- a::aseg_plus<_>.
+print residue.
+expect Fail.
+
+/**********************************
+ * existentials over points-to content
+ **********************************/
+
+/*
+ * (3)
+ */
+//checkentail a::aseg<b> & b=a+1 |- exists v: a::int_star<v> & v>0. // v>0 is unprovable.
+checkentail a::aseg<b> & b=a+1 |- exists v: a::int_star<v>.
+print residue.
+expect Valid.
+
+/**********************************
+ * existentials over array pointers
+ **********************************/
+
+/*
+ * (4)
+ */
+//checkentail x::aseg_plus<c> & x=1 & c>=8 |- exists b: x::aseg_plus<b> * b::aseg<c> & 6<=b<=8. // Unification error: b is both an int_star and a NUM.
+checkentail x::aseg_plus<c> |- x::aseg_plus<b> * b::aseg<c>.
+print residue.
+expect Valid.
+
+/**********************************
+ * motivating example
+ **********************************/
+
+/*
+ * (5) requires-ensures entailment of motivating example
+ */
+checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & res=r.
+print residue.
+expect Valid.
+
+/*
+ * (6) case-split of (5): case r>a+10
+ */
+//checkentail r>a+10 |- 6<=r-a<=8. // Fail.(must)
+checkentail a::aseg<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
+print residue.
+expect Fail.
+
+/*
+ * (7) case-split of (5): case r<=a+10
+ */
+checkentail a::aseg<r> * r::aseg<a+10> & r<=a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8.
+print residue.
+expect Valid.
