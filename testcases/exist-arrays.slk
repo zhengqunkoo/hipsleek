@@ -33,11 +33,61 @@ print residue.
 expect Fail.
 
 /**********************************
+ * decompose array into elements
+ **********************************/
+
+/*
+ * (3) int a[1] = {z};
+ */
+checkentail a::aseg<a+1> |- a::int_star<z>.
+print residue.
+expect Valid.
+
+/*
+ * (4) int a[2] = {z,y};
+ */
+checkentail a::aseg<a+2> & b=a+1 |- a::int_star<z> * b::int_star<y>.
+print residue.
+expect Valid.
+
+/*
+ * (5) int a[3] = {z,y,x};
+ */
+checkentail a::aseg<a+3> & b=a+1 & c=b+1 |- a::int_star<z> * b::int_star<y> * c::int_star<x>.
+print residue.
+expect Valid.
+
+/**********************************
+ * compose elements into array
+ **********************************/
+
+/*
+ * (6) int a[1] = {z};
+ */
+checkentail a::int_star<z> |- a::aseg<a+1>.
+print residue.
+expect Valid.
+
+/*
+ * (7) int a[2] = {z,y};
+ */
+checkentail a::int_star<z> * b::int_star<y> & b=a+1 |- a::aseg<a+2>.
+print residue.
+expect Valid.
+
+/*
+ * (8) int a[3] = {z,y,x};
+ */
+checkentail a::int_star<z> * b::int_star<y> * c::int_star<x> & b=a+1 & c=b+1 |- a::aseg<a+3>.
+print residue.
+expect Valid.
+
+/**********************************
  * existentials over points-to content
  **********************************/
 
 /*
- * (3)
+ * (9)
  */
 //checkentail a::aseg<b> & b=a+1 |- exists v: a::int_star<v> & v>0. // v>0 is unprovable.
 checkentail a::aseg<b> & b=a+1 |- exists v: a::int_star<v>.
@@ -49,7 +99,7 @@ expect Valid.
  **********************************/
 
 /*
- * (4)
+ * (10)
  */
 //checkentail x::aseg_plus<c> & x=1 & c>=8 |- exists b: x::aseg_plus<b> * b::aseg<c> & 6<=b<=8. // Unification error: b is both an int_star and a NUM.
 checkentail x::aseg_plus<c> |- x::aseg_plus<b> * b::aseg<c>.
@@ -61,14 +111,14 @@ expect Valid.
  **********************************/
 
 /*
- * (5) requires-ensures entailment of method `foo(int* a)`
+ * (11) requires-ensures entailment of method `foo(int* a)`
  */
 checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & x=r+1.
 print residue.
 expect Valid.
 
 /*
- * (6) case-split of program state `a::aseg_plus<a+10>`: case r>a+10
+ * (12) case-split of program state `a::aseg_plus<a+10>`: case r>a+10
  */
 //checkentail r>a+10 |- 6<=r-a<=8. // Fail.(must)
 checkentail a::aseg_plus<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
@@ -76,7 +126,7 @@ print residue.
 expect Fail.
 
 /*
- * (7) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ * (13) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
  */
 checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
 print residue.
