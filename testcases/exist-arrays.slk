@@ -2,7 +2,7 @@ data int_star {
     int val;
 }.
 
-/* empty array segment */
+/* possibly empty array segment */
 pred aseg<b> ==
     self=b
  or self::aseg_plus<b> & self<b
@@ -14,8 +14,8 @@ pred aseg_plus<b> ==
  inv self<b.
 
 /**********************************
- * nonempty ==> empty
- * empty =/=> nonempty
+ * nonempty ==> possibly empty
+ * possibly empty =/=> nonempty
  **********************************/
 
 /*
@@ -28,7 +28,7 @@ expect Valid.
 /*
  * (2)
  */
-checkentail a::aseg<a> |- a::aseg_plus<_>.
+checkentail a::aseg<_> |- a::aseg_plus<_>.
 print residue.
 expect Fail.
 
