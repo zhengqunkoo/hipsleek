@@ -8,8 +8,6 @@ pred aseg<b> ==
  or self::int_star<v> * c::aseg<b> & c=self+1
  inv self<=b.
 
-lemma "focus" self::aseg<a+n> & b=self+k & c=b+1 <-> self::aseg<b> * b::int_star<v> * c::aseg<self+n>.
-
 /**********************************
  * filler entailments
  **********************************/
