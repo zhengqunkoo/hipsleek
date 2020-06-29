@@ -10,7 +10,8 @@ pred aseg<b> ==
 
 /* nonempty array segment */
 pred aseg_plus<b> ==
-    (exists v: self::int_star<v> * c::aseg<b> & c=self+1)
+    self::int_star<v> & b=self+1
+ or (exists v: self::int_star<v> * c::aseg<b> & c=self+1)
  inv self<b.
 
 /**********************************
