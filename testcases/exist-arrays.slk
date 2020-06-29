@@ -63,7 +63,7 @@ expect Valid.
 /*
  * (5) requires-ensures entailment of motivating example
  */
-checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & res=r.
+checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & x=r+1.
 print residue.
 expect Valid.
 
@@ -71,13 +71,13 @@ expect Valid.
  * (6) case-split of (5): case r>a+10
  */
 //checkentail r>a+10 |- 6<=r-a<=8. // Fail.(must)
-checkentail a::aseg<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
+checkentail a::aseg_plus<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
 print residue.
 expect Fail.
 
 /*
  * (7) case-split of (5): case r<=a+10
  */
-checkentail a::aseg<r> * r::aseg<a+10> & r<=a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8.
+checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
 print residue.
 expect Valid.
