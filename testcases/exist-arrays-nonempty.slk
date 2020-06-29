@@ -1,0 +1,76 @@
+data int_star {
+    int val;
+}.
+
+pred aseg<b> ==
+    self::int_star<v> & b=self+1
+ or self::int_star<v> * c::aseg<b> & c=self+1
+ inv self<b.
+
+/**********************************
+ * filler entailments
+ **********************************/
+
+/*
+ * (1)
+ */
+checkentail true |- true.
+print residue.
+expect Valid.
+
+/*
+ * (2)
+ */
+checkentail true |- true.
+print residue.
+expect Valid.
+
+/**********************************
+ * decompose array into elements
+ **********************************/
+
+/*
+ * (3) int a[1] = {z};
+ */
+checkentail a::aseg<a+1> |- a::int_star<z>.
+print residue.
+expect Valid.
+
+/*
+ * (4) int a[2] = {z,y};
+ */
+checkentail a::aseg<a+2> & b=a+1 |- a::int_star<z> * b::int_star<y>.
+print residue.
+expect Valid.
+
+/*
+ * (5) int a[3] = {z,y,x};
+ */
+checkentail a::aseg<a+3> & b=a+1 & c=b+1 |- a::int_star<z> * b::int_star<y> * c::int_star<x>.
+print residue.
+expect Valid.
+
+/**********************************
+ * compose elements into array
+ **********************************/
+
+/*
+ * (6) int a[1] = {z};
+ */
+checkentail a::int_star<z> |- a::aseg<a+1>.
+print residue.
+expect Valid.
+
+/*
+ * (7) int a[2] = {z,y};
+ */
+checkentail a::int_star<z> * b::int_star<y> & b=a+1 |- a::aseg<a+2>.
+print residue.
+expect Valid.
+
+/*
+ * (8) int a[3] = {z,y,x};
+ */
+checkentail a::int_star<z> * b::int_star<y> * c::int_star<x> & b=a+1 & c=b+1 |- a::aseg<a+3>.
+print residue.
+expect Valid.
