@@ -75,3 +75,77 @@ expect Valid.
 checkentail a::int_star<z> * b::int_star<y> * c::int_star<x> & b=a+1 & c=b+1 |- a::aseg<a+3>.
 print residue.
 expect Valid.
+
+/**********************************
+ * focus on one element of array
+ **********************************/
+
+/*
+ * (9) int a[1] = {v};
+ */
+checkentail a::aseg<a+1> & b=a+1 |- a::int_star<v> * b::aseg<a+1>.
+print residue.
+expect Valid.
+
+/*
+ * (10) int a[2] = {v,_};
+ */
+checkentail a::aseg<a+2> & b=a+1 |- a::int_star<v> * b::aseg<a+2>.
+print residue.
+expect Valid.
+
+/*
+ * (11) int a[2] = {_,v};
+ */
+checkentail a::aseg<a+2> & b=a+1 |- a::aseg<b> * b::int_star<v>.
+print residue.
+expect Valid.
+
+/*
+ * (12) int a[3] = {v,_,_};
+ */
+checkentail a::aseg<a+3> & b=a+1 |- a::int_star<v> * b::aseg<a+3>.
+print residue.
+expect Valid.
+
+/*
+ * (13) int a[3] = {_,v,_};
+ */
+checkentail a::aseg<a+3> & b=a+1 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+3>.
+print residue.
+expect Valid.
+
+/*
+ * (14) int a[3] = {_,_,v};
+ */
+checkentail a::aseg<a+3> & b=a+2 |- a::aseg<b> * b::int_star<v>.
+print residue.
+expect Valid.
+
+/*
+ * (15) int a[4] = {v,_,_,_};
+ */
+checkentail a::aseg<a+4> & b=a+1 |- a::int_star<v> * b::aseg<a+4>.
+print residue.
+expect Valid.
+
+/*
+ * (16) int a[4] = {_,v,_,_};
+ */
+checkentail a::aseg<a+4> & b=a+1 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+4>.
+print residue.
+expect Valid.
+
+/*
+ * (17) int a[4] = {_,_,v,_};
+ */
+checkentail a::aseg<a+4> & b=a+2 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+4>.
+print residue.
+expect Valid.
+
+/*
+ * (18) int a[4] = {_,_,_,v};
+ */
+checkentail a::aseg<a+4> & b=a+3 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+4>.
+print residue.
+expect Valid.

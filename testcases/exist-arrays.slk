@@ -83,11 +83,85 @@ print residue.
 expect Valid.
 
 /**********************************
+ * focus on one element of array
+ **********************************/
+
+/*
+ * (9) int a[1] = {v};
+ */
+checkentail a::aseg<a+1> & b=a+1 |- a::int_star<v> * b::aseg<a+1>.
+print residue.
+expect Valid.
+
+/*
+ * (10) int a[2] = {v,_};
+ */
+checkentail a::aseg<a+2> & b=a+1 |- a::int_star<v> * b::aseg<a+2>.
+print residue.
+expect Valid.
+
+/*
+ * (11) int a[2] = {_,v};
+ */
+checkentail a::aseg<a+2> & b=a+1 |- a::aseg<b> * b::int_star<v>.
+print residue.
+expect Valid.
+
+/*
+ * (12) int a[3] = {v,_,_};
+ */
+checkentail a::aseg<a+3> & b=a+1 |- a::int_star<v> * b::aseg<a+3>.
+print residue.
+expect Valid.
+
+/*
+ * (13) int a[3] = {_,v,_};
+ */
+checkentail a::aseg<a+3> & b=a+1 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+3>.
+print residue.
+expect Valid.
+
+/*
+ * (14) int a[3] = {_,_,v};
+ */
+checkentail a::aseg<a+3> & b=a+2 |- a::aseg<b> * b::int_star<v>.
+print residue.
+expect Valid.
+
+/*
+ * (15) int a[4] = {v,_,_,_};
+ */
+checkentail a::aseg<a+4> & b=a+1 |- a::int_star<v> * b::aseg<a+4>.
+print residue.
+expect Valid.
+
+/*
+ * (16) int a[4] = {_,v,_,_};
+ */
+checkentail a::aseg<a+4> & b=a+1 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+4>.
+print residue.
+expect Valid.
+
+/*
+ * (17) int a[4] = {_,_,v,_};
+ */
+checkentail a::aseg<a+4> & b=a+2 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+4>.
+print residue.
+expect Valid.
+
+/*
+ * (18) int a[4] = {_,_,_,v};
+ */
+checkentail a::aseg<a+4> & b=a+3 & c=b+1 |- a::aseg<b> * b::int_star<v> * c::aseg<a+4>.
+print residue.
+expect Valid.
+
+/**********************************
  * existentials over points-to content
  **********************************/
 
 /*
- * (9)
+ * (19)
  */
 //checkentail a::aseg<b> & b=a+1 |- exists v: a::int_star<v> & v>0. // v>0 is unprovable.
 checkentail a::aseg<b> & b=a+1 |- exists v: a::int_star<v>.
@@ -99,7 +173,7 @@ expect Valid.
  **********************************/
 
 /*
- * (10)
+ * (20)
  */
 //checkentail x::aseg_plus<c> & x=1 & c>=8 |- exists b: x::aseg_plus<b> * b::aseg<c> & 6<=b<=8. // Unification error: b is both an int_star and a NUM.
 checkentail x::aseg_plus<c> |- x::aseg_plus<b> * b::aseg<c>.
@@ -111,14 +185,14 @@ expect Valid.
  **********************************/
 
 /*
- * (11) requires-ensures entailment of method `foo(int* a)`
+ * (21) requires-ensures entailment of method `foo(int* a)`
  */
 checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & x=r+1.
 print residue.
 expect Valid.
 
 /*
- * (12) case-split of program state `a::aseg_plus<a+10>`: case r>a+10
+ * (22) case-split of program state `a::aseg_plus<a+10>`: case r>a+10
  */
 //checkentail r>a+10 |- 6<=r-a<=8. // Fail.(must)
 checkentail a::aseg_plus<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
@@ -126,7 +200,7 @@ print residue.
 expect Fail.
 
 /*
- * (13) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ * (23) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
  */
 checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
 print residue.
