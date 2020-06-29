@@ -3,9 +3,10 @@ data int_star {
 }.
 
 pred aseg<b> ==
-    self::int_star<v> & b=self+1
+    self=b
+ or self::int_star<v> & b=self+1
  or self::int_star<v> * c::aseg<b> & c=self+1
- inv self<b.
+ inv self<=b.
 
 /**********************************
  * filler entailments
