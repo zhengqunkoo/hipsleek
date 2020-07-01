@@ -4061,7 +4061,10 @@ object_or_delegate_creation_expression:
       New { exp_new_class_name = id;
             exp_new_arguments = al;
             exp_new_pos = get_pos_camlp4 _loc 1 }
-	(* An Hoa : Array allocation. *)
+	| `NEW; `CHAR; `OSQUARE; al = argument_list; `CSQUARE ->
+		ArrayAlloc { exp_aalloc_etype_name = "char";
+					 exp_aalloc_dimensions = al;
+					 exp_aalloc_pos = get_pos_camlp4 _loc 1; }
 	| `NEW; `INT; `OSQUARE; al = argument_list; `CSQUARE ->
 		ArrayAlloc { exp_aalloc_etype_name = "int";
 					 exp_aalloc_dimensions = al;

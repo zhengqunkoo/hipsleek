@@ -234,7 +234,6 @@ let _ =
 *)
 let array_update_call = "update___"
 let array_access_call = "array_get_elm_at___"
-let array_allocate_call = "aalloc___"
 
 let get_binop_call_safe_int (bop : I.bin_op) : ident =
   match bop with
@@ -5951,14 +5950,27 @@ and trans_exp_x (prog : I.prog_decl) (proc : I.proc_decl) (ie : I.exp) : trans_e
         I.exp_aalloc_etype_name = et;
         I.exp_aalloc_dimensions = dims;
         I.exp_aalloc_pos = pos } ->
-      (* simply translate "new int[n]" into "aalloc___(n)" *)
-      let newie = I.CallNRecv {
-          I.exp_call_nrecv_method = array_allocate_call;
-          I.exp_call_nrecv_lock = None;
-          I.exp_call_nrecv_arguments = [List.hd dims];
-          I.exp_call_nrecv_ho_arg = None;
-          I.exp_call_nrecv_path_id = None;
-          I.exp_call_nrecv_pos = pos; }
+      let () = Debug.info_hprint (add_str "astsimp.ml: et: " (fun x -> x)) et no_pos in
+      let newie = match et with
+        | "char" ->
+          I.CallNRecv {
+            I.exp_call_nrecv_method = "aalloc___char";
+            I.exp_call_nrecv_lock = None;
+            I.exp_call_nrecv_arguments = [List.hd dims];
+            I.exp_call_nrecv_ho_arg = None;
+            I.exp_call_nrecv_path_id = None;
+            I.exp_call_nrecv_pos = pos; }
+        | "int" ->
+          (* simply translate "new int[n]" into "aalloc___(n)" *)
+          I.CallNRecv {
+            I.exp_call_nrecv_method = "aalloc___";
+            I.exp_call_nrecv_lock = None;
+            I.exp_call_nrecv_arguments = [List.hd dims];
+            I.exp_call_nrecv_ho_arg = None;
+            I.exp_call_nrecv_path_id = None;
+            I.exp_call_nrecv_pos = pos; }
+        | _ ->
+          Err.report_error{ Err.error_loc = pos; Err.error_text = "trans_exp: type " ^ et ^ " not supported for ArrayAlloc";}
       in helper newie
     | I.New {
         I.exp_new_class_name = c;

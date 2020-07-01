@@ -461,6 +461,10 @@ int[,] update___2d(int v, int[,] a, int i, int j)
 	requires true
 	ensures update_array_2d(a,res,v,i,j);
 
+char[] aalloc___char(int dim) 
+	requires true 
+	ensures dom(res,0,dim-1);
+
 int[] aalloc___(int dim) 
 	requires true 
 	ensures dom(res,0,dim-1);
