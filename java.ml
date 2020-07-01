@@ -337,6 +337,7 @@ and java_of_exp = function
     "const " ^ (string_of_typ t) ^ " " ^ (Iprinter.string_of_cassigning_list l) ^ ";"
   | BoolLit ({exp_bool_lit_val = b})
     -> string_of_bool b 
+  | CharLit ({exp_char_lit_val = c}) -> Iprinter.string_of_char c
   | IntLit ({exp_int_lit_val = i}) -> string_of_int i
   | FloatLit ({exp_float_lit_val = f})
     -> string_of_float f

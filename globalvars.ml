@@ -210,6 +210,7 @@ let rec find_read_write_global_var
     | I.Dprint _ 
     | I.Empty _ 
     | I.FloatLit _ 
+    | I.CharLit _ 
     | I.IntLit _ 
     | I.Java _
     | I.Null _ 
@@ -704,6 +705,7 @@ and extend_body (temp_procs : I.proc_decl list) (exp : I.exp) : I.exp =
   | I.Dprint _
   | I.Empty _
   | I.FloatLit _
+  | I.CharLit _
   | I.IntLit _
   | I.Java _
   | I.Null _
@@ -924,6 +926,7 @@ let rec check_and_change (global_vars : IdentSet.t) (exp : I.exp) : I.exp =
   | I.Dprint _
   | I.Empty _
   | I.FloatLit _
+  | I.CharLit _
   | I.IntLit _
   | I.Java _
   | I.Null _

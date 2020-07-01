@@ -772,6 +772,7 @@ let exp_wo_paren (e:P.exp) =
   | P.Null _
   | P.Var _
   | P.AConst _
+  (* | P.CConst _ *)
   | P.IConst _
   | P.FConst _ | P.Max _ |   P.Min _ | P.BagUnion _ | P.BagIntersect _ | P.Tsconst _  -> true
   | _ -> false
@@ -861,6 +862,7 @@ let rec pr_formula_exp (e:P.exp) =
   | P.Null l -> fmt_string "null"
   | P.Var (x, l) -> fmt_string (string_of_spec_var x) (* fmt_string (string_of_typed_spec_var x) *)
   | P.Level (x, l) -> fmt_string ("level(" ^ (string_of_spec_var x) ^ ")")
+  (* | P.CConst (c, l) -> fmt_char c *)
   | P.IConst (i, l) -> fmt_int i
   | P.AConst (i, l) -> fmt_string (string_of_heap_ann i)
   | P.InfConst (i,l) -> let r = "\\inf" in fmt_string r
@@ -2296,6 +2298,8 @@ and pr_one_formula_list (ls:one_formula list) =
 (*         fmt_string ("\nAND "); pr_one_formula_list fs *)
 
 and string_of_one_formula_list ls = poly_string_of_pr  pr_one_formula_list ls
+
+and string_of_char c = String.make 1 c
 
 and pr_formula_base e =
   match e with
@@ -4725,6 +4729,7 @@ let rec string_of_exp = function
   | FConst ({exp_fconst_val = f; exp_fconst_pos = l}) -> string_of_float f
   (*| FieldRead (_, (v, _), (f, _), _) -> v ^ "." ^ f*)
   (*| FieldWrite ((v, _), (f, _), r, _) -> v ^ "." ^ f ^ " = " ^ r*)
+  | CConst ({exp_cconst_val = c; exp_cconst_pos = l}) -> string_of_char c
   | IConst ({exp_iconst_val = i; exp_iconst_pos = l}) -> string_of_int i
   | New ({exp_new_class_name = id;
           exp_new_arguments = idl;
@@ -5247,6 +5252,7 @@ let rec html_of_formula_exp e =
   | P.Null l -> "<b>null</b>"
   | P.Var (x, l) -> html_of_spec_var x
   | P.Level (x, l) -> "<level>" ^ html_of_spec_var x ^ "</level>"
+  (* | P.CConst (c, l) -> string_of_char c *)
   | P.IConst (i, l) -> string_of_int i
   | P.FConst (f, l) -> string_of_float f
   | P.AConst (f, l) -> string_of_heap_ann f

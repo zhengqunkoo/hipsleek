@@ -436,6 +436,7 @@ and fresh_int_en en =
 (* TODO WN : NEED to re-check this function *)
 and trans_type (prog : I.prog_decl) (t : typ) (pos : loc) : typ =
   match t with
+  | Named "char" -> Named "char" (* ignore Named "char" *)
   | Named c ->
     (try
        let todo_unk = x_add I.look_up_data_def_raw prog.I.prog_data_decls c

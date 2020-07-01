@@ -461,6 +461,9 @@ and exp_finally = { exp_finally_body : exp;
 and exp_float_lit = { exp_float_lit_val : float;
                       exp_float_lit_pos : loc }
 
+and exp_char_lit = { exp_char_lit_val : char;
+                     exp_char_lit_pos : loc }
+
 and exp_int_lit = { exp_int_lit_val : int;
                     exp_int_lit_pos : loc }
 
@@ -575,6 +578,7 @@ and exp =
   | Empty of loc
   | FloatLit of exp_float_lit
   | Finally of exp_finally
+  | CharLit of exp_char_lit
   | IntLit of exp_int_lit
   | Java of exp_java
   | Label of ((control_path_id * path_label) * exp)
@@ -848,6 +852,7 @@ let trans_exp (e:exp) (init_arg:'b) (f:'b->exp->(exp* 'a) option)  (f_args:'b->e
       | Dprint _
       | Empty _
       | FloatLit _
+      | CharLit _
       | IntLit _
       | Java _
       | Null _
@@ -1002,6 +1007,7 @@ let fold_exp (e:exp) (init_arg:'b) (f:'b->exp-> 'a option)  (f_args:'b->exp->'b)
       | Dprint _
       | Empty _
       | FloatLit _
+      | CharLit _
       | IntLit _
       | Java _
       | Null _
@@ -1214,6 +1220,7 @@ let rec get_exp_pos (e0 : exp) : loc = match e0 with
   | Empty p -> p
   | FloatLit e -> e.exp_float_lit_pos
   | Finally e -> e.exp_finally_pos
+  | CharLit e -> e.exp_char_lit_pos
   | IntLit e -> e.exp_int_lit_pos
   | Java e -> e.exp_java_pos
   | Member e -> e.exp_member_pos
@@ -1290,6 +1297,7 @@ let rec type_of_exp e = match e with
   | Dprint _ -> None
   | Empty _ -> None
   | FloatLit _ -> Some float_type
+  | CharLit _ -> Some char_type
   | IntLit _ -> Some int_type
   | Java _ -> None
   | Member _ -> None (* FIX-IT *)

@@ -74,7 +74,7 @@ let aux_str : string = "aux"
 let default_value (t :typ) pos : exp =
   match t with
   | Char -> 
-    failwith "default_value: Char not supported"
+    CharLit { exp_char_lit_val = Char.chr 0; exp_char_lit_pos = pos; }
   | Int -> 
     IntLit { exp_int_lit_val = 0; exp_int_lit_pos = pos; }
   | Bool ->
@@ -330,6 +330,7 @@ let modifies (e:exp) (bvars:ident list) prog : (ident list) * (ident list) * (id
     | Dprint _
     | Empty _
     | FloatLit _
+    | CharLit _
     | IntLit _
     | Java _
     | Null _
@@ -529,6 +530,7 @@ let subst_exp_x (e:exp) (subst:(ident*ident) list): exp =
     | Dprint _
     | Empty _
     | FloatLit _
+    | CharLit _
     | IntLit _
     | Java _
     | Null _
@@ -786,6 +788,7 @@ let trans_exp_ptr_x prog (e:exp) (vars: ident list) : exp * (ident list) =
     | Dprint _
     | Empty _
     | FloatLit _
+    | CharLit _
     | IntLit _
     | Java _
     | Null _
@@ -1608,6 +1611,7 @@ and trans_exp_addr prog (e:exp) (vars: ident list) : exp =
     | Dprint _
     | Empty _
     | FloatLit _
+    | CharLit _
     | IntLit _
     | Java _
     | Null _
@@ -1745,6 +1749,7 @@ and find_addr (e:exp) : ident list =
     | Dprint _
     | Empty _
     | FloatLit _
+    | CharLit _
     | IntLit _
     | Java _
     | Null _
@@ -2344,6 +2349,7 @@ and find_addr_inter_exp prog proc e (vs:ident list) : ident list =
     | Dprint _
     | Empty _
     | FloatLit _
+    | CharLit _
     | IntLit _
     | Java _
     | Null _

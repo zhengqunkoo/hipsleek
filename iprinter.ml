@@ -688,6 +688,7 @@ and  string_of_struc_formula c = match c with
       a ^ "\n" ^ (if a = "" then "" else "||") ^ "\n" ^ l_s^(string_of_struc_formula c)) "" b)
   (*let sl = if b then "("^(string_of_int (fst l))^",\""^(snd l)^"\"): " else "" in*)
 
+and string_of_char c = String.make 1 c
 
 ;;
 
@@ -827,6 +828,7 @@ let rec string_of_exp = function
       -> "const " ^ (string_of_typ t) ^ " " ^ (string_of_cassigning_list l)
   | BoolLit ({exp_bool_lit_val = b})
       -> string_of_bool b 
+  | CharLit ({exp_char_lit_val = i}) -> string_of_char i
   | IntLit ({exp_int_lit_val = i}) -> string_of_int i
   | FloatLit ({exp_float_lit_val = f})
       -> string_of_float f

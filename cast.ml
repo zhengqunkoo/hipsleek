@@ -415,6 +415,10 @@ and exp_icall = { exp_icall_type : typ;
                   exp_icall_path_id : control_path_id;
                   exp_icall_pos : loc }
 
+and exp_cconst = {
+  exp_cconst_val : char;
+  exp_cconst_pos : loc }
+
 and exp_iconst = {
   exp_iconst_val : int;
   exp_iconst_pos : loc }
@@ -556,6 +560,7 @@ and exp = (* expressions keep their types *)
         (* field assignment is flattened to form x.f = y only *)
         *)
   | ICall of exp_icall
+  | CConst of exp_cconst
   | IConst of exp_iconst
   (*| ArrayAlloc of exp_aalloc *) (* An Hoa *)
   | New of exp_new
@@ -1089,6 +1094,7 @@ let transform_exp (e:exp) (init_arg:'b)(f:'b->exp->(exp* 'a) option)  (f_args:'b
       | Dprint _
       | FConst _
       | ICall _
+      | CConst _
       | IConst _
       (* | ArrayAlloc _ *) (* An Hoa *)
       | New _
@@ -1214,6 +1220,8 @@ let add_distributive c = distributive_views := c :: !distributive_views
 
 let void_type = Void
 
+let char_type = Char
+
 let int_type = Int
 
 let infint_type = INFInt
@@ -1304,6 +1312,7 @@ let rec type_of_exp (e : exp) = match e with
   | FConst _ -> Some float_type
   (*| FieldRead (t, _, _, _) -> Some t*)
   (*| FieldWrite _ -> Some Void*)
+  | CConst _ -> Some char_type
   | IConst _ -> Some int_type
   (* An Hoa *)
   (* | ArrayAlloc ({exp_aalloc_etype = t;
@@ -2161,6 +2170,7 @@ and callees_of_exp (e0 : exp) : ident list = match e0 with
             exp_icall_method_name = n;
             exp_icall_arguments = _;
             exp_icall_pos = _}) -> [unmingle_name n] (* to be fixed: look up n, go down recursively *)
+  | CConst _ -> []
   | IConst _ -> []
   (*| ArrayAlloc _ -> []*)
   | New _ -> []
@@ -2431,6 +2441,7 @@ and exp_to_check (e:exp) :bool = match e with
   (*| ArrayMod _ (* An Hoa TODO NO IDEA *)*)
   | Assign _
   | ICall _
+  | CConst _
   | IConst _
   | While _
   | This _
@@ -2458,6 +2469,7 @@ let rec pos_of_exp (e:exp) :loc = match e with
   | Assign b -> b.exp_assign_pos
   | FConst b -> b.exp_fconst_pos
   | ICall b -> b.exp_icall_pos
+  | CConst b -> b.exp_cconst_pos
   | IConst b -> b.exp_iconst_pos
   | Print (_,b) -> b
   | Seq b -> b.exp_seq_pos
@@ -2995,6 +3007,7 @@ let exp_fv (e:exp) =
     | Dprint b -> Some (b.exp_dprint_visible_names@ac)
     | FConst _ -> Some ac
     | ICall b -> Some (b.exp_icall_receiver::b.exp_icall_arguments@ac)
+    | CConst _ -> Some ac
     | IConst _ -> Some ac
     | New b -> Some ((List.map snd b.exp_new_arguments)@ac)
     | Null _ -> Some ac

@@ -35,6 +35,7 @@ let transform_exp
       | Dprint _ 
       | Empty _ 
       | FloatLit _ 
+      | CharLit _
       | IntLit _
       | Java _ 
       | Null _ 

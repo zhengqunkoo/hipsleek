@@ -154,6 +154,7 @@ let rec loc_of_iast_exp (e: Iast.exp) : VarGen.loc =
   | Iast.Empty l -> l
   | Iast.FloatLit e -> e.Iast.exp_float_lit_pos
   | Iast.Finally e -> e.Iast.exp_finally_pos
+  | Iast.CharLit e -> e.Iast.exp_char_lit_pos
   | Iast.IntLit e -> e.Iast.exp_int_lit_pos
   | Iast.Java e -> e.Iast.exp_java_pos
   | Iast.Label (_, e1) -> loc_of_iast_exp e1
