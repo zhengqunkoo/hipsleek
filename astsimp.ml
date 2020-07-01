@@ -5248,6 +5248,9 @@ and trans_exp_x (prog : I.prog_decl) (proc : I.proc_decl) (ie : I.exp) : trans_e
             | I.ArrayAt { I.exp_arrayat_array_base = a; I.exp_arrayat_index = index; I.exp_arrayat_pos = pos_lhs } ->
               (* Array variable *)
               (* let new_lhs = I.Var { I.exp_var_name = a; I.exp_var_pos = pos_lhs } in *)
+              (match I.type_of_exp a with
+              | Some t -> print_endline ("type_of_exp: " ^ Globals.string_of_typ t);
+              | None -> print_endline ("type_of_exp: " ^ I.string_of_type_of_exp a););
               let r = List.length index in
               let new_rhs = I.CallNRecv {
                   I.exp_call_nrecv_method = array_update_call ^ (string_of_int r) ^ "d"; (* Update call *)

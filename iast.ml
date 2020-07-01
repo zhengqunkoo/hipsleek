@@ -1247,7 +1247,7 @@ let get_catch_of_exp e = match e with
 let get_finally_of_exp e = match e with
   | Finally e -> e
   | _  -> Error.report_error {Err.error_loc = get_exp_pos e; Err.error_text = "malformed expression, expecting finally clause"}
- (*
+
 let rec type_of_exp e = match e with
   | Assert _ -> None
   | Assign _ -> Some void_type
@@ -1267,7 +1267,7 @@ let rec type_of_exp e = match e with
             | OpPlus | OpMinus | OpMult ->
                 begin
                   match t1, t2 with
-                  | Some Prim Int, Some Prim Int -> int_type
+                  (* | Some Prim Int, Some Prim Int -> int_type *)
                   | _ -> float_type
                 end
             | OpDiv -> float_type
@@ -1314,14 +1314,28 @@ let rec type_of_exp e = match e with
   | Try _ -> Some void_type
   | Unary {
       exp_unary_op = op;
-      exp_unary_ = e1;
+      exp_unary_exp = e1;
       exp_unary_pos = _
     } -> type_of_exp e1
   | Unfold _ -> None
   | Var _ -> None
   | VarDecl _ -> Some void_type
   | While _ -> Some void_type
-*)
+  | _ -> None
+
+(* For debugging. Defined for when type_of_exp returns None. *)
+and string_of_type_of_exp e = match e with
+  | Assert _ -> "Assert"
+  | CallRecv _ -> "CallRecv"
+  | Debug _ -> "Debug"
+  | Dprint _ -> "Dprint"
+  | Empty _ -> "Empty"
+  | Java _ -> "Java"
+  | Member _ -> "Member"
+  | This _ -> "This"
+  | Unfold _ -> "Unfold"
+  | Var _ -> "Var"
+  | _ -> "_"
 
 and mkSpecTrue pos = Iformula.mkETrue pos
 (*[SRequires {
