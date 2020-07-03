@@ -14,6 +14,8 @@ pred aseg_plus<b> ==
  or (exists v: self::int_star<v> * c::aseg<b> & c=self+1)
  inv self<b.
 
+lemma "focus" self::aseg<self+n> & b=self+k & c=b+1 <-> self::aseg<b> * b::int_star<v> * c::aseg<self+n>.
+
 /**********************************
  * nonempty ==> possibly empty
  * possibly empty =/=> nonempty
