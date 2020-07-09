@@ -1,5 +1,9 @@
 #+startup: showall
 
+* =sleek= Guide
+- =checksat= checks the satisfiability of an expression. E.g.: =checksat a=a.=.
+- =lemma_safe= declares a lemma and outputs whether the lemma is valid. E.g.: =lemma_safe a <-> a.=.
+
 * Commands Guide
 
 ** Explanations
