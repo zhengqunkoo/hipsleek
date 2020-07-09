@@ -88,7 +88,7 @@ expect Valid.
 checkentail x::int_arr_seg<1> |- x::int_block<_>.
 print residue.
 expect Valid.
-lemma "entail8" self::int_arr_seg<1> <-> self::int_block<_>.
+lemma "entail8" self::int_arr_seg<1> -> self::int_block<_>.
 
 /* arr_seg vs int_arr_seg */
 
