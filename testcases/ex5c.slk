@@ -66,7 +66,7 @@ lemma "entail4" self::int_block<_> -> self::arr_seg<4>.
 checkentail x::int_block<_> |- x::int_arr_seg<1>.
 print residue.
 expect Valid.
-lemma "entail5" self::int_block<_> -> self::int_arr_seg<1>.
+//lemma "entail5" self::int_block<_> -> self::int_arr_seg<1>.
 
 /*
  * (6)
