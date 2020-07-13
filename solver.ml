@@ -8958,7 +8958,7 @@ and heap_entail_empty_rhs_heap_one_flow (prog : prog_decl) conseq (is_folding : 
         (* TODO-EXPURE : need to build new expure stuff *)
         let remove_univ_vars f vs =
           let f = MCP.pure_of_mix f in
-          let univ_vs = TP.get_univs_from_ante f in
+          let univ_vs = TP.get_univs_from_ante f @ TP.get_univ_stars_from_ante f in
           let () = x_tinfo_hp (add_str "univ_vs" Cprinter.string_of_spec_var_list) univ_vs no_pos in
           CP.diff_svl vs univ_vs
         in
@@ -9754,7 +9754,7 @@ and imply_mix_formula_x ante_m0 ante_m1 conseq_m imp_no memset =
       let process_univ univ_vars ante0 conseq0 =
         Debug.no_3 "process_univ" !CP.print_svl Cprinter.string_of_pure_formula Cprinter.string_of_pure_formula (fun x -> "()") process_univ univ_vars ante0 conseq0
       in
-      let univ_vars = TP.get_univs_from_ante a0 in
+      let univ_vars = TP.get_univs_from_ante a0 @ TP.get_univ_stars_from_ante a0 in
       let new_rhs = if !Globals.split_rhs_flag then (CP.split_conjunctions c) else [c] in
       (* let () = List.iter (process_univ univ_vars a0) new_rhs in *)
       (* let a0 = *)
@@ -11147,7 +11147,7 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
           (* ==================== Extract equation expression related to Univ vars ==================== *)
           let pure_new_ante_p = MCP.pure_of_mix new_ante_p in
           let pure_new_conseq_p = MCP.pure_of_mix new_conseq_p in
-          let univ_vs = TP.get_univs_from_ante pure_new_ante_p in
+          let univ_vs = TP.get_univs_from_ante pure_new_ante_p @ TP.get_univ_stars_from_ante pure_new_ante_p in
           (* eqlst is a list of pair. In each pair, two expressions are equal and one of them contains Univ vars *)
           let () = x_dinfo_hp (add_str "univ_vs" Cprinter.string_of_spec_var_list) univ_vs no_pos in
           let () = y_dinfo_hp (add_str "to_lhs" !CP.print_formula) to_lhs in
@@ -11207,6 +11207,7 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
             let lhs1 = MCP.pure_of_mix new_ante_p in
             let (b,_,_) = TP.imply_timeout_univ univ_vs lhs1 conseq_univ "666" 0.0 None in
             let () = y_dinfo_hp (add_str "outcome" string_of_bool) b in
+            (* TODO call TP.imply_timeout_univ_star *)
             if b then
               let r = TP.univ_rhs_store # get_rm in
               let new_ante = CP.mkAnd lhs1 r no_pos in
@@ -14520,8 +14521,13 @@ and do_universal_x prog estate (node:CF.h_formula) rest_of_lhs coer anode lhs_b 
     let () = y_dinfo_hp (add_str "lhs_guard_p" !CP.print_formula) lhs_guard in
     let univ_rel v = CP.mkRel_sv v in
     let mk_Univ_rel v = CP.mkRel (univ_rel "Univ") [CP.mk_exp_var v] no_pos in
+    let univ_star_rel v = CP.mkRel_sv v in
+    let mk_Univ_star_rel v = CP.mkRel (univ_star_rel "Univ_star") [CP.mk_exp_var v] no_pos in
     let lhs_w_univ_rel = List.fold_left (fun g v ->
         CP.mkAnd g (mk_Univ_rel v) no_pos
+      ) lhs_guard f_univ_vars in
+    let lhs_w_univ_star_rel = List.fold_left (fun g v ->
+        CP.mkAnd g (mk_Univ_star_rel v) no_pos
       ) lhs_guard f_univ_vars in
     (*node -> current heap node | lhs_heap -> head of the coercion*)
     match node, lhs_heap with
@@ -14590,7 +14596,10 @@ and do_universal_x prog estate (node:CF.h_formula) rest_of_lhs coer anode lhs_b 
             else
               let lhs_w_univ_rel = CP.subst_avoid_capture fr_vars to_vars lhs_w_univ_rel in
               let () = y_dinfo_hp (add_str "lhs_w_univ_rel" !CP.print_formula) lhs_w_univ_rel in
-              CF.combine_star_pure coer_rhs_new1 lhs_w_univ_rel in
+              let coer_rhs_new1 = CF.combine_star_pure coer_rhs_new1 lhs_w_univ_rel in
+              let lhs_w_univ_star_rel = CP.subst_avoid_capture fr_vars to_vars lhs_w_univ_star_rel in
+              let () = y_dinfo_hp (add_str "lhs_w_univ_star_rel" !CP.print_formula) lhs_w_univ_star_rel in
+              CF.combine_star_pure coer_rhs_new1 lhs_w_univ_star_rel in
           let () = y_dinfo_hp (add_str "coer_rhs_new1" !CF.print_formula) coer_rhs_new1 in
           let coer_rhs_new1 =
             if (Perm.allow_perm ()) then

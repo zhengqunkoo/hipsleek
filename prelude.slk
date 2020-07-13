@@ -1,1 +1,5 @@
 relation Univ(int x).
+data int_star2{
+  int value;
+}.
+relation Univ_star(int_star2 x).
