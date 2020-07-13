@@ -5,19 +5,19 @@
 - =lemma_safe= declares a lemma and outputs whether the lemma is valid. E.g.: =lemma_safe a <-> a.=.
 
 * Commands Guide
-
 ** Explanations
-| command                                                                 | explanation                                                                                                                      | example                                                    |
-|-------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------|
-| =sleek --pnum n=                                                        | only verify the =n=th entailment                                                                                                 |                                                            |
+| command                                                                 | explanation                                                                                                                                                                                                                                         | example                                                    |
+|-------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------|
+| =sleek --pnum n=                                                        | only verify the =n=th entailment                                                                                                                                                                                                                    |                                                            |
 | =sleek -dre=heap_entail=                                                | show call chains of =heap_entail= functions. =inp*= are the inputs to each function. The meaning of each =inp*= is given by words between colons, e.g. =:evars:=, =:ante:=. =EXIT= is the resulting context after attempting to solve an entailment | [[* =sleek -dre=heap_entail testcases/ex5a.slk=]]              |
-| =sleek -dre=choose_context=                                             | show which part of the antecedent and consequent the action is focused on, and show the state of =choose_context=                | [[* =sleek -dre=choose_context testcases/ex5a.slk=]]           |
-| =sleek -dre=compute_actions=                                            | list searched action(s) and their priorities, such that the action results in a state that matches the state of =choose_context= | [[* =sleek -dre=compute_actions testcases/ex5a.slk=]]          |
-| $\texttt{sleek -dre="choose_context\\} \vert \texttt{compute_actions"}$ | regex expression that shows both =choose_context= and =compute_actions=                                                          |                                                            |
-| $\texttt{sleek -dre=".*actions"}$                                       | regex expression that shows all debugged calls that end with =actions=                                                           |                                                            |
-| =hip -p foo=                                                            | only verify function =foo=                                                                                                       | [[* =hip -p foo testcases/ex5.c=]]                             |
-| =hip --pip=                                                             | show input after preprocessing the source file                                                                                   | [[* =hip --pip testcases/ex5.c=]]                              |
-| =hip --dd-calls-all -dre=choose_context=                                | show calls traced and callers tracing, only shows when =hip= is in debugging mode (e.g. due to other flag =-dre=)                | [[* =hip --dd-calls-all -dre=choose_context testcases/ex5.c=]] |
+| =sleek -dre=choose_context=                                             | show which part of the antecedent and consequent the action is focused on, and show the state of =choose_context=                                                                                                                                   | [[* =sleek -dre=choose_context testcases/ex5a.slk=]]           |
+| =sleek -dre=compute_actions=                                            | list searched action(s) and their priorities, such that the action results in a state that matches the state of =choose_context=                                                                                                                    | [[* =sleek -dre=compute_actions testcases/ex5a.slk=]]          |
+| $\texttt{sleek -dre="choose_context\\} \vert \texttt{compute_actions"}$ | regex expression that shows both =choose_context= and =compute_actions=                                                                                                                                                                             |                                                            |
+| $\texttt{sleek -dre=".*actions"}$                                       | regex expression that shows all debugged calls that end with =actions=                                                                                                                                                                              |                                                            |
+| =hip -p foo=                                                            | only verify function =foo=                                                                                                                                                                                                                          | [[* =hip -p foo testcases/ex5.c=]]                             |
+| =hip --pip=                                                             | show input after preprocessing the source file                                                                                                                                                                                                      | [[* =hip --pip testcases/ex5.c=]]                              |
+| =hip --dd-calls-all -dre=choose_context=                                | show calls traced and callers tracing, only shows when =hip= is in debugging mode (e.g. due to other flag =-dre=)                                                                                                                                   | [[* =hip --dd-calls-all -dre=choose_context testcases/ex5.c=]] |
+| =sleek -debug debug.txt=                                                | like =-dre=, but using a file                                                                                                                                                                                                                       | [[* =sleek -debug debug.txt --pnum 7 testcases/ex5a.slk=]]     |
 
 ** Examples
 
@@ -117,6 +117,51 @@ catch (v_fi_139_38_91: __Exc)
 CALLERS TRACING
 ================
 [choose_context@1.,compute_actions,heap_entail_non_empty_rhs_heap,heap_entail_conjunct_helper,heap_entail_conjunct_helper,heap_entail_conjunct,heap_entail_conjunct_lhs,heap_entail_after_sat,heap_entail_one_context,helper_inner,helper_inner,heap_entail_conjunct_lhs_struc,heap_entail_after_sat_struc,heap_entail_one_context_struc,heap_entail_struc_failesc_context,heap_entail_struc_list_failesc_context,heap_entail_failesc_prefix_init,heap_entail_struc_list_failesc_context_init,check_pre_post(2),check_exp1,check_exp,check_exp1,check_exp,check Assign (rhs),check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_exp1,check_exp,check_specs_infer,check_proc,wrapper_infer_imm_pre_post]
+#+END_SRC
+
+*** =sleek -debug debug.txt --pnum 7 testcases/ex5a.slk=
+#+BEGIN_SRC
+!!! **tpdispatcher.ml#492:init_tp by default:
+!!! **tpdispatcher.ml#391:set_tp z3move_expl_inst_estate
+Trace
+move_impl_inst_estate
+Trace
+heap_entail_empty_rhs_heap
+Trace
+do_match
+Trace
+Starting z3...
+
+!!! **WARNING****sleek.ml#494:[./prelude.slk,testcases/ex5a.slk]
+Starting Omega..../oc
+
+@1! **solver.ml#8715:first if-else
+@1! **solver.ml#8599:lhs: emp&((n=1 & self!=null) | (2<=n & self!=null))&{FLOW,(1,26)=__flow#E}[]
+@1! **solver.ml#8600:conseq: emp&1<=n&{FLOW,(1,26)=__flow#E}[]
+@1! **solver.ml#8601:classic_flag:false
+@1! **solver.ml#8603:(check_is_classic ()):false
+@1! **solver.ml#8622:XXXX(hp_rel):[]
+@1! **solver.ml#8637:is_not_lhs_emp:false
+@1! **solver.ml#8638:h2 = HEmp && (check_is_classic ())  && not(is_folding):false
+@1! **solver.ml#8650:else ..Need to normalize h2 : emp
+@1! **solver.ml#8651:TODO : not set classic_flag:false
+@1! **solver.ml#8652:h2: emp
+@1! **solver.ml#8653:estate_orig1: ex_formula : emp&((n=1 & self!=null) | (2<=n & self!=null))&{FLOW,(1,26)=__flow#E}[]
+ es_heap:emp
+@1! **solver.ml#8654:lhs1: emp&((n=1 & self!=null) | (2<=n & self!=null))&{FLOW,(1,26)=__flow#E}[]
+@1! **solver.ml#8669:not HTrue branch?
+@1! **solver.ml#8729:lhs_p(0): ((n=1 & self!=null) | (2<=n & self!=null))
+@1! **solver.ml#8733:lhs_p(1): ((n=1 & self!=null) | (2<=n & self!=null))
+@1! **solver.ml#8763:lhs_p(2): ((n=1 & self!=null) | (2<=n & self!=null))
+@1! **solver.ml#8778:rhs_p: 1<=n
+@1! **solver.ml#8779:lhs_h: emp
+@1! **solver.ml#8780:estate_orig.es_heap: emp
+@1! **solver.ml#8801:curr_lhs_h: emp
+@1! **solver.ml#8802:lhs_p: ((n=1 & self!=null) | (2<=n & self!=null))
+@1! **solver.ml#8804:estate_orig:  emp&((n=1 & self!=null) | (2<=n & self!=null))&{FLOW,(1,26)=__flow#E}[]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_subst (from,to): []:[]
 #+END_SRC
 
 * Appendix
@@ -346,4 +391,12 @@ int main(void)
   /*@ dprint; */
   free(p);
 }
+#+END_SRC
+
+** =debug.txt=
+#+BEGIN_SRC
+do_match,Trace
+heap_entail_empty_rhs_heap,Trace
+move_impl_inst_estate,Trace
+move_expl_inst_estate,Trace
 #+END_SRC
