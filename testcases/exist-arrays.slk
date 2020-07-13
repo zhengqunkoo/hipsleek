@@ -226,7 +226,35 @@ print residue.
 expect Fail.
 
 /*
- * (25) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ * (25) pure part of case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ */
+checkentail a<r<=a+10 |- 6<=r-a<=8.
+print residue.
+expect Fail.
+
+/*
+ * (26) pure part + Univ of case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ */
+checkentail a<r<=a+10 & Univ(r) |- 6<=r-a<=8.
+print residue.
+expect Valid.
+
+/*
+ * (27) part of case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ */
+checkentail r::aseg_plus<_> & a<r<=a+10 |- r::int_star<_> & 6<=r-a<=8.
+print residue.
+expect Fail.
+
+/*
+ * (28) part of + Univ case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ */
+checkentail r::aseg_plus<_> & a<r<=a+10 & Univ_star(r) |- r::int_star<_> & 6<=r-a<=8.
+print residue.
+expect Valid.
+
+/*
+ * (29) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
  */
 checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 & Univ_star(r) |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
 print residue.
