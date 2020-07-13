@@ -1,0 +1,80 @@
+#!/bin/bash
+# Compare tests output to reference tests output.
+
+# Assume fourth-last to second-last lines are not related to tests,
+# and leaving these lines in causes diff to exit with non-zero code.
+get_timings() {
+  tail -n 4 "$1" | head -n 3
+}
+
+travis_wait() {
+  local log_file="$1"
+  shift
+  local cmd="$@"
+
+  $cmd 2>&1 >$log_file &
+  local cmd_pid=$!
+
+  travis_jigger $! $cmd &
+  local jigger_pid=$!
+  local result
+
+  { wait $cmd_pid 2>/dev/null; result=$?; ps -p$jigger_pid 2>&1>/dev/null && kill $jigger_pid; } || return 1
+  return $result
+}
+
+travis_jigger() {
+  local timeout=50 # in minutes
+  local count=0
+
+  local cmd_pid=$1
+  shift
+
+  while [ $count -lt $timeout ]; do
+    count=$(($count + 1))
+    echo -e "\033[0mStill running ($count of $timeout): $@"
+    sleep 60
+  done
+
+  echo -e "\n\033[31;1mTimeout reached. Terminating $@\033[0m\n"
+  kill -9 $cmd_pid
+}
+
+set -ev
+eval $(opam env)
+find . -name _build -not -prune -or -name '*.ml' -and -not -name '*.pp.ml' -or -name '*.mli' -and -not -name '*.pp.mli' | xargs ocamlformat -i
+cd examples/working
+s=$HIPSLEEK_TESTS_START # assume is integer
+e=$HIPSLEEK_TESTS_END # assume is integer
+
+timings="$(get_timings ../../.travis/run-fast-tests.sleek.$s-$e)"
+./run-fast-tests.pl sleek > ../../.travis/run-fast-tests.sleek.$s-$e
+ed ../../.travis/run-fast-tests.sleek.$s-$e <<EOF
+$
+---
+d
+d
+d
+i
+$timings
+.
+w
+q
+EOF
+git diff --exit-code --ignore-submodules=dirty
+
+timings="$(get_timings ../../.travis/run-fast-tests.hip.$s-$e)"
+travis_wait run-fast-tests.hip.$s-$e "./run-fast-tests.pl hip"
+ed ../../.travis/run-fast-tests.hip.$s-$e <<EOF
+$
+---
+d
+d
+d
+i
+$timings
+.
+w
+q
+EOF
+git diff --exit-code --ignore-submodules=dirty
