@@ -202,20 +202,23 @@ checkentail r::int_star<c> & Univ(c) |- r::int_star<42>.
 print residue.
 expect Valid.
 
+/*
+ * (23)
+ * requires-ensures entailment of method `foo(int* a)`
+ * only provable after existentially instantiating r,c.
+ * a method call will bind and existentially instantiate r,c.
+ */
+checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 & Univ(c) |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & x=r+1.
+print residue.
+expect Valid.
+
 /**********************************
  * universals over array pointers
  * motivating example: `foo(int* a)` may be called under any program state `a::aseg_plus<a+10>`.
  **********************************/
 
 /*
- * requires-ensures entailment of method `foo(int* a)`
- * checkentail a::aseg<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8 |- a::aseg<r> * r::int_star<42> * x::aseg<a+10> & x=r+1.
- * only provable after existentially instantiating r,c.
- * a method call will bind and existentially instantiate r,c.
- */
-
-/*
- * (23) case-split of program state `a::aseg_plus<a+10>`: case r>a+10
+ * (24) case-split of program state `a::aseg_plus<a+10>`: case r>a+10
  */
 //checkentail r>a+10 |- 6<=r-a<=8. // Fail.(must)
 checkentail a::aseg_plus<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
@@ -223,7 +226,7 @@ print residue.
 expect Fail.
 
 /*
- * (24) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
+ * (25) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
  */
 checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 & Univ_star(r) |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
 print residue.
