@@ -15,6 +15,7 @@ pred aseg_plus<b> ==
  inv self<b.
 
 lemma "focus" self::aseg<self+n> & b=self+k & c=b+1 <-> self::aseg<b> * b::int_star<v> * c::aseg<self+n>.
+lemma "focus" self::aseg<self+n> & b=self+k & c=b+1 & Univ(v) <-> self::aseg<b> * b::int_star<v> * c::aseg<self+n>.
 
 /**********************************
  * nonempty ==> possibly empty
