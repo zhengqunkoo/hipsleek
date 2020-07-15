@@ -33,7 +33,7 @@ expect Valid.
  */
 checkentail a::aseg<_> |- a::aseg_plus<_>.
 print residue.
-expect Fail.
+expect Fail_May.
 
 /**********************************
  * decompose array into elements
@@ -192,7 +192,7 @@ expect Valid.
  */
 checkentail r::int_star<c> |- r::int_star<42>.
 print residue.
-expect Fail.
+expect Fail_May.
 
 /*
  * (22)
@@ -221,7 +221,7 @@ expect Valid.
  */
 checkentail r::int_star<c> |- s::int_star<c>.
 print residue.
-expect Fail.
+expect Fail_May.
 
 /*
  * (25)
@@ -236,14 +236,14 @@ expect Valid.
 //checkentail r>a+10 |- 6<=r-a<=8. // Fail.(must)
 checkentail a::aseg_plus<a+10> & r>a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & 6<=r-a<=8. // Fail.(may)
 print residue.
-expect Fail.
+expect Fail_May.
 
 /*
  * (27) pure part of case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
  */
 checkentail a<r<=a+10 |- 6<=r-a<=8.
 print residue.
-expect Fail.
+expect Fail_May.
 
 /*
  * (28) pure part + Univ of case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
@@ -257,7 +257,7 @@ expect Valid.
  */
 checkentail r::aseg_plus<_> & a<r<=a+10 |- r::int_star<_> & 6<=r-a<=8.
 print residue.
-expect Fail.
+expect Fail_May.
 
 /*
  * (30) part of + Univ case-split of program state `a::aseg_plus<a+10>`: case r<=a+10

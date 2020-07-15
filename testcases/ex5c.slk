@@ -365,7 +365,7 @@ checkentail w::ch_star<100> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116
            & x=w+1 & y=x+1 & z=y+1
            |- w::int_block<1954115685>.
 print residue.
-expect Fail.
+expect Fail_Must.
 
 /*
  * (38) "type", bad content, int
@@ -374,7 +374,7 @@ checkentail w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116
            & x=w+1 & y=x+1 & z=y+1
            |- w::int_block<1954115684>.
 print residue.
-expect Fail.
+expect Fail_Must.
 
 /*
  * (39) "typecast"
