@@ -141,11 +141,79 @@ expect Valid.
  **********************************/
 
 /* lemma "int2char" self::int_arr_seg<n> <-> self::arr_seg<4*n>. */
+/* (Lemma ==> int2char_left(z,z)) */
+
+/*
+ * (14)
+ */
+checkentail z::int_arr_seg<n>
+           |- z::arr_seg<4*n>.
+print residue.
+expect Valid.
+
+/*
+ * (15)
+ */
+checkentail z::int_arr_seg<1>
+           |- z::arr_seg<4*1>.
+print residue.
+expect Valid.
+
+/*
+ * (16)
+ */
+checkentail z::int_arr_seg<2>
+           |- z::arr_seg<4*2>.
+print residue.
+expect Valid.
+
+/*
+ * (17)
+ */
+checkentail z::int_arr_seg<3>
+           |- z::arr_seg<4*3>.
+print residue.
+expect Valid.
+
+/* lemma "int2char" self::int_arr_seg<n> <-> self::arr_seg<4*n>. */
+/* (Lemma <== int2char_left_right(z,z)) */
+
+/*
+ * (18)
+ */
+checkentail z::arr_seg<4*n>
+           |- z::int_arr_seg<n>.
+print residue.
+expect Valid.
+
+/*
+ * (19)
+ */
+checkentail z::arr_seg<4*1>
+           |- z::int_arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (20)
+ */
+checkentail z::arr_seg<4*2>
+           |- z::int_arr_seg<2>.
+print residue.
+expect Valid.
+
+/*
+ * (21)
+ */
+checkentail z::arr_seg<4*3>
+           |- z::int_arr_seg<3>.
+print residue.
+expect Valid.
 
 /* lemma "splitchar" self::arr_seg<a+b> & self+a=q <-> self::arr_seg<a> * q::arr_seg<b>. */
 
 /*
- * (14)
+ * (22)
  */
 checkentail z::arr_seg<a+b> & z+a=y
            |- z::arr_seg<a> * y::arr_seg<b>.
@@ -153,7 +221,7 @@ print residue.
 expect Valid.
 
 /*
- * (15)
+ * (23)
  */
 checkentail z::arr_seg<2> & z+1=y
            |- z::arr_seg<1> * y::arr_seg<1>.
@@ -161,7 +229,7 @@ print residue.
 expect Valid.
 
 /*
- * (16)
+ * (24)
  */
 checkentail z::arr_seg<3> & z+1=y
            |- z::arr_seg<2> * y::arr_seg<1>.
@@ -169,7 +237,7 @@ print residue.
 expect Valid.
 
 /*
- * (17)
+ * (25)
  */
 checkentail z::arr_seg<3> & z+1=y
            |- z::arr_seg<1> * y::arr_seg<2>.
@@ -177,7 +245,7 @@ print residue.
 expect Valid.
 
 /*
- * (18)
+ * (26)
  */
 checkentail z::arr_seg<3> & z+1=y & y+1=x
            |- z::arr_seg<1> * y::arr_seg<1> * x::arr_seg<1>.
@@ -186,6 +254,46 @@ expect Valid.
 
 /* lemma "splitint" self::int_arr_seg<a+b> & self+a=q <-> self::int_arr_seg<a> * q::int_arr_seg<b>. */
 
+/*
+ * (27)
+ */
+checkentail z::int_arr_seg<a+b> & z+a=y
+           |- z::int_arr_seg<a> * y::int_arr_seg<b>.
+print residue.
+expect Valid.
+
+/*
+ * (28)
+ */
+checkentail z::int_arr_seg<2> & z+1=y
+           |- z::int_arr_seg<1> * y::int_arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (29)
+ */
+checkentail z::int_arr_seg<3> & z+1=y
+           |- z::int_arr_seg<2> * y::int_arr_seg<1>.
+print residue.
+expect Valid.
+
+/*
+ * (30)
+ */
+checkentail z::int_arr_seg<3> & z+1=y
+           |- z::int_arr_seg<1> * y::int_arr_seg<2>.
+print residue.
+expect Valid.
+
+/*
+ * (31)
+ */
+checkentail z::int_arr_seg<3> & z+1=y & y+1=x
+           |- z::int_arr_seg<1> * y::int_arr_seg<1> * x::int_arr_seg<1>.
+print residue.
+expect Valid.
+
 /**********************************
  * typecasted-alignment entailments
  **********************************/
@@ -193,7 +301,7 @@ expect Valid.
 /* concrete lengths: start, end */
 
 /*
- * (19)
+ * (32)
  */
 checkentail x::arr_seg<5> & y=x+4
            |- x::int_arr_seg<1> * y::arr_seg<1>.
@@ -201,7 +309,7 @@ print residue.
 expect Valid.
 
 /*
- * (20)
+ * (33)
  */
 checkentail x::arr_seg<5> & y=x+1
            |- x::arr_seg<1> * y::int_arr_seg<1>.
@@ -211,7 +319,7 @@ expect Valid.
 /* existential lengths: start, end */
 
 /*
- * (21)
+ * (34)
  */
 checkentail x::arr_seg<4*n+1> & y=x+4*n
            |- x::int_arr_seg<n> * y::arr_seg<1>.
@@ -223,7 +331,7 @@ print residue.
 expect Valid.
 
 /*
- * (22)
+ * (35)
  */
 checkentail x::arr_seg<4*n+1> & y=x+1
            |- x::arr_seg<1> * y::int_arr_seg<n>.
@@ -233,7 +341,7 @@ expect Valid.
 /* concrete lengths: start, middle, end */
 
 /*
- * (23)
+ * (36)
  */
 checkentail x::arr_seg<6> & y=x+4
            |- x::int_arr_seg<1> * y::arr_seg<2>.
@@ -241,7 +349,7 @@ print residue.
 expect Valid.
 
 /*
- * (24)
+ * (37)
  */
 checkentail x::arr_seg<6> & y=x+1 & z=y+4
            |- x::arr_seg<1> * y::int_arr_seg<1> * z::arr_seg<1>.
@@ -249,7 +357,7 @@ print residue.
 expect Valid.
 
 /*
- * (25)
+ * (38)
  */
 checkentail x::arr_seg<6> & y=x+2
            |- x::arr_seg<2> * y::int_arr_seg<1>.
@@ -259,7 +367,7 @@ expect Valid.
 /* existential lengths: start, middle, end */
 
 /*
- * (26)
+ * (39)
  */
 checkentail x::arr_seg<4*n+2> & y=x+4*n
            |- x::int_arr_seg<n> * y::arr_seg<2>.
@@ -267,7 +375,7 @@ print residue.
 expect Valid.
 
 /*
- * (27)
+ * (40)
  */
 checkentail x::arr_seg<4*n+2> & y=x+1 & z=y+4*n
            |- x::arr_seg<1> * y::int_arr_seg<n> * z::arr_seg<1>.
@@ -275,7 +383,7 @@ print residue.
 expect Valid.
 
 /*
- * (28)
+ * (41)
  */
 checkentail x::arr_seg<4*n+2> & y=x+2
            |- x::arr_seg<2> * y::int_arr_seg<n>.
@@ -289,7 +397,7 @@ expect Valid.
 /* concrete lengths: start, middle, end */
 
 /*
- * (29)
+ * (42)
  */
 checkentail x::arr_seg<6> & y=x+4
            |- x::arr_seg<4> * y::arr_seg<2>.
@@ -297,7 +405,7 @@ print residue.
 expect Valid.
 
 /*
- * (30)
+ * (43)
  */
 checkentail x::arr_seg<6> & y=x+1 & z=y+4
            |- x::arr_seg<1> * y::arr_seg<4> * z::arr_seg<1>.
@@ -305,7 +413,7 @@ print residue.
 expect Valid.
 
 /*
- * (31)
+ * (44)
  */
 checkentail x::arr_seg<6> & y=x+2
            |- x::arr_seg<2> * y::arr_seg<4>.
@@ -315,7 +423,7 @@ expect Valid.
 /* existential lengths: start, middle, end */
 
 /*
- * (32)
+ * (45)
  */
 checkentail x::arr_seg<n+2> & y=x+n
            |- x::arr_seg<n> * y::arr_seg<2>.
@@ -323,7 +431,7 @@ print residue.
 expect Valid.
 
 /*
- * (33)
+ * (46)
  */
 checkentail x::arr_seg<n+2> & y=x+1 & z=y+n
            |- x::arr_seg<1> * y::arr_seg<n> * z::arr_seg<1>.
@@ -331,7 +439,7 @@ print residue.
 expect Valid.
 
 /*
- * (34)
+ * (47)
  */
 checkentail x::arr_seg<n+2> & y=x+2
            |- x::arr_seg<2> * y::arr_seg<n>.
@@ -345,7 +453,7 @@ expect Valid.
 /* concrete lengths: start, middle, end */
 
 /*
- * (35)
+ * (48)
  */
 checkentail x::int_arr_seg<6> & y=x+4
            |- x::int_arr_seg<4> * y::int_arr_seg<2>.
@@ -353,7 +461,7 @@ print residue.
 expect Valid.
 
 /*
- * (36)
+ * (49)
  */
 checkentail x::int_arr_seg<6> & y=x+1 & z=y+4
            |- x::int_arr_seg<1> * y::int_arr_seg<4> * z::int_arr_seg<1>.
@@ -361,7 +469,7 @@ print residue.
 expect Valid.
 
 /*
- * (37)
+ * (50)
  */
 checkentail x::int_arr_seg<6> & y=x+2
            |- x::int_arr_seg<2> * y::int_arr_seg<4>.
@@ -371,7 +479,7 @@ expect Valid.
 /* existential lengths: start, middle, end */
 
 /*
- * (38)
+ * (51)
  */
 checkentail x::int_arr_seg<n+2> & y=x+n
            |- x::int_arr_seg<n> * y::int_arr_seg<2>.
@@ -379,7 +487,7 @@ print residue.
 expect Valid.
 
 /*
- * (39)
+ * (52)
  */
 checkentail x::int_arr_seg<n+2> & y=x+1 & z=y+n
            |- x::int_arr_seg<1> * y::int_arr_seg<n> * z::int_arr_seg<1>.
@@ -387,7 +495,7 @@ print residue.
 expect Valid.
 
 /*
- * (40)
+ * (53)
  */
 checkentail x::int_arr_seg<n+2> & y=x+2
            |- x::int_arr_seg<2> * y::int_arr_seg<n>.
@@ -400,7 +508,7 @@ expect Valid.
  **********************************/
 
 /*
- * (41) "type"
+ * (54) "type"
  */
 checkentail w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
            & x=w+1 & y=x+1 & z=y+1
@@ -409,7 +517,7 @@ print residue.
 expect Valid.
 
 /*
- * (42) "type", bad content, char
+ * (55) "type", bad content, char
  */
 checkentail w::ch_star<100> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
            & x=w+1 & y=x+1 & z=y+1
@@ -418,7 +526,7 @@ print residue.
 expect Fail_Must.
 
 /*
- * (43) "type", bad content, int
+ * (56) "type", bad content, int
  */
 checkentail w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
            & x=w+1 & y=x+1 & z=y+1
@@ -427,7 +535,7 @@ print residue.
 expect Fail_Must.
 
 /*
- * (44) "typecast"
+ * (57) "typecast"
  */
 checkentail s::ch_star<116> * t::ch_star<115> * u::ch_star<97> * v::ch_star<99> * w::ch_star<101> * x::ch_star<112> * y::ch_star<121> * z::ch_star<116>
            & t=s+1 & u=t+1 & v=u+1 & w=v+1 & x=w+1 & y=x+1 & z=y+1
