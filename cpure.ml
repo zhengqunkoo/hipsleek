@@ -14245,13 +14245,6 @@ and has_univ_rel_pure f0 =
   Debug.no_1 "has_univ_rel_pure" !print_formula string_of_bool
     has_univ_rel_pure_x f0
 
-and has_univ_star_rel_pure_x f0 =
-  has_rel_pure_x_with_name f0 "Univ_star"
-
-and has_univ_star_rel_pure f0 =
-  Debug.no_1 "has_univ_star_rel_pure" !print_formula string_of_bool
-    has_univ_star_rel_pure_x f0
-
 
 
 (*

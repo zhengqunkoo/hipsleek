@@ -269,6 +269,6 @@ expect Valid.
 /*
  * (31) case-split of program state `a::aseg_plus<a+10>`: case r<=a+10
  */
-checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 & Univ_star(r) |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
+checkentail a::aseg_plus<r> * r::aseg<a+10> & r<=a+10 |- a::aseg_plus<r> * r::int_star<c> * x::aseg<a+10> & x=r+1 & a<r & 6<=r-a<=8.
 print residue.
 expect Valid.
