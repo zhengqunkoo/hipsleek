@@ -1,0 +1,612 @@
+
+!!! **tpdispatcher.ml#492:init_tp by default: 
+!!! **tpdispatcher.ml#391:set_tp z3Starting z3... 
+
+!!! **WARNING****sleek.ml#494:[./prelude.slk,testcases/ex5c.slk]
+Starting Omega..../oc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(====)
+compute_pretty_actions@1
+compute_pretty_actions inp1 :[f| x::arr_seg<flted_306_285>@M & y=4+x & flted_306_285=5 |- x::int_arr_seg<flted_307_304>@M * y::arr_seg<flted_307_303>@M & flted_307_304=1 & flted_307_303=1|f]
+x::arr_seg<5>@M   |- x::int_arr_seg<1>@M * 4+x::arr_seg<1>@M  
+compute_pretty_actions@1 EXIT: SEARCH =>[
+  Prio:1
+  SEARCH =>[
+   Prio:1
+   (Lemma 0==> entail3&entail5) =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::int_arr_seg<flted_307_304>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: y::arr_seg<flted_307_303>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:1
+   (Lemma 0<== int2char_left_right) =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::int_arr_seg<flted_307_304>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: y::arr_seg<flted_307_303>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(====)
+compute_pretty_actions@2
+compute_pretty_actions inp1 :[f| x::arr_seg<flted_306_285>@M & flted_306_285=5 & y=4+x |- x::arr_seg<flted_16_310>@M & flted_16_310=4*flted_307_304|f]
+x::arr_seg<5>@M   |- x::arr_seg<4*flted_307_304>@M 
+compute_pretty_actions@2 EXIT: SEARCH =>[
+  Prio:1
+  SEARCH =>[
+   Prio:1
+   COND =>[
+    Prio:1
+    Match =>
+      Type: Root
+      LHS: x::arr_seg<flted_306_285>@M
+      RHS: x::arr_seg<flted_16_310>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [x,x]rhs_inst: []rhs_infer: None;
+    Prio:3
+    COND =>[
+     Prio:3
+     BaseCaseFold =>
+       Type: Root
+       LHS: x::arr_seg<flted_306_285>@M
+       RHS: x::arr_seg<flted_16_310>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [x,x]rhs_inst: []rhs_infer: None;
+     Prio:3
+     BaseCaseUnfold =>
+       Type: Root
+       LHS: x::arr_seg<flted_306_285>@M
+       RHS: x::arr_seg<flted_16_310>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [x,x]rhs_inst: []rhs_infer: None
+     ]
+     ];
+    Prio:1
+    (Lemma 0==> splitchar_left) =>
+      Type: Root
+      LHS: x::arr_seg<flted_306_285>@M
+      RHS: x::arr_seg<flted_16_310>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [x,x]rhs_inst: []rhs_infer: None;
+    Prio:1
+    (Lemma 0<== splitchar_left_right) =>
+      Type: Root
+      LHS: x::arr_seg<flted_306_285>@M
+      RHS: x::arr_seg<flted_16_310>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [x,x]rhs_inst: []rhs_infer: None
+    ]
+    ]
+
+(==solver.ml#12885==)
+do_match@3
+do_match inp1 : x::arr_seg<flted_306_285>@M
+do_match inp2 : x::arr_seg<flted_16_310>@M
+do_match inp3 :  emp&flted_306_285=5 & y=4+x&{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(x,x)
+do_match inp4 : emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@3 EXIT: MustErr Context: 
+   fe_kind: MUST
+   fe_name: logical bug
+   fe_locs: {
+     fc_message:  (((2<=flted_306_285 & x!=null) | (flted_306_285=1 & x!=null))) & 
+ flted_306_285=5 |-  exists(alpha:flted_306_285=4*alpha). LOCS:[0;306;1] (must-bug)
+     fc_current_lhs_flow: {FLOW,(20,21)=__norm#E}
+   }
+ [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(x,x)]]
+ CEX:false
+
+(====)
+compute_pretty_actions@4
+compute_pretty_actions inp1 :[f| x::arr_seg<a_315>@M * q_314::arr_seg<b_316>@M & flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x |- x::arr_seg<flted_16_310>@M & flted_16_310=4*flted_307_304|f]
+x::arr_seg<a_315>@M * q_314::arr_seg<b_316>@M  & a_315+x=q_314 & Univ(b_316) & Univ(a_315) &Univ(q_314) & b_316+a_315=5 & y=4+x |- x::arr_seg<4*flted_307_304>@M 
+compute_pretty_actions@4 EXIT: SEARCH =>[
+  Prio:0
+  COND =>[
+   Prio:0
+   Match =>
+     Type: Root
+     LHS: x::arr_seg<a_315>@M
+     RHS: x::arr_seg<flted_16_310>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<b_316>@M
+     rhs_rest: emp
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseFold =>
+     Type: Root
+     LHS: x::arr_seg<a_315>@M
+     RHS: x::arr_seg<flted_16_310>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<b_316>@M
+     rhs_rest: emp
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseUnfold =>
+     Type: Root
+     LHS: x::arr_seg<a_315>@M
+     RHS: x::arr_seg<flted_16_310>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<b_316>@M
+     rhs_rest: emp
+     alias set: [x,x]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(==solver.ml#12885==)
+do_match@5
+do_match inp1 : x::arr_seg<a_315>@M
+do_match inp2 : x::arr_seg<flted_16_310>@M
+do_match inp3 :  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x&{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_ivars: [b_316; a_315; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+do_match inp4 : emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@5 EXIT: [ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+  es_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_gen_impl_vars(E): []
+  es_heap(consumed): x::arr_seg<a_315>@M
+  es_ante_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_heap: x::arr_seg<a_315>@M
+  es_ivars: [b_316; q_314]
+  es_ante_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_subst (from,to): [a_315]:[flted_16_310]
+  es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)]
+
+(====)
+compute_pretty_actions@6
+compute_pretty_actions inp1 :[f| x::arr_seg<flted_306_285>@M & y=4+x & flted_306_285=5 |- x::arr_seg<a_326>@M * q_325::arr_seg<b_327>@M & flted_16_310=b_327+a_326 & a_326+x=q_325|f]
+x::arr_seg<5>@M   |- x::arr_seg<a_326>@M * q_325::arr_seg<b_327>@M  & a_326+x=q_325
+compute_pretty_actions@6 EXIT: SEARCH =>[
+  Prio:0
+  COND =>[
+   Prio:0
+   Match =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::arr_seg<a_326>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_325::arr_seg<b_327>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseFold =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::arr_seg<a_326>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_325::arr_seg<b_327>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseUnfold =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::arr_seg<a_326>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_325::arr_seg<b_327>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(====)
+compute_pretty_actions@8@7
+compute_pretty_actions inp1 :[f| emp & y=4+x & flted_306_285=5 |- q_325::arr_seg<b_327>@M & flted_16_310=b_327+flted_306_285 & flted_306_285+x=q_325
+|f]
+emp   |- q_325::arr_seg<b_327>@M & b_327+flted_306_285=b_327+5 & 5+x=q_325
+compute_pretty_actions@8 EXIT: SEARCH =>[
+  Prio:2
+  COND =>[
+   Prio:2
+   BaseCaseFold =>
+     Type: Root
+     LHS: emp
+     RHS: q_325::arr_seg<b_327>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: emp
+     alias set: []rhs_inst: []rhs_infer: None;
+   Prio:5
+   UnmatchedRHSData =>  q_325::arr_seg<b_327>@M
+   ]
+   ]
+
+(==solver.ml#12885==)
+do_match@7
+do_match inp1 : x::arr_seg<flted_306_285>@M
+do_match inp2 : x::arr_seg<a_326>@M
+do_match inp3 :  emp&y=4+x & flted_306_285=5&{FLOW,(20,21)=__norm#E}[]
+ es_evars: [b_327; a_326; q_325; flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+do_match inp4 : q_325::arr_seg<b_327>@M&
+flted_16_310=b_327+a_326 & a_326+x=q_325&
+{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@7 EXIT: MaybeErr Context: 
+   fe_kind: MAY
+   fe_name: separation entailment
+   fe_locs: {
+     fc_message: do_unmatched_rhs : q_325::arr_seg<b_327>@M(may)
+     fc_current_lhs_flow: {FLOW,(18,22)=__MayError#E}
+   }
+ [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  COND ==>  UnmatchedRHSData]]
+ CEX:false
+
+(====)
+compute_pretty_actions@9
+compute_pretty_actions inp1 :[f| q_314::arr_seg<b_316>@M & a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315 |- y::arr_seg<flted_307_303>@M & flted_307_304=1 & flted_307_303=1|f]
+q_314::arr_seg<b_316>@M & 4*flted_307_304=4*1   & Univ(q_314) &Univ(4*flted_307_304) & Univ(b_316) & 4*flted_307_304+x=q_314 & 5=b_316+4*flted_307_304 |- 4+x::arr_seg<1>@M  
+compute_pretty_actions@9 EXIT: SEARCH =>[
+  Prio:1
+  SEARCH =>[
+   Prio:1
+   COND =>[
+    Prio:1
+    Match =>
+      Type: Root
+      LHS: q_314::arr_seg<b_316>@M
+      RHS: y::arr_seg<flted_307_303>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+    Prio:3
+    COND =>[
+     Prio:3
+     BaseCaseFold =>
+       Type: Root
+       LHS: q_314::arr_seg<b_316>@M
+       RHS: y::arr_seg<flted_307_303>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+     Prio:3
+     BaseCaseUnfold =>
+       Type: Root
+       LHS: q_314::arr_seg<b_316>@M
+       RHS: y::arr_seg<flted_307_303>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [q_314,y]rhs_inst: []rhs_infer: None
+     ]
+     ];
+    Prio:1
+    (Lemma 0==> splitchar_left) =>
+      Type: Root
+      LHS: q_314::arr_seg<b_316>@M
+      RHS: y::arr_seg<flted_307_303>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+    Prio:1
+    (Lemma 0<== splitchar_left_right) =>
+      Type: Root
+      LHS: q_314::arr_seg<b_316>@M
+      RHS: y::arr_seg<flted_307_303>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [q_314,y]rhs_inst: []rhs_infer: None
+    ]
+    ]
+
+(==solver.ml#12885==)
+do_match@10
+do_match inp1 : q_314::arr_seg<b_316>@M
+do_match inp2 : y::arr_seg<flted_307_303>@M
+do_match inp3 :  emp&
+a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_subst (from,to): [a_315]:[flted_16_310]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(q_314,y)
+do_match inp4 : emp&flted_307_304=1 & flted_307_303=1&{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@10 EXIT: [ emp&
+a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315&
+{FLOW,(20,21)=__norm#E}[]
+  es_evars: [flted_307_303; flted_307_304]
+  es_gen_impl_vars(E): []
+  es_heap(consumed): q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+  es_ante_evars: [flted_307_303; flted_307_304]
+  es_heap: q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+  es_ante_evars: [flted_307_303; flted_307_304]
+  es_subst (from,to): [a_315; flted_307_303]:[flted_16_310; b_316]
+  es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(q_314,y)]
+
+(====)
+compute_pretty_actions@11
+compute_pretty_actions inp1 :[f| q_314::arr_seg<a_315>@M * q_316::arr_seg<b_314>@M & b_316=b_314+a_315 & a_315+q_314=q_316 & Univ(b_314) & Univ(a_315) & 
+ Univ(q_316) & a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & 
+ Univ(q_314) & Univ(a_315) & Univ(b_316) & a_315+x=q_314 & 
+ flted_306_285=b_316+a_315 |- y::arr_seg<flted_307_303>@M & flted_307_304=1 & flted_307_303=1|f]
+q_314::arr_seg<a_315>@M * q_316::arr_seg<b_314>@M  & a_315+q_314=q_316 & Univ(b_314) & Univ(a_315) &Univ(q_316) & a_315=4*1 & y=4+x & flted_306_285=5 &Univ(q_314) & Univ(a_315) & Univ(b_314+a_315) & a_315+x=q_314 &flted_306_285=b_314+a_315+a_315 |- y::arr_seg<1>@M  
+compute_pretty_actions@11 EXIT: SEARCH =>[
+  Prio:2
+  COND =>[
+   Prio:2
+   BaseCaseFold =>
+     Type: Root
+     LHS: emp
+     RHS: y::arr_seg<flted_307_303>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<a_315>@M * q_316::arr_seg<b_314>@M
+     rhs_rest: emp
+     alias set: []rhs_inst: []rhs_infer: None;
+   Prio:5
+   UnmatchedRHSData =>  y::arr_seg<flted_307_303>@M
+   ]
+   ]
+
+(====)
+compute_pretty_actions@12
+compute_pretty_actions inp1 :[f| q_314::arr_seg<b_316>@M & flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 |- y::arr_seg<a_325>@M * q_326::arr_seg<b_324>@M & flted_307_303=b_324+a_325 & a_325+y=q_326|f]
+q_314::arr_seg<b_316>@M  & a_315+x=q_314 & Univ(b_316) & Univ(a_315) &Univ(q_314) & b_316+a_315=5 & y=4+x & a_315=4*flted_307_304 |- y::arr_seg<a_325>@M * q_326::arr_seg<b_324>@M  & a_325+y=q_326
+compute_pretty_actions@12 EXIT: SEARCH =>[
+  Prio:0
+  COND =>[
+   Prio:0
+   Match =>
+     Type: Root
+     LHS: q_314::arr_seg<b_316>@M
+     RHS: y::arr_seg<a_325>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_326::arr_seg<b_324>@M
+     alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseFold =>
+     Type: Root
+     LHS: q_314::arr_seg<b_316>@M
+     RHS: y::arr_seg<a_325>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_326::arr_seg<b_324>@M
+     alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseUnfold =>
+     Type: Root
+     LHS: q_314::arr_seg<b_316>@M
+     RHS: y::arr_seg<a_325>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_326::arr_seg<b_324>@M
+     alias set: [q_314,y]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(====)
+compute_pretty_actions@14@13
+compute_pretty_actions inp1 :[f| emp & flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 |- q_326::arr_seg<b_324>@M & flted_307_303=b_324+b_316 & b_316+y=q_326|f]
+emp  & a_315+x=q_314 & Univ(b_316) & Univ(a_315) &Univ(q_314) & b_316+a_315=5 & y=4+x & a_315=4*flted_307_304 |- q_326::arr_seg<b_324>@M  & b_316+y=q_326
+compute_pretty_actions@14 EXIT: SEARCH =>[
+  Prio:2
+  COND =>[
+   Prio:2
+   BaseCaseFold =>
+     Type: Root
+     LHS: emp
+     RHS: q_326::arr_seg<b_324>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: emp
+     alias set: []rhs_inst: []rhs_infer: None;
+   Prio:5
+   UnmatchedRHSData =>  q_326::arr_seg<b_324>@M
+   ]
+   ]
+
+(==solver.ml#12885==)
+do_match@13
+do_match inp1 : q_314::arr_seg<b_316>@M
+do_match inp2 : y::arr_seg<a_325>@M
+do_match inp3 :  emp&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [b_324; a_325; q_326; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(q_314,y)) ==>  SEARCH ==>  COND ==>  Match(q_314,y)
+do_match inp4 : q_326::arr_seg<b_324>@M&flted_307_303=b_324+a_325 & a_325+y=q_326&
+{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@13 EXIT: MaybeErr Context: 
+   fe_kind: MAY
+   fe_name: separation entailment
+   fe_locs: {
+     fc_message: do_unmatched_rhs : q_326::arr_seg<b_324>@M(may)
+     fc_current_lhs_flow: {FLOW,(18,22)=__MayError#E}
+   }
+ [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(q_314,y)) ==>  SEARCH ==>  COND ==>  Match(q_314,y) ==>  SEARCH ==>  COND ==>  UnmatchedRHSData]]
+ CEX:false
+
+Entail 32: Valid. 
+
+Residue:
+
+ <1>[f|emp&y=x+4 & Univ(q_314) & Univ(a_315) & Univ(b_316)&{FLOW,(20,21)=__norm#E}[]|f]
+emp & Univ(q_314) & Univ(a_315) & Univ(b_316)
+[[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(q_314,y)]]
+
+
+Validate 32: OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Stop z3... 97 invocations 
+Stop Omega... 94 invocations 
+SAT Count   : 171
+SAT % Hit   : 64.32%
+IMPLY Count : 55
+IMPLY % Hit : 34.54%
+Time(cache overhead) : 0.091815 (seconds)
+
+0 false contexts at: ()
+
+!!! log(small):(0.977548,326)
+!!! 
+ log(bigger)(>4s)(1):(5.,[(simplify:310<15:Z3,5.)])
+Total verification time: 0.68298 second(s)
+	Time spent in main process: 0.53368 second(s)
+	Time spent in child processes: 0.1493 second(s)
+
