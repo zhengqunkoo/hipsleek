@@ -1,0 +1,2244 @@
+
+!!! **tpdispatcher.ml#492:init_tp by default: 
+!!! **tpdispatcher.ml#391:set_tp z3Starting z3... 
+
+!!! **WARNING****sleek.ml#494:[./prelude.slk,testcases/ex5c.slk]
+Starting Omega..../oc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(==solver.ml#11634==)
+compute_actions@1
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: x::arr_seg<flted_306_285>@M
+compute_actions inp3 :LHS pure: y=4+x & flted_306_285=5
+compute_actions inp4 :RHS cand:[ x::int_arr_seg<flted_307_304>@M, y::arr_seg<flted_307_303>@M]
+compute_actions inp5 :RHS pure: flted_307_304=1 & flted_307_303=1
+compute_actions inp6 :right alias:[flted_307_303,flted_307_304]
+compute_actions@1 EXIT: SEARCH =>[
+  Prio:1
+  SEARCH =>[
+   Prio:1
+   (Lemma 0==> entail3&entail5) =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::int_arr_seg<flted_307_304>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: y::arr_seg<flted_307_303>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:1
+   (Lemma 0<== int2char_left_right) =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::int_arr_seg<flted_307_304>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: y::arr_seg<flted_307_303>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(==solver.ml#11634==)
+compute_actions@2
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: x::arr_seg<flted_306_285>@M
+compute_actions inp3 :LHS pure: flted_306_285=5 & y=4+x
+compute_actions inp4 :RHS cand:[ x::arr_seg<flted_16_310>@M]
+compute_actions inp5 :RHS pure: flted_16_310=4*flted_307_304
+compute_actions inp6 :right alias:[flted_16_310,flted_307_303,flted_307_304]
+compute_actions@2 EXIT: SEARCH =>[
+  Prio:1
+  SEARCH =>[
+   Prio:1
+   COND =>[
+    Prio:1
+    Match =>
+      Type: Root
+      LHS: x::arr_seg<flted_306_285>@M
+      RHS: x::arr_seg<flted_16_310>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [x,x]rhs_inst: []rhs_infer: None;
+    Prio:3
+    COND =>[
+     Prio:3
+     BaseCaseFold =>
+       Type: Root
+       LHS: x::arr_seg<flted_306_285>@M
+       RHS: x::arr_seg<flted_16_310>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [x,x]rhs_inst: []rhs_infer: None;
+     Prio:3
+     BaseCaseUnfold =>
+       Type: Root
+       LHS: x::arr_seg<flted_306_285>@M
+       RHS: x::arr_seg<flted_16_310>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [x,x]rhs_inst: []rhs_infer: None
+     ]
+     ];
+    Prio:1
+    (Lemma 0==> splitchar_left) =>
+      Type: Root
+      LHS: x::arr_seg<flted_306_285>@M
+      RHS: x::arr_seg<flted_16_310>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [x,x]rhs_inst: []rhs_infer: None;
+    Prio:1
+    (Lemma 0<== splitchar_left_right) =>
+      Type: Root
+      LHS: x::arr_seg<flted_306_285>@M
+      RHS: x::arr_seg<flted_16_310>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [x,x]rhs_inst: []rhs_infer: None
+    ]
+    ]
+
+(==solver.ml#12885==)
+do_match@3
+do_match inp1 : x::arr_seg<flted_306_285>@M
+do_match inp2 : x::arr_seg<flted_16_310>@M
+do_match inp3 :  emp&flted_306_285=5 & y=4+x&{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(x,x)
+do_match inp4 : emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@3 EXIT: MustErr Context: 
+   fe_kind: MUST
+   fe_name: logical bug
+   fe_locs: {
+     fc_message:  (((2<=flted_306_285 & x!=null) | (flted_306_285=1 & x!=null))) & 
+ flted_306_285=5 |-  exists(alpha:flted_306_285=4*alpha). LOCS:[0;306;1] (must-bug)
+     fc_current_lhs_flow: {FLOW,(20,21)=__norm#E}
+   }
+ [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(x,x)]]
+ CEX:false
+
+(==solver.ml#11634==)
+compute_actions@4
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: x::arr_seg<a_315>@M * q_314::arr_seg<b_316>@M
+compute_actions inp3 :LHS pure: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x
+compute_actions inp4 :RHS cand:[ x::arr_seg<flted_16_310>@M]
+compute_actions inp5 :RHS pure: flted_16_310=4*flted_307_304
+compute_actions inp6 :right alias:[flted_16_310,flted_307_303,flted_307_304]
+compute_actions@4 EXIT: SEARCH =>[
+  Prio:0
+  COND =>[
+   Prio:0
+   Match =>
+     Type: Root
+     LHS: x::arr_seg<a_315>@M
+     RHS: x::arr_seg<flted_16_310>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<b_316>@M
+     rhs_rest: emp
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseFold =>
+     Type: Root
+     LHS: x::arr_seg<a_315>@M
+     RHS: x::arr_seg<flted_16_310>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<b_316>@M
+     rhs_rest: emp
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseUnfold =>
+     Type: Root
+     LHS: x::arr_seg<a_315>@M
+     RHS: x::arr_seg<flted_16_310>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<b_316>@M
+     rhs_rest: emp
+     alias set: [x,x]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+@5! **context.ml#1375:hole flag:false
+@5! **solver.ml#10665:subst:[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_16_310]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_16_117,0),1),flted_16_310)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!**solver.ml#10671:do_match: using  x::arr_seg<a_315>@M to prove  x::arr_seg<flted_16_310>@M
+@5! **solver.ml#10683:[LHS,RHS]:[x,x]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5!**solver.ml#10684:do_match: source LHS:   q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_ivars: [b_316; a_315; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5!**solver.ml#10685:do_match: source RHS:  emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#10686:es_aux_conseq: true
+@5! **solver.ml#10687:es_rhs_pure:Some( flted_307_304=1 & flted_307_303=1)
+@5! **solver.ml#10688:es_aux_pure_lemma: true
+@5! **solver.ml#10689:es_aux_xpure_1: true
+@5! **solver.ml#10697:l_args(do match):[a_315]
+@5! **solver.ml#10698:r_args(do match):[flted_16_310]
+@5! **solver.ml#10783:add_to_lhs:[]
+@5! **solver.ml#10784:add_to_rhs:[]
+@5! **solver.ml#10785:Imm annotation mismatch (node lvl):false
+@5! **solver.ml#10792:param_ann_lhs:[]
+@5! **solver.ml#10793:param_ann_rhs:[]
+@5! **solver.ml#10794:Imm annotation mismatch (field lvl):false
+@5! **solver.ml#10812:l_args_ann:[]
+@5! **solver.ml#10813:r_args_ann:[]
+@5! **solver.ml#10817:view_param_ann_lhs:None
+@5! **solver.ml#10818:view_param_ann_rhs:None
+@5! **solver.ml#10819:Imm annotation mismatch (view param):false
+@5! **solver.ml#10820:r,rvl:(true,true)
+@5! **solver.ml#10827:ann_lhs:None
+@5! **solver.ml#10828:ann_rhs:None
+@5! **solver.ml#10829:Imm annotation mismatch:false
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#10840:l_h: q_314::arr_seg<b_316>@M
+@5! **solver.ml#10843:restore_hole_b:true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#10873:l_h: q_314::arr_seg<b_316>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#10874:estate:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_ivars: [b_316; a_315; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **solver.ml#10876:r_h: emp
+@5! **solver.ml#10979:evars:[flted_16_310,flted_307_303,flted_307_304]
+@5! **solver.ml#10980:ivars:[b_316,a_315,q_314]
+@5! **solver.ml#10981:expl_vars:[]
+@5! **solver.ml#10982:impl_vars:[]
+@5! **solver.ml#10983:glob_vs:[]
+@5! **solver.ml#10988:l_args:[a_315]
+@5! **solver.ml#10989:r_args:[flted_16_310]
+@5! **solver.ml#10263:impl_vars:[]
+@5! **solver.ml#10264:glob_vs:[]
+@5! **solver.ml#10266:to_conseq(glob):[]
+@5! **solver.ml#10267:impl_inst(subs):[]
+@5! **solver.ml#10268:ex_subs:[(flted_16_310,a_315)]
+@5! **solver.ml#10350:rho_0:[(flted_16_310,a_315)]
+@5! **solver.ml#10351:to_ante: true
+@5! **solver.ml#10352:to_conseq: true
+@5! **solver.ml#11019: impl_vars: :[]
+@5!:0: 0: **solver.ml#11029:other subs:[]
+@5! **solver.ml#11077:other_subs(b4 filter):[]
+@5! **solver.ml#11085:other_subs:[]
+@5! **solver.ml#11097:to_rhs(bef ann): true
+@5! **solver.ml#11098:to_lhs(bef ann): true
+@5! **solver.ml#11099:ext_subst(bef ann):[]
+@5! **solver.ml#11105:to_rhs: true
+@5! **solver.ml#11111:to_lhs: true
+@5! **solver.ml#11141:to_rhs, before adding: true
+@5!:0: 0: **tpdispatcher.ml#3705:get_univs_from_ante:[q_314,a_315,b_316]
+@5!:0: 0: **solver.ml#11154:univ_vs:[q_314,a_315,b_316]
+@5!:0: 0: **solver.ml#11155:to_lhs: true
+@5!:0: 0: **solver.ml#11156:to_rhs: true
+@5!:0: 0: **solver.ml#11157:p_ante: true
+@5!:0: 0: **solver.ml#11158:pure_new_ante_p: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x
+@5!:0: 0: **solver.ml#11159:pure_new_conseq_p: flted_16_310=4*flted_307_304
+@5!:0: 0: **solver.ml#11162:pure_new_conseq_p (after univ subs): a_315=4*flted_307_304
+@5!:0: 0: **solver.ml#11163:ext_subst:[]
+@5! **solver.ml#11165:e_subs:[(a_315,flted_16_310)]
+@5!:0: 0: **solver.ml#11171:do_match: Processing univ instantiation
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#11199:l_h: q_314::arr_seg<b_316>@M
+@5!:0: 0: **solver.ml#11201:TODO: process early univ instantiation
+@5!:0: 0: **solver.ml#11202:=========================================
+@5!:0: 0: **solver.ml#11203:univ_vs:[q_314,a_315,b_316]
+@5!:0: 0: **solver.ml#11204:to_lhs: true
+@5!:0: 0: **solver.ml#11205:p_ante: true
+@5!:0: 0: **solver.ml#11206:new_ante_p: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x
+@5!:0: 0: **solver.ml#11207:new_conseq_p2: true
+@5!:0: 0: **solver.ml#11208:conseq_univ: a_315=4*flted_307_304
+@5!:0: 0: **tpdispatcher.ml#3732:Processing univ instantiation
+@5!:0: 0: **tpdispatcher.ml#3733:univ var:[q_314,a_315,b_316]
+@5!:0: 0: **tpdispatcher.ml#3734:ante0: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x
+@5!:0: 0: **tpdispatcher.ml#3735:conseq0: a_315=4*flted_307_304
+@5!:0: 0: **tpdispatcher.ml#3737:prev_inst: true
+@5!:0: 0: **tpdispatcher.ml#3740:ante1 (aftre filter inv): flted_306_285=b_316+a_315 & a_315+x=q_314 &
+flted_306_285=5 & y=4+x
+@5! **cpure.ml#2981:vs(mkExists):[q_314,a_315,b_316]
+@5! **cpure.ml#2982:vs(filtered rel type):[q_314,a_315,b_316]
+@5!:0: 0: **tpdispatcher.ml#3745:new_conseq: exists(q_314:exists(a_315:exists(b_316:flted_306_285=b_316+a_315 & 
+                                        a_315+x=q_314 & flted_306_285=5 & 
+                                        y=4+x & a_315=4*flted_307_304)))
+@5! **cpure.ml#2981:vs(mkExists):[b_316]
+@5! **cpure.ml#2982:vs(filtered rel type):[b_316]
+@5! **cpure.ml#2981:vs(mkExists):[b_316]
+@5! **cpure.ml#2982:vs(filtered rel type):[b_316]
+@5! **cpure.ml#2981:vs(mkExists):[b_316]
+@5! **cpure.ml#2982:vs(filtered rel type):[b_316]
+@5! **cpure.ml#2981:vs(mkExists):[q_314]
+@5! **cpure.ml#2982:vs(filtered rel type):[q_314]
+@5! **omega.ml#901:simplify_ops_x(after trans_arr)::
+ exists(q_314:flted_306_285=5 & y=4+x & 
+              exists(b_316:flted_306_285=b_316+(4*flted_307_304) & 
+                           (4*flted_307_304)+x=q_314))
+@5! **omega.ml#454:omega inp:{[y, flted_306_285, flted_307_304, x] : ( (exists (q_314:(((flted_306_285 = 5) & (y = 4 + x)) &  (exists (b_316:((flted_306_285 = b_316 + 4(flted_307_304)) & (4(flted_307_304) + x = q_314)))) ))) )};
+
+@5! **omega.ml#461:omega out:{[y,5,flted_307_304,y-4]}
+@5! **omega.ml#454:omega inp:pairwisecheck {[flted_306_285, x, y] : (((flted_306_285 = 5) & (x + 4 = y)))};
+
+@5! **omega.ml#461:omega out:{[5,x,x+4]}
+@5!:0: 0: **tpdispatcher.ml#3548:ante 1: : flted_306_285=b_316+a_315 & a_315+x=q_314 & flted_306_285=5 & y=4+x
+@5!:0: 0: **tpdispatcher.ml#3554:ante 3: : flted_306_285=b_316+a_315 & a_315+x=q_314 &
+flted_306_285=5 & y=4+x
+@5!:0: 0: **tpdispatcher.ml#3556:ante 4: : flted_306_285=b_316+a_315 & a_315+x=q_314 &
+flted_306_285=5 & y=4+x
+@5!:0: 0: **tpdispatcher.ml#3341:IMP #210
+@5!:0: 0: **tpdispatcher.ml#3342:imply_timeout: ante:  flted_306_285=b_316+a_315 & a_315+x=q_314 & 
+flted_306_285=5 & y=4+x
+@5!:0: 0: **tpdispatcher.ml#3343:imply_timeout: conseq:  flted_306_285=5 & y=x+4
+@5! **tpdispatcher.ml#1424:Ann Vars:[]
+@5! **tpdispatcher.ml#1425:Inv: flted_306_285=b_316+a_315 & a_315+x=q_314 &
+ flted_306_285=5 & y=4+x
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=b_316+a_315
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315+x=q_314
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=5
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): y=4+x
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=5 & y=x+4
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **tpdispatcher.ml#3583:res: :true
+@5!:0: 0: **tpdispatcher.ml#3747:imply_timeout_univ: b :true
+@5!:0: 0: **solver.ml#11211:outcome:true
+@5!:0: 0: **solver.ml#11233:tmp_conseq: emp&{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5!:0: 0: **solver.ml#11234:new_ante 00:
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5!**solver.ml#11247: tmp_conseq:  emp
+@5!**solver.ml#11256: new_conseq:  emp
+@5! **solver.ml#11274:r_ann:@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#11547:consumed_h: x::arr_seg<a_315>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#11548:new_consumed: x::arr_seg<a_315>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#11549:new_ante:
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#11550:new_conseq: emp&{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#11568:new_es:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#11573:do_match (after): LHS:   q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5!:0: 0: **solver.ml#11574:do_match (after): RHS: emp&{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#7624:heap_entail_conjunct:
+context:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+conseq:
+ emp&{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#7657:heap_entail_conjunct_helper:
+context:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+conseq:
+ emp&{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#7662:ctx0.es_heap bef: x::arr_seg<a_315>@M
+@5! **solver.ml#7671:heap_entail_conjunct_helper conseq: emp&{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#7681:ctx0.es_heap after: x::arr_seg<a_315>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5!:0: 0: **solver.ml#7778:entail_conjunct h1: q_314::arr_seg<b_316>@M
+@5!:0: 0: **solver.ml#7779:entail_conjunct h2: emp
+@5!:0: 0: **solver.ml#7780:entail_conjunct p1: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5!:0: 0: **solver.ml#7781:entail_conjunct p2: true
+@5! **solver.ml#7786:rhs_pure: true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#7794:estate:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5!:0: 0: **solver.ml#7799:p1: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5!:0: 0: **solver.ml#7809:p1(after xpure_perm): flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#7897:heap_entail_conjunct_helper: conseq has an empty heap component
+context:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+conseq:
+ emp&{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#7904:!rhs_rest_emp:true
+@5! **solver.ml#7905:is_folding:true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#7940:h1: : q_314::arr_seg<b_316>@M
+@5! **solver.ml#7941:h2: : emp
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#7943:base_lhs :
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#8051:h1: : q_314::arr_seg<b_316>@M
+@5! **solver.ml#8052:h2: : emp
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#8053:prep_h1: : q_314::arr_seg<b_316>@M
+@5! **solver.ml#8054:rhs_rest_emp: :true
+@5! **solver.ml#8055:is_folding: :true
+@5! **solver.ml#8056:(check_is_classic ()):false
+@5! **solver.ml#8057:is_rhs_emp:false
+@5! **solver.ml#8058:
+
+@5! **solver.ml#8060:conseq: emp&{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#8717:first if-else
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#8601:lhs:
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#8602:conseq: emp&{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#8603:classic_flag:false
+@5! **solver.ml#8605:(check_is_classic ()):false
+@5! **solver.ml#8624:XXXX(hp_rel):[]
+@5! **solver.ml#8639:is_not_lhs_emp:false
+@5! **solver.ml#8640:h2 = HEmp && (check_is_classic ())  && not(is_folding):false
+@5! **solver.ml#8652:else ..Need to normalize h2 : emp
+@5! **solver.ml#8653:TODO : not set classic_flag:false
+@5! **solver.ml#8654:h2: emp
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8655:estate_orig1: ex_formula : q_314::arr_seg<b_316>@M&flted_306_285=b_316+a_315 & 
+                                      a_315+x=q_314 & Univ(b_316) & 
+                                      Univ(a_315) & Univ(q_314) & 
+                                      flted_306_285=5 & y=4+x & 
+                                      a_315=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+ es_heap:x::arr_seg<a_315>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#8656:lhs1:
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#8671:not HTrue branch?
+@5! **solver.ml#8731:lhs_p(0): flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **solver.ml#8735:lhs_p(1): flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **solver.ml#8765:lhs_p(2): flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **solver.ml#8780:rhs_p: true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#8781:lhs_h: q_314::arr_seg<b_316>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8782:estate_orig.es_heap: x::arr_seg<a_315>@M
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8803:curr_lhs_h: q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+@5! **solver.ml#8804:lhs_p: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8806:estate_orig:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8807:curr_lhs_h0: q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cvutil.ml#1372:elim_abs (pure): true
+@5! **cvutil.ml#575:pure f: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **cvutil.ml#576:evars:[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cvutil.ml#862:f:#VN2# q_314::arr_seg<b_316>@M
+@5! **cast.ml#1707:c= :arr_seg
+@5! **cast.ml#1720:look_up_view_baga: baga= :Some([([self], 1<=n)])
+@5! **cast.ml#1721:baga ex vars= :[]
+@5! **cast.ml#1725:from_svs:[self,n]
+@5! **cast.ml#1726:to_svs:[q_314,b_316]
+@5! **cast.ml#1735:baga (subst)= :[([q_314], 1<=b_316)]
+@5! **cast.ml#1693:add_epure(1) = :[([q_314], 1<=b_316)]
+@5! **excore.ml#722:Omega mk_star_disj:start 78 invocations
+@5! **excore.ml#726:Omega mk_star_disj:end 78 invocations
+@5! **cast.ml#1695:add_epure(2) = :[([q_314], flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 1<=b_316)]
+@5!:0: 0: **tpdispatcher.ml#2118:SAT #211
+@5!:0: 0: **tpdispatcher.ml#2119: q_314=1 & flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & 
+ Univ(a_315) & Univ(q_314) & flted_306_285=5 & y=4+x & 
+ a_315=4*flted_307_304 & 1<=b_316
+@5! **cpure.ml#11497:var_info [(q_314,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1),(b_316,-1),(a_315,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(x,1),(q_314,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(y,1),(x,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(flted_307_304,-4)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11525:res_list[(4,5),(2,1)]
+@5! **cpure.ml#11678:em emap[{__CONST_Int_1,q_314};{__CONST_Int_5,flted_306_285}]
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5!:0: 0: **smtsolver.ml#225:f(smt): q_314=1
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=b_316+a_315
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315+x=q_314
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(b_316)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(a_315)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(q_314)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=5
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): y=4+x
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315=4*flted_307_304
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): 1<=b_316
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): false
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5! **cast.ml#1698:add_epure (res) = :[([q_314], flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 1<=b_316)]
+@5! **cast.ml#1737:baga (filtered)= :[([q_314], flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 1<=b_316)]
+@5! **cast.ml#1740:baga (hulled)= :[q_314]
+@5! **cvutil.ml#924:baga(view_node):[q_314]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cvutil.ml#862:f:#VN2# x::arr_seg<a_315>@M
+@5! **cast.ml#1707:c= :arr_seg
+@5! **cast.ml#1720:look_up_view_baga: baga= :Some([([self], 1<=n)])
+@5! **cast.ml#1721:baga ex vars= :[]
+@5! **cast.ml#1725:from_svs:[self,n]
+@5! **cast.ml#1726:to_svs:[x,a_315]
+@5! **cast.ml#1735:baga (subst)= :[([x], 1<=a_315)]
+@5! **cast.ml#1693:add_epure(1) = :[([x], 1<=a_315)]
+@5! **excore.ml#722:Omega mk_star_disj:start 78 invocations
+@5! **excore.ml#726:Omega mk_star_disj:end 78 invocations
+@5! **cast.ml#1695:add_epure(2) = :[([x], flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 1<=a_315)]
+@5!:0: 0: **tpdispatcher.ml#2118:SAT #212
+@5!:0: 0: **tpdispatcher.ml#2119: x=1 & flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & 
+ Univ(a_315) & Univ(q_314) & flted_306_285=5 & y=4+x & 
+ a_315=4*flted_307_304 & 1<=a_315
+@5! **cpure.ml#11497:var_info [(x,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1),(b_316,-1),(a_315,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(x,1),(q_314,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(y,1),(x,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(flted_307_304,-4)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11525:res_list[(0,5),(4,5),(1,1)]
+@5! **cpure.ml#11678:em emap[{__CONST_Int_1,x};{__CONST_Int_5,flted_306_285,y}]
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5!:0: 0: **smtsolver.ml#225:f(smt): x=1
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=b_316+a_315
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315+x=q_314
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(b_316)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(a_315)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(q_314)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=5
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): y=4+x
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315=4*flted_307_304
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): 1<=a_315
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): false
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5! **cast.ml#1698:add_epure (res) = :[([x], flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 1<=a_315)]
+@5! **cast.ml#1737:baga (filtered)= :[([x], flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 1<=a_315)]
+@5! **cast.ml#1740:baga (hulled)= :[x]
+@5! **cvutil.ml#924:baga(view_node):[x]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cvutil.ml#1374:h0: q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+@5! **cvutil.ml#1376:memset: [[q_314,x]]
+@5! **cpure.ml#15382:lst_sv:[?]
+@5! **cpure.ml#15383:lst:[?]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cvutil.ml#1052:vdecl:
+ view arr_seg{}[]<n:int>= 
+  view_domains: 
+   view arr_seg<n:int>= 
+    EList
+      :EBase 
+         exists (Impl)[Anon_12](* lbl: *){2}->self::ch_star<Anon_12>@M&n=1&
+         {FLOW,(1,26)=__flow#E}[]
+      || :EBase 
+            exists (Impl)[Anon_13; 
+            q](* lbl: *){3}->(exists flted_6_41: (* lbl: *){3}->self::ch_star<Anon_13>@M * 
+                                                                q::arr_seg<flted_6_41>@M&
+            flted_6_41+1=n & q=1+self & 1<n&{FLOW,(1,26)=__flow#E}[])
+      
+  view vars: n
+  ann vars (0 - not a posn): (@M,0)
+  cont vars: 
+  unstructured formula: (* lbl: *){2}->(exists Anon_12: (* lbl: *){2}->
+                        self::ch_star<Anon_12>@M&n=1&
+                        {FLOW,(1,26)=__flow#E}[])|| (* lbl: *){3}->(exists flted_6_41,
+                                                    Anon_13,
+                                                    q: (* lbl: *){3}->
+                                                    self::ch_star<Anon_13>@M * 
+                                                    q::arr_seg<flted_6_41>@M&
+                                                    flted_6_41+1=n & 
+                                                    q=1+self & 1<n&
+                                                    {FLOW,(1,26)=__flow#E}[])
+  inv: 1<=n
+  
+  baga over inv: [([], 1<=n)]
+  baga over inv (unfolded): [([self], 1<=n)]
+  
+  xform: ((2<=n & self!=null) | (n=1 & self!=null))
+  is_recursive?: true
+  same_xpure?: NO
+  view_data_name: ch_star
+  
+  type_of_self: 
+  Some()
+  actual_root: 
+  Nonematerialized vars: [(self,full,[])]
+  addr vars: self
+  bag of addr: self
+  
+  
+@5! **cvutil.ml#1091:vinv: ((2<=n & self!=null) | (n=1 & self!=null))
+@5! **cvutil.ml#1092:from_svs:[self,n]
+@5! **cvutil.ml#1093:to_svs:[q_314,b_316]
+@5! **cvutil.ml#1094:ex_svs:[]
+@5! **cpure.ml#15382:lst_sv:[?]
+@5! **cpure.ml#15383:lst:[?]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cvutil.ml#1052:vdecl:
+ view arr_seg{}[]<n:int>= 
+  view_domains: 
+   view arr_seg<n:int>= 
+    EList
+      :EBase 
+         exists (Impl)[Anon_12](* lbl: *){2}->self::ch_star<Anon_12>@M&n=1&
+         {FLOW,(1,26)=__flow#E}[]
+      || :EBase 
+            exists (Impl)[Anon_13; 
+            q](* lbl: *){3}->(exists flted_6_41: (* lbl: *){3}->self::ch_star<Anon_13>@M * 
+                                                                q::arr_seg<flted_6_41>@M&
+            flted_6_41+1=n & q=1+self & 1<n&{FLOW,(1,26)=__flow#E}[])
+      
+  view vars: n
+  ann vars (0 - not a posn): (@M,0)
+  cont vars: 
+  unstructured formula: (* lbl: *){2}->(exists Anon_12: (* lbl: *){2}->
+                        self::ch_star<Anon_12>@M&n=1&
+                        {FLOW,(1,26)=__flow#E}[])|| (* lbl: *){3}->(exists flted_6_41,
+                                                    Anon_13,
+                                                    q: (* lbl: *){3}->
+                                                    self::ch_star<Anon_13>@M * 
+                                                    q::arr_seg<flted_6_41>@M&
+                                                    flted_6_41+1=n & 
+                                                    q=1+self & 1<n&
+                                                    {FLOW,(1,26)=__flow#E}[])
+  inv: 1<=n
+  
+  baga over inv: [([], 1<=n)]
+  baga over inv (unfolded): [([self], 1<=n)]
+  
+  xform: ((2<=n & self!=null) | (n=1 & self!=null))
+  is_recursive?: true
+  same_xpure?: NO
+  view_data_name: ch_star
+  
+  type_of_self: 
+  Some()
+  actual_root: 
+  Nonematerialized vars: [(self,full,[])]
+  addr vars: self
+  bag of addr: self
+  
+  
+@5! **cvutil.ml#1091:vinv: ((2<=n & self!=null) | (n=1 & self!=null))
+@5! **cvutil.ml#1092:from_svs:[self,n]
+@5! **cvutil.ml#1093:to_svs:[x,a_315]
+@5! **cvutil.ml#1094:ex_svs:[]
+@5! **solver.ml#8827:used seq_number2:0
+@5! **solver.ml#8846:xpure_lhs_h1:
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8847:xpure_lhs_h1_sym:
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8848:diff_flag:false
+@5! **solver.ml#8849:super_smart_xpure:false
+@5! **solver.ml#8855:xpure_lhs_h1(bef merge):
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8861:xpure_lhs_h1:
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8884:xpure_lhs_h1:
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8885:xpure_lhs_h1_sym (wo pure):
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8886:NO RHS: lhs_p2 (wo heap): flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **solver.ml#8887:conseq1:: emp&{FLOW,(20,21)=__norm#E}[]
+@5!:0: 0: **solver.ml#8913:rhs_p : : true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#8914:heap_entail_empty_heap: ctx:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5!:0: 0: **solver.ml#8915:heap_entail_empty_heap: rhs:
+ true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#9213:estate:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8924:estate_orig : :
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **solver.ml#8928:rhs_p : true
+@5! **solver.ml#8930:m_lhs: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+@5! **solver.ml#8936:tmp3: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5!:0: 0: **tpdispatcher.ml#3705:get_univs_from_ante:[q_314,a_315,b_316]
+@5! **solver.ml#8964:univ_vs:[q_314,a_315,b_316]
+@5! **solver.ml#8968:exist_vars:[flted_16_310,flted_307_303,flted_307_304]
+@5! **solver.ml#8969:rhs_p : true
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#2981:vs(mkExists):[flted_307_304]
+@5! **cpure.ml#2982:vs(filtered rel type):[flted_307_304]
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#2981:vs(mkExists):[flted_307_304]
+@5! **cpure.ml#2982:vs(filtered rel type):[flted_307_304]
+@5! **solver.ml#8972:es_ivars:[b_316,q_314]
+@5! **solver.ml#8973:es_gen_expl_vars:[]
+@5! **solver.ml#8974:es_evars:[flted_16_310,flted_307_303,flted_307_304]
+@5! **solver.ml#8975:split_ante1 : flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8976:split_ante1_sym : flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8978:heap_entail_build (flag1):true
+@5! **solver.ml#8983:heap_entail_build (super_smart_xpure:false
+@5! **solver.ml#8990:split_ante0 : flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8991:split_ante0_sym : flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5! **solver.ml#8998:rhs_p : : true
+@5! **solver.ml#8999:conseq0 : : true
+@5! **solver.ml#9000:conseq1-1 : : true
+@5!:0: 0: **solver.ml#9005:>>>>>> entail_empty_heap: cp1 <<<<<<
+@5!:0: 0: **solver.ml#9006:ante0 : : flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5!:0: 0: **solver.ml#9007:ante1 : : flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304 & 
+ (((2<=b_316 & q_314!=null) | (b_316=1 & q_314!=null))) & 
+ (((2<=a_315 & x!=null) | (a_315=1 & x!=null))) & q_314!=x
+@5!:0: 0: **solver.ml#9008:conseq : : true
+@5!:0: 0: **solver.ml#9236:stk_estate # is_empty:true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#9237:estate:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **solver.ml#9279:to add univ inst
+@5! **solver.ml#9280:inf_pure:[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#9281:estate:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **term.ml#556:es:
+  q_314::arr_seg<b_316>@M&
+a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **solver.ml#2957:Omega unsat:start 78 invocations
+@5! **cvutil.ml#1372:elim_abs (pure): true
+@5! **cvutil.ml#575:pure f: a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315
+@5! **cvutil.ml#576:evars:[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cvutil.ml#862:f:#VN2# q_314::arr_seg<b_316>@M
+@5! **cast.ml#1707:c= :arr_seg
+@5! **cast.ml#1720:look_up_view_baga: baga= :Some([([self], 1<=n)])
+@5! **cast.ml#1721:baga ex vars= :[]
+@5! **cast.ml#1725:from_svs:[self,n]
+@5! **cast.ml#1726:to_svs:[q_314,b_316]
+@5! **cast.ml#1735:baga (subst)= :[([q_314], 1<=b_316)]
+@5! **cast.ml#1693:add_epure(1) = :[([q_314], 1<=b_316)]
+@5! **excore.ml#722:Omega mk_star_disj:start 78 invocations
+@5! **excore.ml#726:Omega mk_star_disj:end 78 invocations
+@5! **cast.ml#1695:add_epure(2) = :[([q_314], a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315 & 
+ 1<=b_316)]
+@5!:0: 0: **tpdispatcher.ml#2118:SAT #213
+@5!:0: 0: **tpdispatcher.ml#2119: q_314=1 & a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315 & 1<=b_316
+@5! **cpure.ml#11497:var_info [(q_314,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(flted_307_304,-4)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(y,1),(x,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(x,1),(q_314,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1),(b_316,-1),(a_315,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11525:res_list[(4,5),(2,1)]
+@5! **cpure.ml#11678:em emap[{__CONST_Int_1,q_314};{__CONST_Int_5,flted_306_285}]
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5!:0: 0: **smtsolver.ml#225:f(smt): q_314=1
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315=4*flted_307_304
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): y=4+x
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=5
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(q_314)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(a_315)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(b_316)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315+x=q_314
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=b_316+a_315
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): 1<=b_316
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): false
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5! **cast.ml#1698:add_epure (res) = :[([q_314], a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315 & 1<=b_316)]
+@5! **cast.ml#1737:baga (filtered)= :[([q_314], a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315 & 1<=b_316)]
+@5! **cast.ml#1740:baga (hulled)= :[q_314]
+@5! **cvutil.ml#924:baga(view_node):[q_314]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cvutil.ml#1374:h0: q_314::arr_seg<b_316>@M
+@5! **cvutil.ml#1376:memset: [[q_314]]
+@5! **cpure.ml#15382:lst_sv:[?]
+@5! **cpure.ml#15383:lst:[?]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[flted_6_41]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg flted_6_41,0),1),flted_6_41)]
+@5! **cvutil.ml#1052:vdecl:
+ view arr_seg{}[]<n:int>= 
+  view_domains: 
+   view arr_seg<n:int>= 
+    EList
+      :EBase 
+         exists (Impl)[Anon_12](* lbl: *){2}->self::ch_star<Anon_12>@M&n=1&
+         {FLOW,(1,26)=__flow#E}[]
+      || :EBase 
+            exists (Impl)[Anon_13; 
+            q](* lbl: *){3}->(exists flted_6_41: (* lbl: *){3}->self::ch_star<Anon_13>@M * 
+                                                                q::arr_seg<flted_6_41>@M&
+            flted_6_41+1=n & q=1+self & 1<n&{FLOW,(1,26)=__flow#E}[])
+      
+  view vars: n
+  ann vars (0 - not a posn): (@M,0)
+  cont vars: 
+  unstructured formula: (* lbl: *){2}->(exists Anon_12: (* lbl: *){2}->
+                        self::ch_star<Anon_12>@M&n=1&
+                        {FLOW,(1,26)=__flow#E}[])|| (* lbl: *){3}->(exists flted_6_41,
+                                                    Anon_13,
+                                                    q: (* lbl: *){3}->
+                                                    self::ch_star<Anon_13>@M * 
+                                                    q::arr_seg<flted_6_41>@M&
+                                                    flted_6_41+1=n & 
+                                                    q=1+self & 1<n&
+                                                    {FLOW,(1,26)=__flow#E}[])
+  inv: 1<=n
+  
+  baga over inv: [([], 1<=n)]
+  baga over inv (unfolded): [([self], 1<=n)]
+  
+  xform: ((2<=n & self!=null) | (n=1 & self!=null))
+  is_recursive?: true
+  same_xpure?: NO
+  view_data_name: ch_star
+  
+  type_of_self: 
+  Some()
+  actual_root: 
+  Nonematerialized vars: [(self,full,[])]
+  addr vars: self
+  bag of addr: self
+  
+  
+@5! **cvutil.ml#1091:vinv: ((2<=n & self!=null) | (n=1 & self!=null))
+@5! **cvutil.ml#1092:from_svs:[self,n]
+@5! **cvutil.ml#1093:to_svs:[q_314,b_316]
+@5! **cvutil.ml#1094:ex_svs:[]
+@5!:0: 0: **tpdispatcher.ml#2118:SAT #214
+@5!:0: 0: **tpdispatcher.ml#2119: a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315 & 
+ 2<=b_316 & q_314!=null
+@5! **cpure.ml#11497:var_info [(a_315,1),(flted_307_304,-4)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(y,1),(x,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(a_315,1),(x,1),(q_314,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11497:var_info [(flted_306_285,1),(b_316,-1),(a_315,-1)]
+@5! **cpure.ml#11498:sv_list [y,x,q_314,flted_307_304,flted_306_285,b_316,a_315]
+@5! **cpure.ml#11525:res_list[(4,5)]
+@5! **cpure.ml#11678:em emap[{__CONST_Int_5,flted_306_285}]
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5! **cpure.ml#1561:fv removes rel:Univ
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315=4*flted_307_304
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): y=4+x
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=5
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(q_314)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(a_315)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): Univ(b_316)
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): a_315+x=q_314
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): flted_306_285=b_316+a_315
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): 2<=b_316
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): q_314>0
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5!:0: 0: **smtsolver.ml#225:f(smt): false
+@5!:0: 0: **smtsolver.ml#230:NONE #
+@5! **solver.ml#2964:Omega unsat:end 78 invocations
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#3053:es_formula:
+ q_314::arr_seg<b_316>@M&
+a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315&
+{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#3056:es_formula:
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **solver.ml#3058:es_formula(2):
+ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+@5!:0: 0: **solver.ml#9385:heap_entail_empty_heap: folding: formula is valid
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5!:0: 0: **solver.ml#9386:heap_entail_empty_heap: folding: res_ctx:
+  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_ivars: [b_316; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+@5! **solver.ml#8080:l_inst: true
+@5! **solver.ml#8081:p2: true
+@5! **solver.ml#6313:move_impl(l_inst):[b_316,q_314]
+@5! **solver.ml#6314:move_impl(to_elim_evars):[flted_16_310,flted_307_303,flted_307_304]
+@5! **solver.ml#6315:move_impl(inst_to_keep):[b_316,q_314]
+@5! **solver.ml#6316:move_impl(f): true
+@5! **solver.ml#6317:move_impl(new_to_elim):[]
+@5! **solver.ml#6329:f(before):: true
+@5! **solver.ml#6352:f(after):: true
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[b_316]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **cpure.ml#15324:annot: 1
+@5! **cpure.ml#15325:annot: :[0]
+@5! **cpure.ml#15326:hargs: :[a_315]
+@5! **cpure.ml#15334:view_args_pos: 1
+@5! **cpure.ml#15338:to_be_updated: :1
+@5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
+@5! **solver.ml#8098:new_ctx:
+ [ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+  es_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_gen_impl_vars(E): []
+  es_heap(consumed): x::arr_seg<a_315>@M
+  es_ante_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_heap: x::arr_seg<a_315>@M
+  es_ivars: [b_316; q_314]
+  es_ante_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_subst (from,to): []:[]
+  es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)]
+@5! **solver.ml#7613:avoid:true
+@5! **solver.ml#7614:slk no:8
+(==solver.ml#12885==)
+do_match@5
+do_match inp1 : x::arr_seg<a_315>@M
+do_match inp2 : x::arr_seg<flted_16_310>@M
+do_match inp3 :  q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_ivars: [b_316; a_315; q_314]
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+do_match inp4 : emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@5 EXIT: [ q_314::arr_seg<b_316>@M&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+  es_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_gen_impl_vars(E): []
+  es_heap(consumed): x::arr_seg<a_315>@M
+  es_ante_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_heap: x::arr_seg<a_315>@M
+  es_ivars: [b_316; q_314]
+  es_ante_evars: [flted_16_310; flted_307_303; flted_307_304]
+  es_subst (from,to): [a_315]:[flted_16_310]
+  es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)]
+
+(==solver.ml#11634==)
+compute_actions@6
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: x::arr_seg<flted_306_285>@M
+compute_actions inp3 :LHS pure: y=4+x & flted_306_285=5
+compute_actions inp4 :RHS cand:[ x::arr_seg<a_326>@M, q_325::arr_seg<b_327>@M]
+compute_actions inp5 :RHS pure: flted_16_310=b_327+a_326 & a_326+x=q_325
+compute_actions inp6 :right alias:[b_327,a_326,q_325,flted_16_310,flted_307_303,flted_307_304]
+compute_actions@6 EXIT: SEARCH =>[
+  Prio:0
+  COND =>[
+   Prio:0
+   Match =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::arr_seg<a_326>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_325::arr_seg<b_327>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseFold =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::arr_seg<a_326>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_325::arr_seg<b_327>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseUnfold =>
+     Type: Root
+     LHS: x::arr_seg<flted_306_285>@M
+     RHS: x::arr_seg<a_326>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_325::arr_seg<b_327>@M
+     alias set: [x,x]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(==solver.ml#11634==)
+compute_actions@8@7
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: emp
+compute_actions inp3 :LHS pure: y=4+x & flted_306_285=5
+compute_actions inp4 :RHS cand:[ q_325::arr_seg<b_327>@M]
+compute_actions inp5 :RHS pure:
+ flted_16_310=b_327+flted_306_285 & flted_306_285+x=q_325
+
+compute_actions inp6 :right alias:[b_327,a_326,q_325,flted_16_310,flted_307_303,flted_307_304]
+compute_actions@8 EXIT: SEARCH =>[
+  Prio:2
+  COND =>[
+   Prio:2
+   BaseCaseFold =>
+     Type: Root
+     LHS: emp
+     RHS: q_325::arr_seg<b_327>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: emp
+     alias set: []rhs_inst: []rhs_infer: None;
+   Prio:5
+   UnmatchedRHSData =>  q_325::arr_seg<b_327>@M
+   ]
+   ]
+
+(==solver.ml#12885==)
+do_match@7
+do_match inp1 : x::arr_seg<flted_306_285>@M
+do_match inp2 : x::arr_seg<a_326>@M
+do_match inp3 :  emp&y=4+x & flted_306_285=5&{FLOW,(20,21)=__norm#E}[]
+ es_evars: [b_327; a_326; q_325; flted_16_310; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): emp
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
+do_match inp4 : q_325::arr_seg<b_327>@M&
+flted_16_310=b_327+a_326 & a_326+x=q_325&
+{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@7 EXIT: MaybeErr Context: 
+   fe_kind: MAY
+   fe_name: separation entailment
+   fe_locs: {
+     fc_message: do_unmatched_rhs : q_325::arr_seg<b_327>@M(may)
+     fc_current_lhs_flow: {FLOW,(18,22)=__MayError#E}
+   }
+ [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  COND ==>  UnmatchedRHSData]]
+ CEX:false
+
+(==solver.ml#11634==)
+compute_actions@9
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: q_314::arr_seg<b_316>@M
+compute_actions inp3 :LHS pure: a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+ Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315
+compute_actions inp4 :RHS cand:[ y::arr_seg<flted_307_303>@M]
+compute_actions inp5 :RHS pure: flted_307_304=1 & flted_307_303=1
+compute_actions inp6 :right alias:[flted_307_303,flted_307_304]
+compute_actions@9 EXIT: SEARCH =>[
+  Prio:1
+  SEARCH =>[
+   Prio:1
+   COND =>[
+    Prio:1
+    Match =>
+      Type: Root
+      LHS: q_314::arr_seg<b_316>@M
+      RHS: y::arr_seg<flted_307_303>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+    Prio:3
+    COND =>[
+     Prio:3
+     BaseCaseFold =>
+       Type: Root
+       LHS: q_314::arr_seg<b_316>@M
+       RHS: y::arr_seg<flted_307_303>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+     Prio:3
+     BaseCaseUnfold =>
+       Type: Root
+       LHS: q_314::arr_seg<b_316>@M
+       RHS: y::arr_seg<flted_307_303>@M
+       root_inst: None
+       lhs_rest: emp
+       rhs_rest: emp
+       alias set: [q_314,y]rhs_inst: []rhs_infer: None
+     ]
+     ];
+    Prio:1
+    (Lemma 0==> splitchar_left) =>
+      Type: Root
+      LHS: q_314::arr_seg<b_316>@M
+      RHS: y::arr_seg<flted_307_303>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+    Prio:1
+    (Lemma 0<== splitchar_left_right) =>
+      Type: Root
+      LHS: q_314::arr_seg<b_316>@M
+      RHS: y::arr_seg<flted_307_303>@M
+      root_inst: None
+      lhs_rest: emp
+      rhs_rest: emp
+      alias set: [q_314,y]rhs_inst: []rhs_infer: None
+    ]
+    ]
+
+(==solver.ml#12885==)
+do_match@10
+do_match inp1 : q_314::arr_seg<b_316>@M
+do_match inp2 : y::arr_seg<flted_307_303>@M
+do_match inp3 :  emp&
+a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_subst (from,to): [a_315]:[flted_16_310]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(q_314,y)
+do_match inp4 : emp&flted_307_304=1 & flted_307_303=1&{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@10 EXIT: [ emp&
+a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & Univ(q_314) & 
+Univ(a_315) & Univ(b_316) & a_315+x=q_314 & flted_306_285=b_316+a_315&
+{FLOW,(20,21)=__norm#E}[]
+  es_evars: [flted_307_303; flted_307_304]
+  es_gen_impl_vars(E): []
+  es_heap(consumed): q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+  es_ante_evars: [flted_307_303; flted_307_304]
+  es_heap: q_314::arr_seg<b_316>@M * x::arr_seg<a_315>@M
+  es_ante_evars: [flted_307_303; flted_307_304]
+  es_subst (from,to): [a_315; flted_307_303]:[flted_16_310; b_316]
+  es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(q_314,y)]
+
+(==solver.ml#11634==)
+compute_actions@11
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: q_314::arr_seg<a_315>@M * q_316::arr_seg<b_314>@M
+compute_actions inp3 :LHS pure: b_316=b_314+a_315 & a_315+q_314=q_316 & Univ(b_314) & Univ(a_315) & 
+ Univ(q_316) & a_315=4*flted_307_304 & y=4+x & flted_306_285=5 & 
+ Univ(q_314) & Univ(a_315) & Univ(b_316) & a_315+x=q_314 & 
+ flted_306_285=b_316+a_315
+compute_actions inp4 :RHS cand:[ y::arr_seg<flted_307_303>@M]
+compute_actions inp5 :RHS pure: flted_307_304=1 & flted_307_303=1
+compute_actions inp6 :right alias:[flted_307_303,flted_307_304]
+compute_actions@11 EXIT: SEARCH =>[
+  Prio:2
+  COND =>[
+   Prio:2
+   BaseCaseFold =>
+     Type: Root
+     LHS: emp
+     RHS: y::arr_seg<flted_307_303>@M
+     root_inst: None
+     lhs_rest: q_314::arr_seg<a_315>@M * q_316::arr_seg<b_314>@M
+     rhs_rest: emp
+     alias set: []rhs_inst: []rhs_infer: None;
+   Prio:5
+   UnmatchedRHSData =>  y::arr_seg<flted_307_303>@M
+   ]
+   ]
+
+(==solver.ml#11634==)
+compute_actions@12
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: q_314::arr_seg<b_316>@M
+compute_actions inp3 :LHS pure: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+compute_actions inp4 :RHS cand:[ y::arr_seg<a_325>@M, q_326::arr_seg<b_324>@M]
+compute_actions inp5 :RHS pure: flted_307_303=b_324+a_325 & a_325+y=q_326
+compute_actions inp6 :right alias:[b_324,a_325,q_326,flted_307_303,flted_307_304]
+compute_actions@12 EXIT: SEARCH =>[
+  Prio:0
+  COND =>[
+   Prio:0
+   Match =>
+     Type: Root
+     LHS: q_314::arr_seg<b_316>@M
+     RHS: y::arr_seg<a_325>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_326::arr_seg<b_324>@M
+     alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseFold =>
+     Type: Root
+     LHS: q_314::arr_seg<b_316>@M
+     RHS: y::arr_seg<a_325>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_326::arr_seg<b_324>@M
+     alias set: [q_314,y]rhs_inst: []rhs_infer: None;
+   Prio:3
+   BaseCaseUnfold =>
+     Type: Root
+     LHS: q_314::arr_seg<b_316>@M
+     RHS: y::arr_seg<a_325>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: q_326::arr_seg<b_324>@M
+     alias set: [q_314,y]rhs_inst: []rhs_infer: None
+   ]
+   ]
+
+(==solver.ml#11634==)
+compute_actions@14@13
+compute_actions inp1 :EQ ptr:[]
+compute_actions inp2 :LHS heap: emp
+compute_actions inp3 :LHS pure: flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+ Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304
+compute_actions inp4 :RHS cand:[ q_326::arr_seg<b_324>@M]
+compute_actions inp5 :RHS pure: flted_307_303=b_324+b_316 & b_316+y=q_326
+compute_actions inp6 :right alias:[b_324,a_325,q_326,flted_307_303,flted_307_304]
+compute_actions@14 EXIT: SEARCH =>[
+  Prio:2
+  COND =>[
+   Prio:2
+   BaseCaseFold =>
+     Type: Root
+     LHS: emp
+     RHS: q_326::arr_seg<b_324>@M
+     root_inst: None
+     lhs_rest: emp
+     rhs_rest: emp
+     alias set: []rhs_inst: []rhs_infer: None;
+   Prio:5
+   UnmatchedRHSData =>  q_326::arr_seg<b_324>@M
+   ]
+   ]
+
+(==solver.ml#12885==)
+do_match@13
+do_match inp1 : q_314::arr_seg<b_316>@M
+do_match inp2 : y::arr_seg<a_325>@M
+do_match inp3 :  emp&
+flted_306_285=b_316+a_315 & a_315+x=q_314 & Univ(b_316) & Univ(a_315) & 
+Univ(q_314) & flted_306_285=5 & y=4+x & a_315=4*flted_307_304&
+{FLOW,(20,21)=__norm#E}[]
+ es_evars: [b_324; a_325; q_326; flted_307_303; flted_307_304]
+ es_gen_impl_vars(E): []
+ es_heap(consumed): x::arr_seg<a_315>@M
+ es_heap: x::arr_seg<a_315>@M
+ es_subst (from,to): []:[]
+ es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(q_314,y)) ==>  SEARCH ==>  COND ==>  Match(q_314,y)
+do_match inp4 : q_326::arr_seg<b_324>@M&flted_307_303=b_324+a_325 & a_325+y=q_326&
+{FLOW,(20,21)=__norm#E}[]
+do_match inp5 :[]
+do_match@13 EXIT: MaybeErr Context: 
+   fe_kind: MAY
+   fe_name: separation entailment
+   fe_locs: {
+     fc_message: do_unmatched_rhs : q_326::arr_seg<b_324>@M(may)
+     fc_current_lhs_flow: {FLOW,(18,22)=__MayError#E}
+   }
+ [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(q_314,y)) ==>  SEARCH ==>  COND ==>  Match(q_314,y) ==>  SEARCH ==>  COND ==>  UnmatchedRHSData]]
+ CEX:false
+
+Entail 32: Valid. 
+
+Residue:
+
+ <1>emp&y=x+4 & Univ(q_314) & Univ(a_315) & Univ(b_316)&{FLOW,(20,21)=__norm#E}[]
+[[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(q_314,y)]]
+
+
+Validate 32: OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Stop z3... 97 invocations 
+Stop Omega... 94 invocations 
+SAT Count   : 171
+SAT % Hit   : 64.32%
+IMPLY Count : 55
+IMPLY % Hit : 34.54%
+Time(cache overhead) : 0.09803 (seconds)
+
+0 false contexts at: ()
+
+!!! log(small):(1.159754,326)
+!!! 
+ log(bigger)(>4s)(1):(5.,[(simplify:310<15:Z3,5.)])
+Total verification time: 0.731299 second(s)
+	Time spent in main process: 0.582587 second(s)
+	Time spent in child processes: 0.148712 second(s)
+
