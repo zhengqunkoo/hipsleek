@@ -19,6 +19,7 @@
 | =hip --pip=                                                             | show input after preprocessing the source file                                                                                                                                                                                                      | [[* =hip --pip testcases/ex5.c=]]                              |
 | =hip --dd-calls-all -dre=choose_context=                                | show calls traced and callers tracing, only shows when =hip= is in debugging mode (e.g. due to other flag =-dre=)                                                                                                                                   | [[* =hip --dd-calls-all -dre=choose_context testcases/ex5.c=]] |
 | =sleek -debug debug.txt=                                                | like =-dre=, but using a file                                                                                                                                                                                                                       | [[* =sleek -debug debug.txt --pnum 7 testcases/ex5a.slk=]]     |
+| =sleek --pprint=                                                        | pretty print some formulas                                                                                                                                                                                                                          | [[* =sleek --pprint -dre=compute_actions testcases/ex5a.slk=]] |
 
 ** Examples
 
@@ -57,6 +58,23 @@ compute_actions inp3 :LHS pure: true
 compute_actions inp4 :RHS cand:[ x::arr_seg<flted_22_83>@M]
 compute_actions inp5 :RHS pure: flted_22_83=1
 compute_actions inp6 :right alias:[flted_22_83]
+compute_actions@1 EXIT: SEARCH =>[
+  Prio:1
+  Fold =>
+    Type: Root
+    LHS: x::ch_star<Anon_14>@M
+    RHS: x::arr_seg<flted_22_83>@M
+    root_inst: None
+    lhs_rest: emp
+    rhs_rest: emp
+    alias set: [x,x]rhs_inst: []rhs_infer: None
+  ]
+#+END_SRC
+
+*** =sleek --pprint -dre=compute_actions testcases/ex5a.slk=
+#+BEGIN_SRC
+compute_actions@1
+compute_actions inp1 :[f| x::ch_star<Anon_14>@M & true |- x::arr_seg<flted_22_83>@M & flted_22_83=1|f]
 compute_actions@1 EXIT: SEARCH =>[
   Prio:1
   Fold =>
