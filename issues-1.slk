@@ -16,7 +16,7 @@ lemma_unsafe "inductive" self::int_arr_seg<n> <- self::arr_seg<m> & m=2*n.
 
 //checkentail x::arr_seg<m> & m=2*n & n>1 & q=x+1 & r=q+1 & m>1 |- x::ch_star<Anon_18> * q::ch_star<Anon_19> * r::int_arr_seg<n-1>. // compute_actions@1 []
 //checkentail 1<n & 1<(n+n) & (1+x)!=x & (1+1+x)!=(1+x) & (1+1+x)!=x & x!=null & (1+x)!=null & flted_6_172+1+1=n+n & 1<(flted_6_172+1) & (((2<=flted_6_172 & (1+1+x)!=null) | (flted_6_172=1 & (1+1+x)!=null))) |- (exists alpha:alpha+alpha=flted_6_172).
-checkentail 1<n & 2<=f & f+1+1=n+n |- (exists a:a+a=f).
+checkentail 1<n & 2<=f & f=n+n |- (exists a:a+a=f).
 
 print residue.
 expect Valid.
