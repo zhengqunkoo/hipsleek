@@ -1,0 +1,604 @@
+
+!!! **tpdispatcher.ml#492:init_tp by default: 
+!!! **tpdispatcher.ml#391:set_tp z3Starting z3... 
+
+!!! **WARNING****sleek.ml#494:[./prelude.slk,issues-1.slk]
+Starting Omega..../oc
+
+(====)
+to_smt@1
+to_smt inp1 :
+to_smt@1 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+
+(====)
+to_smt@2
+to_smt inp1 :
+to_smt@2 EXIT:;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun q () Int)
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+
+(====)
+to_smt@3
+to_smt inp1 :
+to_smt@3 EXIT:;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@4
+to_smt inp1 :
+to_smt@4 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@5
+to_smt inp1 :
+to_smt@5 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@6
+to_smt inp1 :
+to_smt@6 EXIT:;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+
+(====)
+to_smt@7
+to_smt inp1 :
+to_smt@7 EXIT:;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+
+(====)
+to_smt@8
+to_smt inp1 :
+to_smt@8 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@9
+to_smt inp1 :
+to_smt@9 EXIT:;Variables declarations
+(declare-fun flted_6_21 () Int)
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@10
+to_smt inp1 :
+to_smt@10 EXIT:;Variables declarations
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@11
+to_smt inp1 :
+to_smt@11 EXIT:;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@12
+to_smt inp1 :
+to_smt@12 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@13
+to_smt inp1 :
+to_smt@13 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+(assert (not (<= 2 n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@14
+to_smt inp1 :
+to_smt@14 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 n))
+;Negation of Consequence
+(assert (not (or (and (<= 2 n) (not (= self 0))) (and (= n 1) (not (= self 0))))))
+(check-sat)
+
+(====)
+to_smt@15
+to_smt inp1 :
+to_smt@15 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@16
+to_smt inp1 :
+to_smt@16 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+(assert (> (+ 1 self) 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@17
+to_smt inp1 :
+to_smt@17 EXIT:;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@18
+to_smt inp1 :
+to_smt@18 EXIT:;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@19
+to_smt inp1 :
+to_smt@19 EXIT:;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@20
+to_smt inp1 :
+to_smt@20 EXIT:;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@21
+to_smt inp1 :
+to_smt@21 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@22
+to_smt inp1 :
+to_smt@22 EXIT:;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@23
+to_smt inp1 :
+to_smt@23 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@24
+to_smt inp1 :
+to_smt@24 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (and (= (+ flted_6_21 1) n) (< 1 n)) (> self 0)) (or (and (<= 2 flted_6_21) (> (+ 1 self) 0)) (and (= flted_6_21 1) (> (+ 1 self) 0))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@25
+to_smt inp1 :
+to_smt@25 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (= (+ flted_6_21 1) n) (and (= q (+ 1 self)) (< 1 n))) (and (> self 0) (or (and (<= 2 flted_6_21) (> q 0)) (and (= flted_6_21 1) (> q 0)))))))
+(assert (not (= self q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@26
+to_smt inp1 :
+to_smt@26 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (and (= (+ flted_10_19 1) n) (< 1 n)) (> self 0)) (and (> (+ 1 self) 0) (or (and (<= 2 flted_10_19) (> (+ 1 (+ 1 self)) 0)) (and (= flted_10_19 1) (> (+ 1 (+ 1 self)) 0)))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@27
+to_smt inp1 :
+to_smt@27 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+(assert (> self 0))
+(assert (> x 0))
+(assert (not (= self x)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@28
+to_smt inp1 :
+to_smt@28 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (= (+ flted_10_19 1) n) (and (= x (+ 1 self)) (and (= q (+ 1 x)) (< 1 n)))) (and (and (> self 0) (> x 0)) (or (and (<= 2 flted_10_19) (> q 0)) (and (= flted_10_19 1) (> q 0)))))))
+(assert (not (= self q)))
+(assert (not (= self x)))
+(assert (not (= x q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@29
+to_smt inp1 :
+to_smt@29 EXIT:;Variables declarations
+(declare-fun f () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (<= 2 f))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@30
+to_smt inp1 :
+to_smt@30 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+
+(====)
+to_smt@31
+to_smt inp1 :
+to_smt@31 EXIT:;Variables declarations
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((alpha Int)) (= (+ alpha alpha) f)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@32
+to_smt inp1 :
+to_smt@32 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (<= 2 f))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (exists ((alpha Int)) (= (+ alpha alpha) f)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+to_smt@33
+to_smt inp1 :
+to_smt@33 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (<= 2 f))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (not (exists ((alpha Int)) (= (+ alpha alpha) f))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+Entail 1: Fail.(may) cause: 1<n & 2<=f & 1+f+1=n+n |-  exists(alpha:alpha+alpha=f). LOCS:[19;1] (may-bug)
+
+Residue:
+
+ MaybeErr Context: 
+   fe_kind: MAY
+   fe_name: logical bug
+   fe_locs: {
+     fc_message:  1<n & 2<=f & 1+f+1=n+n |-  exists(alpha:alpha+alpha=f). LOCS:[19;1] (may-bug)
+     fc_current_lhs_flow: {FLOW,(20,21)=__norm#E}
+   }
+ [[empty]]
+ CEX:false
+Validate 1: Expecting(3)Valid BUT got : Fail_May
+
+
+Unexpected List: [1]
+
+Stop z3... 33 invocations 
+Stop Omega... 56 invocations 
+SAT Count   : 73
+SAT % Hit   : 63.01%
+IMPLY Count : 14
+IMPLY % Hit : 57.14%
+Time(cache overhead) : 0.030955 (seconds)
+
+0 false contexts at: ()
+
+!!! log(small):(0.104035,140)
+Total verification time: 0.599507 second(s)
+	Time spent in main process: 0.219011 second(s)
+	Time spent in child processes: 0.380496 second(s)
+
