@@ -1,5 +1,31 @@
 #+startup: showall
 
+* Universal and Existential Instantiation Guide
+- Universal quant.
+  #+BEGIN_SRC
+  \forall x,a,b . (x::node<a> & b>=0 |- x::node<b>)
+  -----------------------------------------------------
+  x::node<a> & b>=0 |- x::node<b>
+  #+END_SRC
+- Implicit quant - early instantiation
+  #+BEGIN_SRC
+  \forall x,a,b . (x::node<a> & a=b |- x::node<b>)
+  -----------------------------------------------------
+  x::node<a> |- x::node<b>
+  #+END_SRC
+- Explicit quant - late instantiation
+  #+BEGIN_SRC
+  \forall x,a . (x::node<a> |- x::node<b> & a=b)
+  -----------------------------------------------------
+  x::node<a> |- [b] x::node<b>
+  #+END_SRC
+- Existential - substitution
+  #+BEGIN_SRC
+  \forall x,a . (x::node<a> |- [a/b] x::node<b> )
+  -----------------------------------------------------
+  x::node<a> |- exists b.  x::node<b>
+  #+END_SRC
+
 * =sleek= Guide
 - =checksat= checks the satisfiability of an expression. E.g.: =checksat a=a.=.
 - =lemma_safe= declares a lemma and outputs whether the lemma is valid. E.g.: =lemma_safe a <-> a.=.
