@@ -729,7 +729,7 @@ let rec iget_answer_x chn input timeout =
     else last_z3_sat_type
   in
   match st with
-  | Unknown -> let input = "(reset)\n" ^ input in let () = print_endline ("[smtsolver.ml] Z3 outputted unknown, retry with (reset) instead of (push) and (pop), new input:\n" ^ input) in check_formula input timeout
+  | Unknown -> let input = "(reset)\n" ^ input in let () = print_endline ("[smtsolver.ml] Z3 outputted unknown, retry with (reset)") in check_formula input timeout
   | _ -> { original_output_text = output; sat_result =  st; }
 
 and iget_answer chn input timeout =
@@ -737,7 +737,7 @@ and iget_answer chn input timeout =
     (fun _ -> iget_answer_x chn input timeout) input
 
 (* send formula to z3 and receive result -true/false/unknown*)
-and check_formula f timeout =
+and check_formula_x f timeout =
   let tstartlog = Gen.Profiling.get_time () in 
   if not !is_z3_running then start ()
   else if (!z3_call_count = !z3_restart_interval) then (
@@ -768,12 +768,12 @@ and check_formula f timeout =
   let _= Globals.z3_time := !Globals.z3_time +. (tstoplog -. tstartlog) in 
   res
 
-let check_formula f timeout =
+and check_formula_y f timeout =
   Debug.no_2 "Z3:check_formula" idf string_of_float string_of_smt_output
-    check_formula f timeout
+    check_formula_x f timeout
 
-let check_formula f timeout =
-  Gen.Profiling.no_2 "smt_check_formula" check_formula f timeout
+and check_formula f timeout =
+  Gen.Profiling.no_2 "smt_check_formula" check_formula_y f timeout
 
 (***************************************************************
    GENERATE SMT INPUT FOR IMPLICATION/SATISFIABILITY CHECKING   

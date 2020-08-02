@@ -1927,23 +1927,10 @@ to_smt@161 EXIT:;Variables declarations
 ;Negation of Consequence
 (assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
 (check-sat)
-[smtsolver.ml] Z3 outputted unknown, retry with (reset) instead of (push) and (pop), new input:
-(reset)
-;Variables declarations
-(declare-fun n () Int)
-(declare-fun f () Int)
-;Relations declarations
-;Axioms assertions
-;Antecedent
-(assert (< 1 n))
-(assert (= (+ (+ 1 f) 1) (+ n n)))
-(assert (<= 2 f))
-;Negation of Consequence
-(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
-(check-sat)
+[smtsolver.ml] Z3 outputted unknown, retry with (reset)
 
 (====)
-Z3.iget_answer@164@163@162@160
+Z3.iget_answer@165@164@163@162@160
 Z3.iget_answer inp1 :(reset)
 ;Variables declarations
 (declare-fun n () Int)
@@ -1957,7 +1944,25 @@ Z3.iget_answer inp1 :(reset)
 ;Negation of Consequence
 (assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
 (check-sat)
-Z3.iget_answer@164 EXIT:[unsat]
+Z3.iget_answer@165 EXIT:[unsat]
+
+(====)
+Z3:check_formula@164@163@162@160
+Z3:check_formula inp1 :(reset)
+;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@164 EXIT:unsat
 
 (====)
 Z3.iget_answer@163@162@160
@@ -1999,9 +2004,9 @@ smt_imply inp2 :timeout:10.
 smt_imply@160 EXIT:true
 
 (====)
-is_sat#1@165
+is_sat#1@166
 is_sat#1 inp1 : 1<n & 2<=f & 1+f+1=n+n
-is_sat#1@165 EXIT:true
+is_sat#1@166 EXIT:true
 
 Entail 1: Valid. 
 
@@ -2018,12 +2023,12 @@ SAT Count   : 68
 SAT % Hit   : 64.7%
 IMPLY Count : 13
 IMPLY % Hit : 53.84%
-Time(cache overhead) : 0.044622 (seconds)
+Time(cache overhead) : 0.025202 (seconds)
 
 0 false contexts at: ()
 
-!!! log(small):(0.183147,132)
-Total verification time: 0.632959 second(s)
-	Time spent in main process: 0.335324 second(s)
-	Time spent in child processes: 0.297635 second(s)
+!!! log(small):(0.065131,132)
+Total verification time: 0.402428 second(s)
+	Time spent in main process: 0.193165 second(s)
+	Time spent in child processes: 0.209263 second(s)
 
