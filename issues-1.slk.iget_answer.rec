@@ -1,0 +1,2029 @@
+
+!!! **tpdispatcher.ml#492:init_tp by default: 
+!!! **tpdispatcher.ml#391:set_tp z3Starting z3... 
+
+!!! **WARNING****sleek.ml#494:[./prelude.slk,issues-1.slk]
+Starting Omega..../oc
+
+(====)
+to_smt@2@1
+to_smt inp1 :
+to_smt@2 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+
+(====)
+Z3.iget_answer@4@3@1
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+Z3.iget_answer@4 EXIT:[sat]
+
+(====)
+Z3:check_formula@3@1
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@3 EXIT:sat
+
+(==smtsolver.ml#1177==)
+smt_imply@1
+smt_imply inp1 :( x=1+self & n=1, x<self)
+smt_imply inp2 :timeout:10.
+smt_imply@1 EXIT:false
+
+(====)
+to_smt@6@5
+to_smt inp1 :
+to_smt@6 EXIT:;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun q () Int)
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+
+(====)
+Z3.iget_answer@8@7@5
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun q () Int)
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+Z3.iget_answer@8 EXIT:[sat]
+
+(====)
+Z3:check_formula@7@5
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun q () Int)
+(declare-fun n () Int)
+(declare-fun x () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not (< x self)))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@7 EXIT:sat
+
+(==smtsolver.ml#1177==)
+smt_imply@5
+smt_imply inp1 :( flted_10_19+1=n & x=1+self & q=1+x & 1<n, x<self)
+smt_imply inp2 :timeout:10.
+smt_imply@5 EXIT:false
+
+(====)
+to_smt@10@9
+to_smt inp1 :
+to_smt@10 EXIT:;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@12@11@9
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@12 EXIT:[sat]
+
+(====)
+Z3:check_formula@11@9
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@11 EXIT:sat
+
+(====)
+is_sat#1@9
+is_sat#1 inp1 : flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@9 EXIT:true
+
+(====)
+is_sat#1@13
+is_sat#1 inp1 : flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@13 EXIT:true
+
+(====)
+is_sat#1@14
+is_sat#1 inp1 : flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@14 EXIT:true
+
+(====)
+is_sat#1@15
+is_sat#1 inp1 : flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@15 EXIT:true
+
+(====)
+to_smt@17@16
+to_smt inp1 :
+to_smt@17 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@19@18@16
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@19 EXIT:[sat]
+
+(====)
+Z3:check_formula@18@16
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@18 EXIT:sat
+
+(====)
+is_sat#1@16
+is_sat#1 inp1 : ((n=1 & self!=null) | (2<=n & self!=null))
+is_sat#1@16 EXIT:true
+
+(====)
+is_sat#77@20
+is_sat#77 inp1 : n=1 & self!=null
+is_sat#77@20 EXIT:true
+
+(====)
+to_smt@22@21
+to_smt inp1 :
+to_smt@22 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@24@23@21
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@24 EXIT:[sat]
+
+(====)
+Z3:check_formula@23@21
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+(assert (> self 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@23 EXIT:sat
+
+(====)
+is_sat#77@21
+is_sat#77 inp1 : 2<=n & self!=null
+is_sat#77@21 EXIT:true
+
+(====)
+to_smt@26@25
+to_smt inp1 :
+to_smt@26 EXIT:;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+
+(====)
+Z3.iget_answer@28@27@25
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+Z3.iget_answer@28 EXIT:[unsat]
+
+(====)
+Z3:check_formula@27@25
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@27 EXIT:unsat
+
+(==smtsolver.ml#1177==)
+smt_imply@25
+smt_imply inp1 :( n=1, 1<=n)
+smt_imply inp2 :timeout:10.
+smt_imply@25 EXIT:true
+
+(====)
+to_smt@30@29
+to_smt inp1 :
+to_smt@30 EXIT:;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+
+(====)
+Z3.iget_answer@32@31@29
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+Z3.iget_answer@32 EXIT:[unsat]
+
+(====)
+Z3:check_formula@31@29
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not (<= 1 n)))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@31 EXIT:unsat
+
+(==smtsolver.ml#1177==)
+smt_imply@29
+smt_imply inp1 :( 2<=n, 1<=n)
+smt_imply inp2 :timeout:10.
+smt_imply@29 EXIT:true
+
+(====)
+is_sat#1@33
+is_sat#1 inp1 : ((n=1 & self!=null) | (2<=n & self!=null))
+is_sat#1@33 EXIT:true
+
+(====)
+is_sat#1@34
+is_sat#1 inp1 : ((n=1 & self!=null) | (2<=n & self!=null))
+is_sat#1@34 EXIT:true
+
+(====)
+is_sat#77@35
+is_sat#77 inp1 : n=1 & self!=null
+is_sat#77@35 EXIT:true
+
+(====)
+is_sat#77@36
+is_sat#77 inp1 : 2<=n & self!=null
+is_sat#77@36 EXIT:true
+
+(====)
+is_sat#1@37
+is_sat#1 inp1 : ((n=1 & self!=null) | (2<=n & self!=null))
+is_sat#1@37 EXIT:true
+
+(====)
+is_sat#1@38
+is_sat#1 inp1 : flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@38 EXIT:true
+
+(====)
+is_sat#1@39
+is_sat#1 inp1 : flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@39 EXIT:true
+
+(====)
+to_smt@41@40
+to_smt inp1 :
+to_smt@41 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@43@42@40
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@43 EXIT:[sat]
+
+(====)
+Z3:check_formula@42@40
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@42 EXIT:sat
+
+(====)
+is_sat#1@40
+is_sat#1 inp1 : self=1 & n=1
+is_sat#1@40 EXIT:true
+
+(====)
+to_smt@45@44
+to_smt inp1 :
+to_smt@45 EXIT:;Variables declarations
+(declare-fun flted_6_21 () Int)
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@47@46@44
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun flted_6_21 () Int)
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@47 EXIT:[sat]
+
+(====)
+Z3:check_formula@46@44
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun flted_6_21 () Int)
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@46 EXIT:sat
+
+(====)
+is_sat#1@44
+is_sat#1 inp1 : self=1 & flted_6_21+1=n & q=1+self & 1<n
+is_sat#1@44 EXIT:true
+
+(====)
+to_smt@49@48
+to_smt inp1 :
+to_smt@49 EXIT:;Variables declarations
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@51@50@48
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@51 EXIT:[sat]
+
+(====)
+Z3:check_formula@50@48
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@50 EXIT:sat
+
+(====)
+is_sat#1@48
+is_sat#1 inp1 : 1<=flted_6_21
+is_sat#1@48 EXIT:true
+
+(====)
+to_smt@53@52
+to_smt inp1 :
+to_smt@53 EXIT:;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@55@54@52
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@55 EXIT:[sat]
+
+(====)
+Z3:check_formula@54@52
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@54 EXIT:sat
+
+(====)
+is_sat#1@52
+is_sat#1 inp1 : self=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@52 EXIT:true
+
+(====)
+is_sat#1@56
+is_sat#1 inp1 : self=1 & n=1
+is_sat#1@56 EXIT:true
+
+(====)
+to_smt@58@57
+to_smt inp1 :
+to_smt@58 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@60@59@57
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@60 EXIT:[sat]
+
+(====)
+Z3:check_formula@59@57
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (<= 2 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@59 EXIT:sat
+
+(====)
+is_sat#1@57
+is_sat#1 inp1 : self=1 & 2<=n
+is_sat#1@57 EXIT:true
+
+(====)
+to_smt@62@61
+to_smt inp1 :
+to_smt@62 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+(assert (not (<= 2 n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@64@63@61
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+(assert (not (<= 2 n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@64 EXIT:[sat]
+
+(====)
+Z3:check_formula@63@61
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= n 1))
+(assert (not (<= 2 n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@63 EXIT:sat
+
+(====)
+is_sat#1@61
+is_sat#1 inp1 : self=1 & n=1 & !(2<=n)
+is_sat#1@61 EXIT:true
+
+(====)
+to_smt@66@65
+to_smt inp1 :
+to_smt@66 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 n))
+;Negation of Consequence
+(assert (not (or (and (<= 2 n) (not (= self 0))) (and (= n 1) (not (= self 0))))))
+(check-sat)
+
+(====)
+Z3.iget_answer@68@67@65
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 n))
+;Negation of Consequence
+(assert (not (or (and (<= 2 n) (not (= self 0))) (and (= n 1) (not (= self 0))))))
+(check-sat)
+Z3.iget_answer@68 EXIT:[sat]
+
+(====)
+Z3:check_formula@67@65
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (<= 1 n))
+;Negation of Consequence
+(assert (not (or (and (<= 2 n) (not (= self 0))) (and (= n 1) (not (= self 0))))))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@67 EXIT:sat
+
+(==smtsolver.ml#1177==)
+smt_imply@65
+smt_imply inp1 :( 1<=n, ((2<=n & self!=0) | (n=1 & self!=0)))
+smt_imply inp2 :timeout:10.
+smt_imply@65 EXIT:false
+
+(====)
+to_smt@70@69
+to_smt inp1 :
+to_smt@70 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@72@71@69
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@72 EXIT:[sat]
+
+(====)
+Z3:check_formula@71@69
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@71 EXIT:sat
+
+(====)
+is_sat#1@69
+is_sat#1 inp1 : flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@69 EXIT:true
+
+(====)
+is_sat#1@73
+is_sat#1 inp1 : flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@73 EXIT:true
+
+(====)
+is_sat#1@74
+is_sat#1 inp1 : flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@74 EXIT:true
+
+(====)
+is_sat#1@75
+is_sat#1 inp1 : flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@75 EXIT:true
+
+(====)
+to_smt@77@76
+to_smt inp1 :
+to_smt@77 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+(assert (> (+ 1 self) 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@79@78@76
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+(assert (> (+ 1 self) 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@79 EXIT:[sat]
+
+(====)
+Z3:check_formula@78@76
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= n 1))
+(assert (> self 0))
+(assert (> (+ 1 self) 0))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@78 EXIT:sat
+
+(====)
+is_sat#1@76
+is_sat#1 inp1 : ((n=1 & self!=null & (1+self)!=null) | (2<=n & self!=null))
+is_sat#1@76 EXIT:true
+
+(====)
+is_sat#77@80
+is_sat#77 inp1 : n=1 & self!=null & (1+self)!=null
+is_sat#77@80 EXIT:true
+
+(====)
+is_sat#77@81
+is_sat#77 inp1 : 2<=n & self!=null
+is_sat#77@81 EXIT:true
+
+(====)
+is_sat#1@82
+is_sat#1 inp1 : ((n=1 & self!=null & (1+self)!=null) | (2<=n & self!=null))
+is_sat#1@82 EXIT:true
+
+(====)
+is_sat#1@83
+is_sat#1 inp1 : ((n=1 & self!=null & (1+self)!=null) | (2<=n & self!=null))
+is_sat#1@83 EXIT:true
+
+(====)
+is_sat#77@84
+is_sat#77 inp1 : n=1 & self!=null & (1+self)!=null
+is_sat#77@84 EXIT:true
+
+(====)
+is_sat#77@85
+is_sat#77 inp1 : 2<=n & self!=null
+is_sat#77@85 EXIT:true
+
+(====)
+is_sat#1@86
+is_sat#1 inp1 : ((n=1 & self!=null & (1+self)!=null) | (2<=n & self!=null))
+is_sat#1@86 EXIT:true
+
+(====)
+is_sat#1@87
+is_sat#1 inp1 : flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@87 EXIT:true
+
+(====)
+is_sat#1@88
+is_sat#1 inp1 : flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@88 EXIT:true
+
+(====)
+to_smt@90@89
+to_smt inp1 :
+to_smt@90 EXIT:;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@92@91@89
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@92 EXIT:[sat]
+
+(====)
+Z3:check_formula@91@89
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@91 EXIT:sat
+
+(====)
+is_sat#1@89
+is_sat#1 inp1 : self=1 & x=1+self & n=1
+is_sat#1@89 EXIT:true
+
+(====)
+to_smt@94@93
+to_smt inp1 :
+to_smt@94 EXIT:;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@96@95@93
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@96 EXIT:[sat]
+
+(====)
+Z3:check_formula@95@93
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun x () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@95 EXIT:sat
+
+(====)
+is_sat#1@93
+is_sat#1 inp1 : self=1 & x=2 & x=1+self & n=1
+is_sat#1@93 EXIT:true
+
+(====)
+to_smt@98@97
+to_smt inp1 :
+to_smt@98 EXIT:;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@100@99@97
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@100 EXIT:[sat]
+
+(====)
+Z3:check_formula@99@97
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@99 EXIT:sat
+
+(====)
+is_sat#1@97
+is_sat#1 inp1 : self=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n
+is_sat#1@97 EXIT:true
+
+(====)
+to_smt@102@101
+to_smt inp1 :
+to_smt@102 EXIT:;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@104@103@101
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@104 EXIT:[sat]
+
+(====)
+Z3:check_formula@103@101
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun flted_10_19 () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@103 EXIT:sat
+
+(====)
+is_sat#1@101
+is_sat#1 inp1 : self=1 & x=2 & flted_10_19+1=n & x=1+self & q=1+x & 1<n
+is_sat#1@101 EXIT:true
+
+(====)
+is_sat#1@105
+is_sat#1 inp1 : 1<=flted_10_19
+is_sat#1@105 EXIT:true
+
+(====)
+to_smt@107@106
+to_smt inp1 :
+to_smt@107 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@109@108@106
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@109 EXIT:[sat]
+
+(====)
+Z3:check_formula@108@106
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= self 1))
+(assert (= x 2))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@108 EXIT:sat
+
+(====)
+is_sat#1@106
+is_sat#1 inp1 : self=1 & x=2 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@106 EXIT:true
+
+(====)
+is_sat#1@110
+is_sat#1 inp1 : self=1 & n=1
+is_sat#1@110 EXIT:true
+
+(====)
+is_sat#1@111
+is_sat#1 inp1 : self=1 & 2<=n
+is_sat#1@111 EXIT:true
+
+(====)
+is_sat#1@112
+is_sat#1 inp1 : self=1 & n=1 & !(2<=n)
+is_sat#1@112 EXIT:true
+
+(====)
+to_smt@114@113
+to_smt inp1 :
+to_smt@114 EXIT:;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@116@115@113
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@116 EXIT:[sat]
+
+(====)
+Z3:check_formula@115@113
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun q () Int)
+(declare-fun self () Int)
+(declare-fun n () Int)
+(declare-fun flted_6_21 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_6_21 1) n))
+(assert (= q (+ 1 self)))
+(assert (< 1 n))
+(assert (<= 1 flted_6_21))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@115 EXIT:sat
+
+(====)
+is_sat#1@113
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@113 EXIT:true
+
+(====)
+to_smt@118@117
+to_smt inp1 :
+to_smt@118 EXIT:;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@120@119@117
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@120 EXIT:[sat]
+
+(====)
+Z3:check_formula@119@117
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun self () Int)
+(declare-fun q () Int)
+(declare-fun x () Int)
+(declare-fun n () Int)
+(declare-fun flted_10_19 () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= q 1))
+(assert (= (+ flted_10_19 1) n))
+(assert (= x (+ 1 self)))
+(assert (= q (+ 1 x)))
+(assert (< 1 n))
+(assert (<= 1 flted_10_19))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@119 EXIT:sat
+
+(====)
+is_sat#1@117
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@117 EXIT:true
+
+(====)
+is_sat#1@121
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@121 EXIT:true
+
+(====)
+is_sat#1@122
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@122 EXIT:true
+
+(====)
+is_sat#1@123
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@123 EXIT:true
+
+(====)
+is_sat#1@124
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@124 EXIT:true
+
+(====)
+is_sat#1@125
+is_sat#1 inp1 : n=1 & self!=null
+is_sat#1@125 EXIT:true
+
+(====)
+is_sat#1@126
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@126 EXIT:true
+
+(====)
+is_sat#1@127
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@127 EXIT:true
+
+(====)
+to_smt@129@128
+to_smt inp1 :
+to_smt@129 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (and (= (+ flted_6_21 1) n) (< 1 n)) (> self 0)) (or (and (<= 2 flted_6_21) (> (+ 1 self) 0)) (and (= flted_6_21 1) (> (+ 1 self) 0))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@131@130@128
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (and (= (+ flted_6_21 1) n) (< 1 n)) (> self 0)) (or (and (<= 2 flted_6_21) (> (+ 1 self) 0)) (and (= flted_6_21 1) (> (+ 1 self) 0))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@131 EXIT:[sat]
+
+(====)
+Z3:check_formula@130@128
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (and (= (+ flted_6_21 1) n) (< 1 n)) (> self 0)) (or (and (<= 2 flted_6_21) (> (+ 1 self) 0)) (and (= flted_6_21 1) (> (+ 1 self) 0))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@130 EXIT:sat
+
+(====)
+is_sat#1@128
+is_sat#1 inp1 : exists(flted_6_21:exists(q:flted_6_21+1=n & q=1+self & 1<n & self!=null & 
+                            (((2<=flted_6_21 & q!=null) | 
+                              (flted_6_21=1 & q!=null)))))
+is_sat#1@128 EXIT:true
+
+(====)
+is_sat#1@132
+is_sat#1 inp1 : n=1 & self!=null
+is_sat#1@132 EXIT:true
+
+(====)
+is_sat#1@133
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@133 EXIT:true
+
+(====)
+is_sat#1@134
+is_sat#1 inp1 : q=1 & flted_6_21+1=n & q=1+self & 1<n & 1<=flted_6_21
+is_sat#1@134 EXIT:true
+
+(====)
+to_smt@136@135
+to_smt inp1 :
+to_smt@136 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (= (+ flted_6_21 1) n) (and (= q (+ 1 self)) (< 1 n))) (and (> self 0) (or (and (<= 2 flted_6_21) (> q 0)) (and (= flted_6_21 1) (> q 0)))))))
+(assert (not (= self q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@138@137@135
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (= (+ flted_6_21 1) n) (and (= q (+ 1 self)) (< 1 n))) (and (> self 0) (or (and (<= 2 flted_6_21) (> q 0)) (and (= flted_6_21 1) (> q 0)))))))
+(assert (not (= self q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@138 EXIT:[sat]
+
+(====)
+Z3:check_formula@137@135
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_6_21 Int)) (and (and (= (+ flted_6_21 1) n) (and (= q (+ 1 self)) (< 1 n))) (and (> self 0) (or (and (<= 2 flted_6_21) (> q 0)) (and (= flted_6_21 1) (> q 0)))))))
+(assert (not (= self q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@137 EXIT:sat
+
+(====)
+is_sat#1@135
+is_sat#1 inp1 : exists(flted_6_21:flted_6_21+1=n & q=1+self & 1<n & self!=null & 
+                   (((2<=flted_6_21 & q!=null) | (flted_6_21=1 & q!=null)))) & 
+ self!=q
+is_sat#1@135 EXIT:true
+
+(====)
+is_sat#1@139
+is_sat#1 inp1 : exists(x:x=1+self & n=1 & self!=null & x!=null)
+is_sat#1@139 EXIT:true
+
+(====)
+is_sat#1@140
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@140 EXIT:true
+
+(====)
+is_sat#1@141
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@141 EXIT:true
+
+(====)
+to_smt@143@142
+to_smt inp1 :
+to_smt@143 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (and (= (+ flted_10_19 1) n) (< 1 n)) (> self 0)) (and (> (+ 1 self) 0) (or (and (<= 2 flted_10_19) (> (+ 1 (+ 1 self)) 0)) (and (= flted_10_19 1) (> (+ 1 (+ 1 self)) 0)))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@145@144@142
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (and (= (+ flted_10_19 1) n) (< 1 n)) (> self 0)) (and (> (+ 1 self) 0) (or (and (<= 2 flted_10_19) (> (+ 1 (+ 1 self)) 0)) (and (= flted_10_19 1) (> (+ 1 (+ 1 self)) 0)))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@145 EXIT:[sat]
+
+(====)
+Z3:check_formula@144@142
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (and (= (+ flted_10_19 1) n) (< 1 n)) (> self 0)) (and (> (+ 1 self) 0) (or (and (<= 2 flted_10_19) (> (+ 1 (+ 1 self)) 0)) (and (= flted_10_19 1) (> (+ 1 (+ 1 self)) 0)))))))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@144 EXIT:sat
+
+(====)
+is_sat#1@142
+is_sat#1 inp1 : exists(flted_10_19:exists(x:exists(q:flted_10_19+1=n & x=1+self & q=
+                                      1+x & 1<n & self!=null & x!=null & 
+                                      (((2<=flted_10_19 & q!=null) | 
+                                        (flted_10_19=1 & q!=null))))))
+is_sat#1@142 EXIT:true
+
+(====)
+to_smt@147@146
+to_smt inp1 :
+to_smt@147 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+(assert (> self 0))
+(assert (> x 0))
+(assert (not (= self x)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@149@148@146
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+(assert (> self 0))
+(assert (> x 0))
+(assert (not (= self x)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@149 EXIT:[sat]
+
+(====)
+Z3:check_formula@148@146
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (= x (+ 1 self)))
+(assert (= n 1))
+(assert (> self 0))
+(assert (> x 0))
+(assert (not (= self x)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@148 EXIT:sat
+
+(====)
+is_sat#1@146
+is_sat#1 inp1 : x=1+self & n=1 & self!=null & x!=null & self!=x
+is_sat#1@146 EXIT:true
+
+(====)
+is_sat#1@150
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@150 EXIT:true
+
+(====)
+is_sat#1@151
+is_sat#1 inp1 : q=1 & flted_10_19+1=n & x=1+self & q=1+x & 1<n & 1<=flted_10_19
+is_sat#1@151 EXIT:true
+
+(====)
+to_smt@153@152
+to_smt inp1 :
+to_smt@153 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (= (+ flted_10_19 1) n) (and (= x (+ 1 self)) (and (= q (+ 1 x)) (< 1 n)))) (and (and (> self 0) (> x 0)) (or (and (<= 2 flted_10_19) (> q 0)) (and (= flted_10_19 1) (> q 0)))))))
+(assert (not (= self q)))
+(assert (not (= self x)))
+(assert (not (= x q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@155@154@152
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (= (+ flted_10_19 1) n) (and (= x (+ 1 self)) (and (= q (+ 1 x)) (< 1 n)))) (and (and (> self 0) (> x 0)) (or (and (<= 2 flted_10_19) (> q 0)) (and (= flted_10_19 1) (> q 0)))))))
+(assert (not (= self q)))
+(assert (not (= self x)))
+(assert (not (= x q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@155 EXIT:[sat]
+
+(====)
+Z3:check_formula@154@152
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun self () Int)
+(declare-fun x () Int)
+(declare-fun q () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (exists ((flted_10_19 Int)) (and (and (= (+ flted_10_19 1) n) (and (= x (+ 1 self)) (and (= q (+ 1 x)) (< 1 n)))) (and (and (> self 0) (> x 0)) (or (and (<= 2 flted_10_19) (> q 0)) (and (= flted_10_19 1) (> q 0)))))))
+(assert (not (= self q)))
+(assert (not (= self x)))
+(assert (not (= x q)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@154 EXIT:sat
+
+(====)
+is_sat#1@152
+is_sat#1 inp1 : exists(flted_10_19:flted_10_19+1=n & x=1+self & q=1+x & 1<n & self!=null & 
+                    x!=null & 
+                    (((2<=flted_10_19 & q!=null) | (flted_10_19=1 & q!=null)))) & 
+ self!=q & self!=x & x!=q
+is_sat#1@152 EXIT:true
+
+(====)
+to_smt@157@156
+to_smt inp1 :
+to_smt@157 EXIT:;Variables declarations
+(declare-fun f () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (<= 2 f))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+
+(====)
+Z3.iget_answer@159@158@156
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun f () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (<= 2 f))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3.iget_answer@159 EXIT:[sat]
+
+(====)
+Z3:check_formula@158@156
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun f () Int)
+(declare-fun n () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (<= 2 f))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+;Negation of Consequence
+(assert (not false))
+(check-sat)
+Z3:check_formula inp2 :2.
+Z3:check_formula@158 EXIT:sat
+
+(====)
+is_sat#1@156
+is_sat#1 inp1 : 1<n & 2<=f & 1+f+1=n+n
+is_sat#1@156 EXIT:true
+
+(====)
+to_smt@161@160
+to_smt inp1 :
+to_smt@161 EXIT:;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+[smtsolver.ml] Z3 outputted unknown, retry with (reset) instead of (push) and (pop), new input:
+(reset)
+;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+
+(====)
+Z3.iget_answer@164@163@162@160
+Z3.iget_answer inp1 :(reset)
+;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+Z3.iget_answer@164 EXIT:[unsat]
+
+(====)
+Z3.iget_answer@163@162@160
+Z3.iget_answer inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+Z3.iget_answer@163 EXIT:[unsat]
+
+(====)
+Z3:check_formula@162@160
+Z3:check_formula inp1 :;Variables declarations
+(declare-fun n () Int)
+(declare-fun f () Int)
+;Relations declarations
+;Axioms assertions
+;Antecedent
+(assert (< 1 n))
+(assert (= (+ (+ 1 f) 1) (+ n n)))
+(assert (<= 2 f))
+;Negation of Consequence
+(assert (not (exists ((alpha_134 Int)) (= (* 2 alpha_134) f))))
+(check-sat)
+Z3:check_formula inp2 :10.
+Z3:check_formula@162 EXIT:unsat
+
+(==smtsolver.ml#1177==)
+smt_imply@160
+smt_imply inp1 :( 1<n & 1+f+1=n+n & 2<=f, exists(alpha_134:2*alpha_134=f))
+smt_imply inp2 :timeout:10.
+smt_imply@160 EXIT:true
+
+(====)
+is_sat#1@165
+is_sat#1 inp1 : 1<n & 2<=f & 1+f+1=n+n
+is_sat#1@165 EXIT:true
+
+Entail 1: Valid. 
+
+Residue:
+
+ <1>emp&1+f+1=n+n & 2<=f & 1<n&{FLOW,(20,21)=__norm#E}[]
+
+Validate 1: OK
+
+
+Stop z3... 31 invocations 
+Stop Omega... 54 invocations 
+SAT Count   : 68
+SAT % Hit   : 64.7%
+IMPLY Count : 13
+IMPLY % Hit : 53.84%
+Time(cache overhead) : 0.044622 (seconds)
+
+0 false contexts at: ()
+
+!!! log(small):(0.183147,132)
+Total verification time: 0.632959 second(s)
+	Time spent in main process: 0.335324 second(s)
+	Time spent in child processes: 0.297635 second(s)
+
