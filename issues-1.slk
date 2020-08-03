@@ -10,10 +10,12 @@ pred int_arr_seg<n> == self::ch_star<_> * x::ch_star<_> & x=self+1 & n=1
                     or self::ch_star<_> * x::ch_star<_> * q::int_arr_seg<n-1> & x=self+1 & q=x+1 & n>1
   inv n>=1.
 
-//lemma_unsafe "int2char" self::int_arr_seg<n> & m=2*n <- self::arr_seg<m>.
 lemma_unsafe "base" self::int_arr_seg<1> <- self::arr_seg<2>.
 lemma_unsafe "inductive" self::int_arr_seg<n> <- self::arr_seg<m> & m=2*n.
+lemma_safe "int2char" self::int_arr_seg<n> <- self::arr_seg<m> & m=2*n.
 
+/*
 checkentail x::arr_seg<m> & m=2*n & n>1 & q=x+1 & r=q+1 & m>1 |- x::ch_star<_> * q::ch_star<_> * r::int_arr_seg<n-1>.
 print residue.
 expect Valid.
+*/
