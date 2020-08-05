@@ -3689,6 +3689,7 @@ end
 
 (* this help remove univ_rhs at the end of method *)
 let wrap_remove_univ_rhs f x =
+  let () = y_binfo_pp ("invoking wrap_remove_univ_rhs") in
   try
     let r = f x in
     let _ = univ_rhs_store # reset in
