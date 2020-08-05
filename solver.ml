@@ -11222,9 +11222,15 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
             if conseq_lst_univ!=[] then
               let conseq_univ = CP.join_conjunctions conseq_lst_univ in
               let (flag,ante) = process_early univ_vs new_ante_p conseq_univ in
-              if flag then (new_conseq_p2,ante)
-              else (new_conseq_p,new_ante_p)
-            else new_conseq_p,new_ante_p in
+              if flag then
+                let () = y_dinfo_hp (add_str "pure_new_conseq_p2" !CP.print_formula) (MCP.pure_of_mix new_conseq_p2) in
+                (new_conseq_p2,ante)
+              else
+                let () = y_dinfo_hp (add_str "pure_new_conseq_p" !CP.print_formula) (MCP.pure_of_mix new_conseq_p) in
+                (new_conseq_p,new_ante_p)
+            else
+              let () = y_dinfo_hp (add_str "pure_new_conseq_p" !CP.print_formula) (MCP.pure_of_mix new_conseq_p) in
+              new_conseq_p,new_ante_p in
           let () = y_dinfo_hp (add_str "pure_new_conseq_p" !CP.print_formula) (MCP.pure_of_mix new_conseq_p) in
           (* An Hoa : put the remain of l_node back to lhs if there is memory remaining after matching *)
           (* let () = print_string("\nl_h : "^(Cprinter.string_of_h_formula l_h)^"\n") in             *)
