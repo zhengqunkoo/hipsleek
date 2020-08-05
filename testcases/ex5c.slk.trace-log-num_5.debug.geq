@@ -67,7 +67,7 @@ Starting Omega..../oc
 
 
 
-(==solver.ml#11637==)
+(==solver.ml#11643==)
 compute_actions@1
 compute_actions inp1 :EQ ptr:[]
 compute_actions inp2 :LHS heap: x::arr_seg<flted_306_285>@M
@@ -99,7 +99,7 @@ compute_actions@1 EXIT: SEARCH =>[
    ]
    ]
 
-(==solver.ml#11637==)
+(==solver.ml#11643==)
 compute_actions@2
 compute_actions inp1 :EQ ptr:[]
 compute_actions inp2 :LHS heap: x::arr_seg<flted_306_285>@M
@@ -164,7 +164,7 @@ compute_actions@2 EXIT: SEARCH =>[
     ]
     ]
 
-(==solver.ml#12888==)
+(==solver.ml#12894==)
 do_match@3
 do_match inp1 : x::arr_seg<flted_306_285>@M
 do_match inp2 : x::arr_seg<flted_16_310>@M
@@ -187,7 +187,7 @@ do_match@3 EXIT: MustErr Context:
  [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  COND ==>  Match(x,x)]]
  CEX:false
 
-(==solver.ml#11637==)
+(==solver.ml#11643==)
 compute_actions@4
 compute_actions inp1 :EQ ptr:[]
 compute_actions inp2 :LHS heap: x::arr_seg<a_315>@M * q_314::arr_seg<b_316>@M
@@ -432,48 +432,49 @@ Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
 @5!:0: 0: **tpdispatcher.ml#3583:res: :false
 @5!:0: 0: **tpdispatcher.ml#3747:imply_timeout_univ: b :false
 @5!:0: 0: **solver.ml#11212:outcome:false
-@5!:0: 0: **solver.ml#11228:pure_new_conseq_p: flted_16_310=4*flted_307_304
-@5!:0: 0: **solver.ml#11236:tmp_conseq: emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+@5!:0: 0: **solver.ml#11229:pure_new_conseq_p: flted_16_310=4*flted_307_304
+@5!:0: 0: **solver.ml#11234:pure_new_conseq_p: flted_16_310=4*flted_307_304
+@5!:0: 0: **solver.ml#11242:tmp_conseq: emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
 @5! **cpure.ml#15324:annot: 1
 @5! **cpure.ml#15325:annot: :[0]
 @5! **cpure.ml#15326:hargs: :[b_316]
 @5! **cpure.ml#15334:view_args_pos: 1
 @5! **cpure.ml#15338:to_be_updated: :1
 @5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
-@5!:0: 0: **solver.ml#11237:new_ante 00:
+@5!:0: 0: **solver.ml#11243:new_ante 00:
  q_314::arr_seg<b_316>@M&
 flted_306_285=b_316+a_315 & a_315+x=q_314 & 0<=a_315 & 0<=b_316 & 
 Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
 {FLOW,(20,21)=__norm#E}[]
-@5!**solver.ml#11250: tmp_conseq:  emp&flted_16_310=4*flted_307_304
-@5!**solver.ml#11259: new_conseq:  emp&flted_16_310=4*flted_307_304
-@5! **solver.ml#11277:r_ann:@M
+@5!**solver.ml#11256: tmp_conseq:  emp&flted_16_310=4*flted_307_304
+@5!**solver.ml#11265: new_conseq:  emp&flted_16_310=4*flted_307_304
+@5! **solver.ml#11283:r_ann:@M
 @5! **cpure.ml#15324:annot: 1
 @5! **cpure.ml#15325:annot: :[0]
 @5! **cpure.ml#15326:hargs: :[a_315]
 @5! **cpure.ml#15334:view_args_pos: 1
 @5! **cpure.ml#15338:to_be_updated: :1
 @5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
-@5! **solver.ml#11550:consumed_h: x::arr_seg<a_315>@M
+@5! **solver.ml#11556:consumed_h: x::arr_seg<a_315>@M
 @5! **cpure.ml#15324:annot: 1
 @5! **cpure.ml#15325:annot: :[0]
 @5! **cpure.ml#15326:hargs: :[a_315]
 @5! **cpure.ml#15334:view_args_pos: 1
 @5! **cpure.ml#15338:to_be_updated: :1
 @5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
-@5! **solver.ml#11551:new_consumed: x::arr_seg<a_315>@M
+@5! **solver.ml#11557:new_consumed: x::arr_seg<a_315>@M
 @5! **cpure.ml#15324:annot: 1
 @5! **cpure.ml#15325:annot: :[0]
 @5! **cpure.ml#15326:hargs: :[b_316]
 @5! **cpure.ml#15334:view_args_pos: 1
 @5! **cpure.ml#15338:to_be_updated: :1
 @5! **cpure.ml#15343:new_com:[(((SVArg b,0),1),b_316)]
-@5! **solver.ml#11552:new_ante:
+@5! **solver.ml#11558:new_ante:
  q_314::arr_seg<b_316>@M&
 flted_306_285=b_316+a_315 & a_315+x=q_314 & 0<=a_315 & 0<=b_316 & 
 Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
 {FLOW,(20,21)=__norm#E}[]
-@5! **solver.ml#11553:new_conseq: emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+@5! **solver.ml#11559:new_conseq: emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
 @5! **cpure.ml#15324:annot: 1
 @5! **cpure.ml#15325:annot: :[0]
 @5! **cpure.ml#15326:hargs: :[b_316]
@@ -498,7 +499,7 @@ Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
 @5! **cpure.ml#15334:view_args_pos: 1
 @5! **cpure.ml#15338:to_be_updated: :1
 @5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
-@5! **solver.ml#11571:new_es:
+@5! **solver.ml#11577:new_es:
   q_314::arr_seg<b_316>@M&
 flted_306_285=b_316+a_315 & a_315+x=q_314 & 0<=a_315 & 0<=b_316 & 
 Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
@@ -534,7 +535,7 @@ Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
 @5! **cpure.ml#15334:view_args_pos: 1
 @5! **cpure.ml#15338:to_be_updated: :1
 @5! **cpure.ml#15343:new_com:[(((SVArg a,0),1),a_315)]
-@5!:0: 0: **solver.ml#11576:do_match (after): LHS:   q_314::arr_seg<b_316>@M&
+@5!:0: 0: **solver.ml#11582:do_match (after): LHS:   q_314::arr_seg<b_316>@M&
 flted_306_285=b_316+a_315 & a_315+x=q_314 & 0<=a_315 & 0<=b_316 & 
 Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
 {FLOW,(20,21)=__norm#E}[]
@@ -545,7 +546,7 @@ Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
  es_ivars: [q_314; b_316]
  es_subst (from,to): []:[]
  es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)
-@5!:0: 0: **solver.ml#11577:do_match (after): RHS: emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
+@5!:0: 0: **solver.ml#11583:do_match (after): RHS: emp&flted_16_310=4*flted_307_304&{FLOW,(20,21)=__norm#E}[]
 @5! **cpure.ml#15324:annot: 1
 @5! **cpure.ml#15325:annot: :[0]
 @5! **cpure.ml#15326:hargs: :[b_316]
@@ -2035,7 +2036,7 @@ Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
   es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)]
 @5! **solver.ml#7613:avoid:true
 @5! **solver.ml#7614:slk no:8
-(==solver.ml#12888==)
+(==solver.ml#12894==)
 do_match@5
 do_match inp1 : x::arr_seg<a_315>@M
 do_match inp2 : x::arr_seg<flted_16_310>@M
@@ -2066,7 +2067,7 @@ Univ(q_314) & Univ(a_315) & Univ(b_316) & flted_306_285=5 & y=4+x&
   es_subst (from,to): [a_315]:[flted_16_310]
   es_trace:  SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma ==> splitchar_left(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x)]
 
-(==solver.ml#11637==)
+(==solver.ml#11643==)
 compute_actions@6
 compute_actions inp1 :EQ ptr:[]
 compute_actions inp2 :LHS heap: x::arr_seg<flted_306_285>@M
@@ -2107,7 +2108,7 @@ compute_actions@6 EXIT: SEARCH =>[
    ]
    ]
 
-(==solver.ml#11637==)
+(==solver.ml#11643==)
 compute_actions@8@7
 compute_actions inp1 :EQ ptr:[]
 compute_actions inp2 :LHS heap: emp
@@ -2134,7 +2135,7 @@ compute_actions@8 EXIT: SEARCH =>[
    ]
    ]
 
-(==solver.ml#12888==)
+(==solver.ml#12894==)
 do_match@7
 do_match inp1 : x::arr_seg<flted_306_285>@M
 do_match inp2 : x::arr_seg<a_326>@M
@@ -2158,7 +2159,7 @@ do_match@7 EXIT: MaybeErr Context:
  [[ SEARCH ==>  SEARCH ==>  (Lemma <== int2char_left_right(x,x)) ==>  SEARCH ==>  SEARCH ==>  (Lemma <== splitchar_left_right(x,x)) ==>  SEARCH ==>  COND ==>  Match(x,x) ==>  SEARCH ==>  COND ==>  UnmatchedRHSData]]
  CEX:false
 
-(==solver.ml#11637==)
+(==solver.ml#11643==)
 compute_actions@9
 compute_actions inp1 :EQ ptr:[]
 compute_actions inp2 :LHS heap: q_314::arr_seg<b_316>@M
@@ -2267,14 +2268,14 @@ SAT Count   : 143
 SAT % Hit   : 66.43%
 IMPLY Count : 39
 IMPLY % Hit : 33.33%
-Time(cache overhead) : 0.061172 (seconds)
+Time(cache overhead) : 0.062535 (seconds)
 
 0 false contexts at: ()
 
-!!! log(small):(0.650513,266)
+!!! log(small):(0.631427,266)
 !!! 
  log(bigger)(>4s)(1):(5.,[(simplify:254<11:Z3,5.)])
-Total verification time: 0.547493 second(s)
-	Time spent in main process: 0.452887 second(s)
-	Time spent in child processes: 0.094606 second(s)
+Total verification time: 0.546202 second(s)
+	Time spent in main process: 0.448081 second(s)
+	Time spent in child processes: 0.098121 second(s)
 
