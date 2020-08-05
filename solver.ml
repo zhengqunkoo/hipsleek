@@ -10781,7 +10781,6 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
       | CP.ConstAnn Mutable, CP.ConstAnn Lend -> (false, [], [], [])
       | _ -> x_add (subtype_ann_gen ~rhs:rhs_for_imm_inst ~lhs:estate.es_formula) es_impl_vars es_evars l_ann r_ann
   in
-  let add_to_lhs = (CP.mkEqVar lhs_self rhs_self no_pos) :: add_to_lhs in
   x_tinfo_hp (add_str "add_to_lhs" (pr_list Cprinter.string_of_pure_formula)) add_to_lhs pos;
   x_tinfo_hp (add_str "add_to_rhs" (pr_list Cprinter.string_of_pure_formula)) add_to_rhs pos;
   x_tinfo_hp (add_str "Imm annotation mismatch (node lvl)" (string_of_bool)) (not(subtyp)) pos;
