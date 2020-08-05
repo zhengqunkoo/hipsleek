@@ -9364,7 +9364,7 @@ type: bool *
             let to_keep = estate.es_gen_impl_vars @ estate.es_gen_expl_vars in
             let to_remove =  Gen.BList.difference_eq CP.eq_spec_var (MCP.mfv rhs_p)to_keep in
             (* Debug.info_hprint (add_str "es_formula" !CF.print_formula) estate.es_formula no_pos; *)
-            (* Debug.info_hprint (add_str "es_pure" !print_mix_formula) estate.es_pure no_pos; *)
+            x_dinfo_zp (lazy ((add_str "es_pure" !print_mix_formula) estate.es_pure)) no_pos;
             (* Debug.info_hprint (add_str "rhs_p" !print_mix_formula) rhs_p no_pos; *)
             (* Debug.info_hprint (add_str "impl" !print_svl) estate.es_gen_impl_vars no_pos; *)
             (* Debug.info_hprint (add_str "expl" !print_svl) estate.es_gen_expl_vars no_pos; *)
@@ -9379,6 +9379,7 @@ type: bool *
                           es_unsat_flag = false; (*the new context could be unsat*)
                           (* es_unsat_flag = estate.es_unsat_flag && (no_infer_rel estate); *)
                          } in
+            x_dinfo_zp (lazy ((add_str "es_pure" !print_mix_formula) res_es.es_pure)) no_pos;
             let res_ctx = Ctx (CF.add_to_estate res_es "folding performed") in
             (* TODO-WN why are there two elim_unsat_ctx? *)
             let res_ctx = elim_unsat_ctx prog (ref 1) res_ctx in
@@ -10780,6 +10781,7 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
       | CP.ConstAnn Mutable, CP.ConstAnn Lend -> (false, [], [], [])
       | _ -> x_add (subtype_ann_gen ~rhs:rhs_for_imm_inst ~lhs:estate.es_formula) es_impl_vars es_evars l_ann r_ann
   in
+  let add_to_lhs = (CP.mkEqVar lhs_self rhs_self no_pos) :: add_to_lhs in
   x_tinfo_hp (add_str "add_to_lhs" (pr_list Cprinter.string_of_pure_formula)) add_to_lhs pos;
   x_tinfo_hp (add_str "add_to_rhs" (pr_list Cprinter.string_of_pure_formula)) add_to_rhs pos;
   x_tinfo_hp (add_str "Imm annotation mismatch (node lvl)" (string_of_bool)) (not(subtyp)) pos;
@@ -11216,6 +11218,7 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
             else (b,new_ante_p)
             (* failwith ("early univ inst proc here"^x_tbi) *)
           in
+          let () = y_dinfo_hp (add_str "pure_new_conseq_p" !CP.print_formula) (MCP.pure_of_mix new_conseq_p) in
           let new_conseq_p,new_ante_p =
             if conseq_lst_univ!=[] then
               let conseq_univ = CP.join_conjunctions conseq_lst_univ in
@@ -11223,6 +11226,7 @@ and do_match_x prog estate l_node r_node rhs (rhs_matched_set:CP.spec_var list) 
               if flag then (new_conseq_p2,ante)
               else (new_conseq_p,new_ante_p)
             else new_conseq_p,new_ante_p in
+          let () = y_dinfo_hp (add_str "pure_new_conseq_p" !CP.print_formula) (MCP.pure_of_mix new_conseq_p) in
           (* An Hoa : put the remain of l_node back to lhs if there is memory remaining after matching *)
           (* let () = print_string("\nl_h : "^(Cprinter.string_of_h_formula l_h)^"\n") in             *)
           (* let () = print_string("rem_l_node : "^(Cprinter.string_of_h_formula rem_l_node)^"\n") in *)
