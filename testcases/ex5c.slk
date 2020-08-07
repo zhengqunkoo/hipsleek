@@ -14,8 +14,8 @@ pred int_arr_seg<n> == self::int_block<_> & n=1
   inv n>=1.
 
 lemma "int2char" self::int_arr_seg<n> <-> self::arr_seg<4*n>.
-lemma "splitchar" self::arr_seg<a+b> & self+a=q & a>=0 & b>=0 <-> self::arr_seg<a> * q::arr_seg<b>.
-lemma "splitint" self::int_arr_seg<a+b> & self+a=q & a>=0 & b>=0 <-> self::int_arr_seg<a> * q::int_arr_seg<b>.
+lemma "splitchar" self::arr_seg<a+b> & self+a=q & a>=1 & b>=1 <-> self::arr_seg<a> * q::arr_seg<b>.
+lemma "splitint" self::int_arr_seg<a+b> & self+a=q & a>=1 & b>=1 <-> self::int_arr_seg<a> * q::int_arr_seg<b>.
 
 /**********************************
  * equivalence entailments
