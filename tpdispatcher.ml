@@ -2578,7 +2578,8 @@ let simplify_always (f:CP.formula): CP.formula =
   simplify f 
 
 let simplify (f:CP.formula): CP.formula = 
-  x_add CP.elim_exists_with_simpl simplify f 
+  (* x_add CP.elim_exists_with_simpl simplify f *) 
+  x_add idf2 f f 
 
 (* let simplify (f:CP.formula): CP.formula =  *)
 (*   let pr = Cprinter.string_of_pure_formula in *)
